@@ -1,0 +1,299 @@
+/* General Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Step Progress Bar */
+.step-progress {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    max-width: 800px;
+    margin-bottom: 30px;
+    position: relative;
+    padding-top: 20px;
+}
+
+/* Step Connector Line */
+.step-progress::after {
+    content: "";
+    position: absolute;
+    top: 37px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #ddd;
+    z-index: 1;
+}
+
+/* Individual Step */
+.step {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Step Number */
+.step-number {
+    background: #ddd;
+    color: #333;
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 3px solid white;
+    position: relative;
+    z-index: 2;
+}
+
+/* Active & Completed Steps */
+.step.active .step-number,
+.step.completed .step-number {
+    background: #e60000;
+    color: white;
+}
+
+/* Step Connector for Completed Steps */
+.step-progress .completed-connector {
+    position: absolute;
+    top: 37px;
+    left: 0;
+    height: 3px;
+    background: #e60000;
+    z-index: 1;
+    width: 50%; /* Connects step 1 to step 2 */
+}
+
+/* Icons */
+.step i {
+    font-size: 20px;
+    margin-top: 5px;
+    color: #333;
+}
+
+.step.active i,
+.step.completed i {
+    color: #e60000;
+}
+
+/* Step Text */
+.step p {
+    font-size: 14px;
+    margin: 5px 0 0 0;
+    font-weight: 500;
+}
+
+.step.active p {
+    font-weight: bold;
+    color: #000000;
+}
+
+/* Checkout Container */
+.checkout-container {
+    background: white;
+    padding: 70px;
+    border-radius: 60px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 800px;
+}
+
+/* Checkout Content */
+.checkout-content {
+    display: flex;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+/* Each Section */
+.checkout-section {
+    flex: 1;
+    padding: 60px;
+    background: #f8f8f8;
+    border-radius: 10px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+    min-width: 300px;
+}
+
+.checkout-section h2 {
+    font-size: 22px;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: #333;
+    padding-bottom: 10px;
+    border-bottom: 2px solid #000000;
+}
+
+.checkout-section h2 i {
+    color: #e60000;
+}
+
+/* Form Styling */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+form label {
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 3px;
+}
+
+form label i {
+    color: #000000;
+    width: 20px;
+    text-align: center;
+}
+
+form input, form select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: all 0.3s;
+}
+
+form input:focus, form select:focus {
+    outline: none;
+    border-color: #000000;
+    box-shadow: 0 0 0 2px rgba(230, 0, 0, 0.1);
+}
+
+/* Form Layout */
+.form-row {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.form-group {
+    flex: 1;
+    min-width: 120px;
+}
+
+/* Error Message */
+.error-message {
+    color: #e60000;
+    font-size: 12px;
+    margin-top: 3px;
+    display: none;
+}
+
+/* Navigation Buttons */
+.checkout-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    width: 90%;
+    max-width: 800px;
+}
+
+/* Button Styling */
+.back-btn, .next-btn {
+    border: none;
+    padding: 15px 25px;
+    border-radius: 5px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.back-btn {
+    background: #888;
+    color: white;
+}
+
+.back-btn:hover {
+    background: #666;
+    transform: translateY(-2px);
+}
+
+.next-btn {
+    background: #e60000;
+    color: white;
+}
+
+.next-btn:hover {
+    background: #b30000;
+    transform: translateY(-2px);
+}
+
+/* Accepted Payment Methods */
+.payment-icons {
+    margin-top: 25px;
+    font-size: 30px;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.payment-icons i {
+    color: #444;
+    transition: color 0.3s;
+}
+
+.payment-icons i:hover {
+    color: #e60000;
+}
+
+/* Form Validation */
+input:invalid {
+    border-color: #e60000;
+}
+
+input:invalid:focus {
+    box-shadow: 0 0 0 2px rgba(230, 0, 0, 0.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .step-progress {
+        width: 100%;
+    }
+
+    .checkout-content {
+        flex-direction: column;
+    }
+
+    .checkout-section {
+        min-width: auto;
+    }
+
+    .checkout-buttons {
+        flex-direction: column;
+        gap: 10px;
+        align-items: stretch;
+    }
+
+    .back-btn, .next-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
