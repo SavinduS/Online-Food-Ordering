@@ -1,7 +1,7 @@
 package com.foodordering.services;
 
 import com.foodordering.model.CartItem;
-import com.foodordering.Util.DBConnection;
+import com.foodordering.Util.DBConnect;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -14,7 +14,7 @@ public class CartService {
         String sql = "SELECT c.id, c.food_id, f.name AS food_name, f.price, c.quantity, c.added_at " +
                      "FROM cart c JOIN food f ON c.food_id = f.id WHERE c.user_id = ?";
 
-        try (Connection conn = DBConnection.getConnection();
+        try (DBConnect conn = DBConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, userId);
