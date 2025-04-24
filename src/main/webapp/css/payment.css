@@ -1,3 +1,4 @@
+@charset "UTF-8";
 /* General Styling */
 body {
     font-family: 'Poppins', sans-serif;
@@ -106,12 +107,8 @@ body {
 
 /* Checkout Container */
 .checkout-container {
-    background: white;
-    padding: 70px;
-    border-radius: 60px;
-    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-    width: 90%;
-    max-width: 800px;
+    margin-top: 100px; /* creates space for sticky header */
+    margin-bottom: 60px; /* creates space above footer */
 }
 
 /* Checkout Content */
@@ -207,9 +204,11 @@ form input:focus, form select:focus {
     display: flex;
     justify-content: space-between;
     margin-top: 20px;
+    margin-bottom: 100px; /* 🔧 enough space from footer */
     width: 90%;
     max-width: 800px;
 }
+
 
 /* Button Styling */
 .back-btn, .next-btn {
@@ -297,3 +296,7 @@ input:invalid:focus {
         justify-content: center;
     }
 }
+
+
+
+

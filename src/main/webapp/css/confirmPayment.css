@@ -1,0 +1,211 @@
+@charset "UTF-8";
+
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+
+/* General Styling */
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #f8f8f8;
+    margin: 0;
+    padding: 20px;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Step Progress Bar */
+.step-progress {
+    display: flex;
+    justify-content: space-between;
+    width: 90%;
+    max-width: 800px;
+    margin-bottom: 30px;
+    position: relative;
+    padding-top: 20px;
+}
+
+/* Step Connector Line */
+.step-progress::after {
+    content: "";
+    position: absolute;
+    top: 37px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background: #ddd;
+    z-index: 1;
+}
+
+/* Individual Step */
+.step {
+    flex: 1;
+    text-align: center;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+/* Step Number */
+.step-number {
+    background: #ddd;
+    color: #333;
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    border: 3px solid white;
+    position: relative;
+    z-index: 2;
+}
+
+/* Active & Completed Steps */
+.step.active .step-number,
+.step.completed .step-number {
+    background: #e60000;
+    color: white;
+}
+
+/* Step Connector for Completed Steps */
+.step-progress .completed-connector {
+    position: absolute;
+    top: 37px;
+    left: 0;
+    height: 3px;
+    background: #e60000;
+    z-index: 1;
+    width: 50%; /* Connects step 1 to step 2 */
+}
+
+/* Icons */
+.step i {
+    font-size: 20px;
+    margin-top: 5px;
+    color: #333;
+}
+
+.step.active i,
+.step.completed i {
+    color: #e60000;
+}
+
+/* Step Text */
+.step p {
+    font-size: 14px;
+    margin: 5px 0 0 0;
+    font-weight: 500;
+}
+
+.step.active p {
+    font-weight: bold;
+    color: #000000;
+}
+
+/* Main container styling */
+.container {
+    width: 60%;
+    background: white;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    border: 2px solid black;
+}
+
+/* Order container layout */
+.order-container {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+    gap: 20px;
+    
+}
+
+/* Card styling for both sections */
+.card {
+    width: 48%;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.1);
+    text-align: left;
+    transition: 0.3s;
+    border: 1px solid black;
+}
+
+/* Hover effect for a more modern feel */
+.card:hover {
+    transform: scale(1.02);
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* User Info Styling */
+.info-group p {
+    margin: 8px 0;
+    font-size: 20px;
+    line-height: 1.8;
+}
+
+/* Order Summary Table */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+th, td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background: #e60000;
+    color: white;
+    font-weight: bold;
+}
+
+tfoot td {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.btn {
+    background: #28a745;
+    color: white;
+    padding: 10px 15px;
+    font-size: 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.btn:hover {
+    background: #218838;
+}
+
+@media (max-width: 768px) {
+    .order-container {
+        flex-direction: column;
+    }
+    
+    .user-info, .order-summary {
+        width: 100%;
+        margin-bottom: 10px;
+
+    }
+
+    .card {
+        width: 100%;
+    }
+}

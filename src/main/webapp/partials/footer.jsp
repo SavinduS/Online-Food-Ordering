@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
     
 <!DOCTYPE html>
+<link rel="stylesheet" href="partials\Footer.css">
 <!-- Footer Section -->
 <footer class="footer">
     <div class="footer-container">

@@ -1,0 +1,142 @@
+/* Google Font */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
+body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #ffffff;
+    color: rgb(0, 0, 0);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+}
+
+.container {
+    width: 80%;
+    max-width: 1200px;
+}
+
+/* Thank You Message */
+.thank-you {
+    font-size: 36px;
+    font-weight: 600;
+    color: #ff0b0b;
+    margin-bottom: 20px;
+}
+
+/* No Orders Message */
+.no-orders {
+    font-size: 24px;
+    font-weight: bold;
+    color: #555;
+    display: none; /* Initially hidden */
+}
+
+/* Order Card */
+.order-card {
+    display: flex;
+    justify-content: space-between;
+    background: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(239, 225, 185, 0.2);
+    width: 100%;
+    border: 2px solid #000000;
+}
+
+/* Order Details */
+.order-details, .order-summary {
+    width: 48%;
+    text-align: left;
+    padding: 15px;
+    border-radius: 8px;
+}
+
+/* Order Summary */
+.order-summary ul {
+    list-style: none;
+    padding: 0;
+}
+
+.order-summary ul li {
+    display: flex;
+    align-items: center;
+    padding: 10px 0;
+    font-size: 18px;
+}
+
+.order-summary ul li img {
+    width: 50px;
+    height: 50px;
+    margin-right: 15px;
+    border-radius: 5px;
+    border: 1px solid #ffbe0b;
+}
+
+.total {
+    font-size: 30px;
+    font-weight: bold;
+    color: #ff0b0b;
+}
+
+/* Buttons */
+button {
+    display: block;
+    width: 70%;
+    padding: 12px;
+    font-size: 18px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 5px;
+    transition: 0.3s;
+}
+
+.edit-btn {
+    background: #007bff;
+    color: white;
+}
+
+.edit-btn:hover {
+    background: #0056b3;
+}
+
+.cancel-btn {
+    background: #d9534f;
+    color: white;
+}
+
+.cancel-btn:hover {
+    background: #c9302c;
+}
+
+/* Order Status */
+.status {
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+.processing {
+    background: #f0ad4e;
+    color: white;
+}
+
+.canceled {
+    background: #d9534f;
+    color: white;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .order-card {
+        flex-direction: column;
+    }
+
+    .order-details, .order-summary {
+        width: 100%;
+    }
+}

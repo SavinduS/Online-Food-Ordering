@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee 
+                             http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1">
+	
+    <servlet>
+        <servlet-name>addEmpServlet</servlet-name>
+        <servlet-class>com.foodordering.servlet.addEmpServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>addEmpServlet</servlet-name>
+        <url-pattern>/addEmpServlet</url-pattern>
+    </servlet-mapping>
+    
+    
+    
+    
+    
+    <servlet>
+        <servlet-name>readEmpServlet</servlet-name>
+        <servlet-class>com.foodordering.servlet.readEmpServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>readEmpServlet</servlet-name>
+        <url-pattern>/AdminDashboard</url-pattern>
+    </servlet-mapping>
+    
+    
+    
+    
+    
+    <servlet>
+    	<servlet-name>updateEmpServlet</servlet-name>
+        <servlet-class>com.foodordering.servlet.updateEmpServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>updateEmpServlet</servlet-name>
+        <url-pattern>/updateEmpServlet</url-pattern>
+    </servlet-mapping>
+    
+    
+    
+   
+   
+    <servlet>
+    	<servlet-name>deleteEmpServlet</servlet-name>
+        <servlet-class>com.foodordering.servlet.deleteEmpServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>deleteEmpServlet</servlet-name>
+        <url-pattern>/deleteEmpServlet</url-pattern>
+    </servlet-mapping>
+
+</web-app>
+
+
