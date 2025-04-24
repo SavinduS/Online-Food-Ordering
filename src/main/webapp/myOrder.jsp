@@ -47,12 +47,14 @@
           <% } %>
 
           <div class="mt-6 space-y-2">
-            <button class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow w-48">
-              <i class="fas fa-edit mr-1"></i> Edit Details
-            </button>
-            <button class="bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded shadow w-48">
-              <i class="fas fa-times mr-1"></i> Cancel Order
-            </button>
+
+            <form action="CancelOrderServlet" method="post">
+			  <input type="hidden" name="id" value="${delivery.id}" />
+			  <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-10 py-2 rounded shadow w-48">
+			    <i class="fas fa-times mr-1"></i> Cancel Order
+			  </button>
+			</form>
+            
           </div>
         </div>
 

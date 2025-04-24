@@ -36,16 +36,4 @@ function addToCart(productName, price) {
     updateCart();
 }
 
-function updateCart() {
-    const cartList = document.getElementById("cart-items");
-    const totalElement = document.getElementById("total-price");
 
-    cartList.innerHTML = "";
-    cart.forEach((item) => {
-        const listItem = document.createElement("li");
-        listItem.textContent = `${item.name} - $${item.price.toFixed(2)}`;
-        cartList.appendChild(listItem);
-    });
-
-    totalElement.textContent = totalPrice.toFixed(2);
-}

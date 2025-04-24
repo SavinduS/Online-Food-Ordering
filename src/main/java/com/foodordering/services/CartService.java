@@ -1,7 +1,7 @@
-package com.foodordering.services;
+package com.foodordering.service;
 
 import com.foodordering.model.CartItem;
-import com.foodordering.Util.DBConnect;
+import com.foodordering.util.DBConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -9,12 +9,12 @@ import java.util.List;
 
 public class CartService {
 
-    public List<CartItem> getCartItemsByUserId(int userId) throws ClassNotFoundException {
+    public List<CartItem> getCartItemsByUserId(int userId) {
         List<CartItem> cartItems = new ArrayList<>();
         String sql = "SELECT c.id, c.food_id, f.name AS food_name, f.price, c.quantity, c.added_at " +
                      "FROM cart c JOIN food f ON c.food_id = f.id WHERE c.user_id = ?";
 
-        try (Connection conn = DBConnect.getConnection();
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, userId);

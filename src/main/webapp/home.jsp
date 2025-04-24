@@ -82,9 +82,20 @@
         </div>
     </section>
 
-    <!-- Products Section -->
+      <!-- Products Section -->
 <section class="products" id="menu">
     <h2>Our Delicious Products</h2>
+	 
+  <!-- Search -->
+  <div class="flex items-center bg-white rounded px-2 py-1 ml-auto shadow-md w-full max-w-xs focus-within:ring-2 focus-within:ring-orange-500 transition duration-200">
+  <input type="text" id="foodSearch"
+         placeholder="Search food..."
+         class="flex-grow outline-none px-2 py-1 text-sm text-black"
+  />
+  <button id="searchButton" class="text-orange-600 text-lg">
+    <i class="fas fa-search"></i>
+  </button>
+</div>
 
     <!-- Burgers -->
     <div class="product-category" id="burgers">
@@ -195,6 +206,35 @@
         </div>
     </section>
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+  const searchInput = document.getElementById("foodSearch");
+
+  searchInput.addEventListener("input", function () {
+    const searchText = searchInput.value.toLowerCase();
+    const categories = document.querySelectorAll(".product-category");
+
+    categories.forEach(category => {
+      let matchFound = false;
+      const products = category.querySelectorAll(".product");
+
+      products.forEach(product => {
+        const productName = product.querySelector("h4").textContent.toLowerCase();
+        if (productName.includes(searchText)) {
+          product.style.display = "block";
+          matchFound = true;
+        } else {
+          product.style.display = "none";
+        }
+      });
+
+      // Show/hide whole category
+      category.style.display = matchFound ? "block" : "none";
+    });
+  });
+});
+</script>
 
 <script src="js/home.js"></script>
 <%@ include file="./partials/footer.jsp" %>

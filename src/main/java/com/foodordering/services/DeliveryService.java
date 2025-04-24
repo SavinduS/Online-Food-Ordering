@@ -1,19 +1,19 @@
-package com.foodordering.services;
+package com.foodordering.service;
 
 import com.foodordering.model.Delivery;
 import com.foodordering.model.Payment;
-import com.foodordering.Util.DBConnect;
+import com.foodordering.util.DBConnection;
 
 import java.sql.*;
 
 public class DeliveryService {
 
     // Save delivery and return generated delivery ID
-    public int saveDeliveryAndReturnId(Delivery delivery) throws ClassNotFoundException {
+    public int saveDeliveryAndReturnId(Delivery delivery) {
         String sql = "INSERT INTO delivery (first_name, last_name, email, phone, address, city, postal_code) " +
                      "VALUES (?, ?, ?, ?, ?, ?, ?)";
 
-        try (Connection conn = DBConnect.getConnection();
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
 
             stmt.setString(1, delivery.getFirstName());
@@ -41,10 +41,10 @@ public class DeliveryService {
     }
 
     // Save only payment details
-    public boolean savePaymentOnly(Payment payment) throws ClassNotFoundException {
+    public boolean savePaymentOnly(Payment payment) {
         String sql = "INSERT INTO payment (cardholder_name, card_number, expiry_date, cvv) VALUES (?, ?, ?, ?)";
 
-        try (Connection conn = DBConnect.getConnection();
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setString(1, payment.getCardholderName());
@@ -63,10 +63,10 @@ public class DeliveryService {
     }
 
     // Read delivery by ID
-    public Delivery getDeliveryById(int id) throws ClassNotFoundException {
+    public Delivery getDeliveryById(int id) {
         String sql = "SELECT * FROM delivery WHERE id = ?";
 
-        try (Connection conn = DBConnect.getConnection();
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
             stmt.setInt(1, id);
@@ -100,7 +100,7 @@ public class DeliveryService {
 
     private boolean update(Delivery d) {
     	String sql = "UPDATE delivery SET first_name=?, last_name=?, email=?, phone=?, address=?, city=?, postal_code=? WHERE id=?";
-        try (Connection conn = DBConnect.getConnection();
+        try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
         	stmt.setString(1, d.getFirstName());
@@ -122,4 +122,26 @@ public class DeliveryService {
 
         return false;
     }
+
+
+//delete
+    public boolean cancelOrder(int id) {
+        boolean success = false;
+
+        try (Connection conn = DBConnection.getConnection()) {
+            String sql = "DELETE FROM delivery WHERE id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, id); // only one placeholder, so one value
+
+            success = stmt.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return success;
+   }
+
 }
+
+

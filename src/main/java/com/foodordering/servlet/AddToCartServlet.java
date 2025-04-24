@@ -1,6 +1,6 @@
 package com.foodordering.servlet;
 
-import com.foodordering.Util.*;
+import com.foodordering.util.DBConnection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -28,7 +28,7 @@ public class AddToCartServlet extends HttpServlet {
             int userId = 1;
 
             // DB Insertion
-            try (Connection conn = DBConnect.getConnection()) {
+            try (Connection conn = DBConnection.getConnection()) {
                 String sql = "INSERT INTO cart (user_id, food_id, quantity) VALUES (?, ?, ?)";
 
                 try (PreparedStatement stmt = conn.prepareStatement(sql)) {
