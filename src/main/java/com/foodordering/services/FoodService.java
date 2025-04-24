@@ -9,7 +9,7 @@ public class FoodService {
 
     private static final String JDBC_URL = "jdbc:mysql://localhost:3306/onlinefoodordering";
     private static final String JDBC_USER = "root";
-    private static final String JDBC_PASSWORD = "123456";
+    private static final String JDBC_PASSWORD = "12345";
 
     private Connection getConnection() throws SQLException {
         return DriverManager.getConnection(JDBC_URL, JDBC_USER, JDBC_PASSWORD);

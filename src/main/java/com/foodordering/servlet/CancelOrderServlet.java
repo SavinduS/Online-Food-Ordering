@@ -19,7 +19,13 @@ public class CancelOrderServlet extends HttpServlet {
         int orderId = Integer.parseInt(request.getParameter("id"));
 
         DeliveryService deliveryService = new DeliveryService();
-        boolean isCancelled = deliveryService.cancelOrder(orderId);
+        boolean isCancelled = false;
+		try {
+			isCancelled = deliveryService.cancelOrder(orderId);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
         if (isCancelled) {
         	

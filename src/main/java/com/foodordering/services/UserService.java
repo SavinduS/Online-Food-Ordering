@@ -4,10 +4,11 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 
 import com.foodordering.Util.*;
+import com.foodordering.model.*;
 
 public class UserService {
 
-    public void insertData(com.foodordering.model.UserModel userModel) {
+    public void insertData(UserModel userModel) {
         try {
             Connection conn = DBConnect.getConnection();
             String sql = "INSERT INTO customerregistration (firstname, lastname, email, password, confirmpassword, phonenumber) VALUES (?, ?, ?, ?, ?, ?)";
