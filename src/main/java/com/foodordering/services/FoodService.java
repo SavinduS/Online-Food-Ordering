@@ -1,4 +1,4 @@
-package com.foodordering.service;
+package com.foodordering.services;
 
 import com.foodordering.model.Food;
 import java.sql.*;

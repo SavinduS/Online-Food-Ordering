@@ -1,6 +1,6 @@
 package com.foodordering.servlet;
 
-import com.foodordering.util.DBConnection;
+import com.foodordering.Util.DBConnection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

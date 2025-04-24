@@ -1,7 +1,7 @@
 package com.foodordering.servlet;
 
 import com.foodordering.model.Delivery;
-import com.foodordering.service.DeliveryService;
+import com.foodordering.services.DeliveryService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

@@ -1,8 +1,8 @@
-package com.foodordering.service;
+package com.foodordering.services;
 
 import com.foodordering.model.Delivery;
 import com.foodordering.model.Payment;
-import com.foodordering.util.DBConnection;
+import com.foodordering.Util.DBConnection;
 
 import java.sql.*;
 

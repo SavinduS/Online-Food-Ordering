@@ -1,4 +1,4 @@
-package com.foodordering.util;
+package com.foodordering.Util;
 
 import java.sql.Connection;
 import java.sql.DriverManager;

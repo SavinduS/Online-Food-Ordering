@@ -1,7 +1,7 @@
-package com.foodordering.service;
+package com.foodordering.services;
 
 import com.foodordering.model.CartItem;
-import com.foodordering.util.DBConnection;
+import com.foodordering.Util.DBConnection;
 
 import java.sql.*;
 import java.util.ArrayList;
