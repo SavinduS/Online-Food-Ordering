@@ -13,7 +13,6 @@
             <ul>
                 <li><a href=""><i class="fas fa-home"></i> Home</a></li>
                 <li><a href="#menu"><i class="fas fa-utensils"></i> Menu</a></li>
-                <li><a href="#"><i class="fas fa-phone"></i> Contact</a></li>
                 <li><a href="#"><i class="fas fa-question-circle"></i> FAQs</a></li>
                 <li><a href="#"><i class="fas fa-user-secret"></i> Privacy Policy</a></li>
             </ul>
@@ -33,8 +32,8 @@
         <div class="footer-column">
             <h3>Customer Support</h3>
             <p><i class="fas fa-envelope"></i> support@quickbites.com</p>
-            <p><i class="fas fa-phone"></i> +1 234 567 890</p>
-            <p><i class="fas fa-map-marker-alt"></i> 123 Food Street, City, USA</p>
+            <p><i class="fas fa-phone"></i> +94 77 065 7948</p>
+            <p><i class="fas fa-map-marker-alt"></i> 20, Temple Street, City, Galle</p>
         </div>
 
         <!-- Payment Methods -->
