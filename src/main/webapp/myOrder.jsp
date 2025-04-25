@@ -26,7 +26,8 @@
 
         <!-- Order Details -->
         <div>
-          <h2 class="text-xl font-bold mb-4">Order #12345</h2>
+          <h2 class="text-xl font-bold mb-4">Order ID #${delivery.id}</h2>
+          
           <p class="mb-2">
             <strong>Status:</strong> 
             <span class="bg-yellow-400 text-white px-2 py-1 rounded font-semibold">Processing</span>
@@ -50,7 +51,7 @@
 
             <form action="CancelOrderServlet" method="post">
 			  <input type="hidden" name="id" value="${delivery.id}" />
-			  <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-10 py-2 rounded shadow w-48">
+			  <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded shadow w-48">
 			    <i class="fas fa-times mr-1"></i> Cancel Order
 			  </button>
 			</form>

@@ -4,7 +4,7 @@ import com.foodordering.model.Delivery;
 import com.foodordering.model.Payment;
 import com.foodordering.model.CartItem;
 import com.foodordering.services.DeliveryService;
-import com.foodordering.services.*;
+import com.foodordering.services.CartService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -44,7 +44,7 @@ public class DeliveryServlet extends HttpServlet {
             delivery.setPhone(phone);
             delivery.setAddress(address);
             delivery.setCity(city);
-            delivery.setPostalCode(postalCode); // ✅ Make sure postal code is set
+            delivery.setPostalCode(postalCode);
 
             // ===== Get Payment Fields =====
             String cardholderName = request.getParameter("cardholderName");
@@ -59,12 +59,15 @@ public class DeliveryServlet extends HttpServlet {
             boolean paymentSaved = deliveryService.savePaymentOnly(payment);
 
             if (deliveryId > 0 && paymentSaved) {
-                // ✅ Retrieve saved delivery from DB
+                // ✅ Session first
+                HttpSession session = request.getSession();
+
+                // ✅ Retrieve saved delivery and store
                 Delivery savedDelivery = deliveryService.getDeliveryById(deliveryId);
+                session.setAttribute("delivery", savedDelivery);
 
                 // ✅ Get cart items for current user
                 CartService cartService = new CartService();
-                HttpSession session = request.getSession();
                 Integer userId = (Integer) session.getAttribute("userId");
 
                 List<CartItem> cartItems = null;
@@ -72,8 +75,6 @@ public class DeliveryServlet extends HttpServlet {
                     cartItems = cartService.getCartItemsByUserId(userId);
                 }
 
-                // ✅ Store in session for access in confirmPayment.jsp and myOrder.jsp
-                session.setAttribute("delivery", savedDelivery);
                 session.setAttribute("cartItems", cartItems);
 
                 // ✅ Redirect to confirmation page

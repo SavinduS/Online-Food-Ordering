@@ -24,22 +24,70 @@
       <h2 class="text-2xl font-bold mb-6 text-center text-red-600">Edit Delivery Details</h2>
 
       <% if (delivery != null) { %>
-        <form action="UpdateDeliveryServlet" method="post" class="space-y-4">
-          <input type="hidden" name="id" value="<%= delivery.getId() %>">
+        <form action="UpdateDeliveryServlet" method="post" onsubmit="return confirmUpdate()" class="space-y-4">
+  <input type="hidden" name="id" value="<%= delivery.getId() %>">
 
-          <input type="text" name="firstName" value="<%= delivery.getFirstName() %>" placeholder="First Name" class="w-full border rounded px-4 py-2" required>
-          <input type="text" name="lastName" value="<%= delivery.getLastName() %>" placeholder="Last Name" class="w-full border rounded px-4 py-2" required>
-          <input type="email" name="email" value="<%= delivery.getEmail() %>" placeholder="Email" class="w-full border rounded px-4 py-2" required>
-          <input type="text" name="phone" value="<%= delivery.getPhone() %>" placeholder="Phone Number" class="w-full border rounded px-4 py-2" required>
-          <input type="text" name="address" value="<%= delivery.getAddress() %>" placeholder="Address" class="w-full border rounded px-4 py-2" required>
-          <input type="text" name="city" value="<%= delivery.getCity() %>" placeholder="City" class="w-full border rounded px-4 py-2" required>
-          <input type="text" name="postalCode" value="<%= delivery.getPostalCode() %>" placeholder="Postal Code" class="w-full border rounded px-4 py-2" required>
+  <!-- Delivery Details -->
+  <div>
+    <h2 class="text-xl font-bold border-b-2 pb-2 mb-5 text-red-600 flex items-center gap-2">
+      <i class="fas fa-map-marker-alt"></i> Delivery Details
+    </h2>
+
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="font-semibold flex items-center gap-2"><i class="fas fa-user"></i> First Name</label>
+        <input type="text" name="firstName" value="<%= delivery.getFirstName() %>" class="w-full border p-2 rounded" placeholder="Romesh" required>
+      </div>
+      <div>
+        <label class="font-semibold flex items-center gap-2"><i class="fas fa-user"></i> Last Name</label>
+        <input type="text" name="lastName" value="<%= delivery.getLastName() %>" class="w-full border p-2 rounded" placeholder="De Silva" required>
+      </div>
+    </div>
+
+    <br>
+    <div>
+      <label class="font-semibold flex items-center gap-2"><i class="fas fa-envelope"></i> Email Address</label>
+      <input type="email" name="email" value="<%= delivery.getEmail() %>" class="w-full border p-2 rounded" placeholder="romeshdesilva@gmail.com" required>
+    </div>
+
+    <br>
+    <div>
+      <label class="font-semibold flex items-center gap-2"><i class="fas fa-phone"></i> Phone Number</label>
+      <input type="tel" name="phone" value="<%= delivery.getPhone() %>" class="w-full border p-2 rounded" placeholder="0770657948" pattern="[0-9]{10}" maxlength="10" required>
+    </div>
+
+    <br>
+    <div>
+      <label class="font-semibold flex items-center gap-2"><i class="fas fa-home"></i> Street Address</label>
+      <input type="text" name="address" value="<%= delivery.getAddress() %>" class="w-full border p-2 rounded" placeholder="12, Temple Street" required>
+    </div>
+
+    <br>
+    <div class="grid grid-cols-2 gap-4">
+      <div>
+        <label class="font-semibold flex items-center gap-2"><i class="fas fa-city"></i> City</label>
+        <input type="text" name="city" value="<%= delivery.getCity() %>" class="w-full border p-2 rounded" placeholder="Galle" required>
+      </div>
+      <div>
+        <label class="font-semibold flex items-center gap-2"><i class="fas fa-mail-bulk"></i> Postal Code</label>
+        <input type="text" name="postalCode" value="<%= delivery.getPostalCode() %>" class="w-full border p-2 rounded" placeholder="80250" pattern="[0-9]{5}" maxlength="5" inputmode="numeric" required>
+      </div>
+    </div>
+  </div>
+
+  <!-- Update Button -->
+  <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded mt-6">
+    <i class="fas fa-save mr-1"></i> Update
+  </button>
+</form>
+
+<!-- Confirmation Script -->
+<script>
+  function confirmUpdate() {
+    return confirm("Are you sure you want to update these details?");
+  }
+</script>
          
-		
-          <button type="submit" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded">
-            <i class="fas fa-save mr-1"></i> Update
-          </button>
-        </form>
       <% } else { %>
         <div class="text-center py-12">
           <p class="text-red-600 text-lg font-semibold">
@@ -50,6 +98,11 @@
       <% } %>
     </div>
   </main>
+<script>
+  function confirmUpdate() {
+    return confirm("Are you sure you want to update these details?");
+  }
+</script>
 
   <%@ include file="./partials/footer.jsp" %>
 </body>

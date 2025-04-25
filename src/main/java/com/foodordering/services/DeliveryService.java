@@ -62,56 +62,42 @@ public class DeliveryService {
         return false;
     }
 
-    // Read delivery by ID
-    public Delivery getDeliveryById(int id) throws ClassNotFoundException  {
-        String sql = "SELECT * FROM delivery WHERE id = ?";
+    // Delete using Delivery model object
+    public boolean cancelOrder(Delivery delivery) throws ClassNotFoundException {
+        boolean success = false;
 
-        try (Connection conn = DBConnect.getConnection();
-             PreparedStatement stmt = conn.prepareStatement(sql)) {
+        try (Connection conn = DBConnect.getConnection()) {
+            String sql = "DELETE FROM delivery WHERE id = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setInt(1, delivery.getId());
 
-            stmt.setInt(1, id);
-            ResultSet rs = stmt.executeQuery();
-
-            if (rs.next()) {
-                Delivery delivery = new Delivery();
-                delivery.setId(rs.getInt("id")); // ✅ IMPORTANT LINE
-                delivery.setFirstName(rs.getString("first_name"));
-                delivery.setLastName(rs.getString("last_name"));
-                delivery.setEmail(rs.getString("email"));
-                delivery.setPhone(rs.getString("phone"));
-                delivery.setAddress(rs.getString("address"));
-                delivery.setCity(rs.getString("city"));
-                delivery.setPostalCode(rs.getString("postal_code"));
-                return delivery;
-            }
+            success = stmt.executeUpdate() > 0;
 
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
-        return null;
+        return success;
     }
 
-
-//update
+    // Update delivery
     public boolean updateDelivery(Delivery delivery) {
         return update(delivery);
     }
 
     private boolean update(Delivery d) {
-    	String sql = "UPDATE delivery SET first_name=?, last_name=?, email=?, phone=?, address=?, city=?, postal_code=? WHERE id=?";
+        String sql = "UPDATE delivery SET first_name=?, last_name=?, email=?, phone=?, address=?, city=?, postal_code=? WHERE id=?";
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-        	stmt.setString(1, d.getFirstName());
-        	stmt.setString(2, d.getLastName());
-        	stmt.setString(3, d.getEmail());
-        	stmt.setString(4, d.getPhone());
-        	stmt.setString(5, d.getAddress());
-        	stmt.setString(6, d.getCity());
-        	stmt.setString(7, d.getPostalCode());
-        	stmt.setInt(8, d.getId());
-
+            stmt.setString(1, d.getFirstName());
+            stmt.setString(2, d.getLastName());
+            stmt.setString(3, d.getEmail());
+            stmt.setString(4, d.getPhone());
+            stmt.setString(5, d.getAddress());
+            stmt.setString(6, d.getCity());
+            stmt.setString(7, d.getPostalCode());
+            stmt.setInt(8, d.getId());
 
             int rows = stmt.executeUpdate();
             return rows > 0;
@@ -123,25 +109,32 @@ public class DeliveryService {
         return false;
     }
 
+    // Read delivery by ID
+    public Delivery getDeliveryById(int id) {
+        String sql = "SELECT * FROM delivery WHERE id = ?";
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(sql)) {
 
-//delete
-    public boolean cancelOrder(int id) throws ClassNotFoundException  {
-        boolean success = false;
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
 
-        try (Connection conn = DBConnect.getConnection()) {
-            String sql = "DELETE FROM delivery WHERE id = ?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, id); // only one placeholder, so one value
+            if (rs.next()) {
+                Delivery delivery = new Delivery();
+                delivery.setId(rs.getInt("id"));
+                delivery.setFirstName(rs.getString("first_name"));
+                delivery.setLastName(rs.getString("last_name"));
+                delivery.setEmail(rs.getString("email"));
+                delivery.setPhone(rs.getString("phone"));
+                delivery.setAddress(rs.getString("address"));
+                delivery.setCity(rs.getString("city"));
+                delivery.setPostalCode(rs.getString("postal_code"));
+                return delivery;
+            }
 
-            success = stmt.executeUpdate() > 0;
-
-        } catch (SQLException e) {
+        } catch (SQLException | ClassNotFoundException e) {
             e.printStackTrace();
         }
 
-        return success;
-   }
-
+        return null;
+    }
 }
-
-

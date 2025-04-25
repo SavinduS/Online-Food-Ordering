@@ -104,13 +104,21 @@
   </div>
 
   <div class="grid grid-cols-2 gap-4">
-    <div>
-      <br>
-      <label class="font-semibold flex items-center gap-2 mt-2">
-        <i class="fas fa-calendar-alt"></i> Expiry Date
-      </label>
-      <input type="month" name="expiryDate" class="w-full border p-2 rounded" min="2025-05" required>
-    </div>
+    <%
+  java.util.Calendar cal = java.util.Calendar.getInstance();
+  int year = cal.get(java.util.Calendar.YEAR);
+  int month = cal.get(java.util.Calendar.MONTH) + 1; // Months start at 0
+  String monthStr = (month < 10 ? "0" : "") + month;
+%>
+
+<div>
+  <br>
+  <label class="font-semibold flex items-center gap-2 mt-2">
+    <i class="fas fa-calendar-alt"></i> Expiry Date
+  </label>
+  <input type="month" name="expiryDate" class="w-full border p-2 rounded" min="<%= year %>-<%= monthStr %>" required>
+</div>
+    
     <div>
       <br>
       <label class="font-semibold flex items-center gap-2 mt-2">
