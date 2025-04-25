@@ -49,15 +49,27 @@
 
           <div class="mt-6 space-y-2">
 
-            <form action="CancelOrderServlet" method="post">
-			  <input type="hidden" name="id" value="${delivery.id}" />
-			  <button type="submit" class="bg-red-500 hover:bg-red-600 text-white px-5 py-2 rounded shadow w-48">
-			    <i class="fas fa-times mr-1"></i> Cancel Order
-			  </button>
-			</form>
+  <!-- Cancel Order Form -->
+  <form action="CancelOrderServlet" method="post" onsubmit="return confirmCancel()">
+    <input type="hidden" name="id" value="${delivery.id}" />
+    <button type="submit" class="bg-red-600 hover:bg-red-700 text-white font-semibold px-5 py-2 rounded shadow w-48">
+      <i class="fas fa-times mr-1"></i> Cancel Order
+    </button>
+  </form>
+
+  <!-- Download Receipt Button (outside the form) -->
+  <div class="mt-5">
+    <a href="invoice.jsp" target="_blank">
+      <button type="button" class="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded shadow w-60">
+        <i class="fas fa-download mr-1"></i> Download Receipt
+      </button>
+    </a>
+  </div>
+
+</div>
+</div>
             
-          </div>
-        </div>
+         
 
 		<div>
   <h3 class="font-semibold text-lg mb-4">Order Summary</h3>
@@ -104,5 +116,12 @@
 </div>		
   <script src="js/myOrder.js"></script>
   <%@ include file="./partials/footer.jsp" %>
+  <!-- Place this at the end before </body> -->
+<script>
+  function confirmCancel() {
+    return confirm("Are you sure you want to cancel this order?");
+  }
+</script>
+  
 </body>
 </html>
