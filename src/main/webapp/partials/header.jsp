@@ -26,7 +26,7 @@
   <a href="home" class="nav-link" data-page="home"><b>Home</b></a>
   <a href="ReviewCreate.jsp" class="nav-link" data-page="ReviewCreate.jsp"><b>Reviews</b></a>
   <a href="AboutUs.jsp" class="nav-link" data-page="AboutUs.jsp"><b>About Us</b></a>
-  <a href="#menu" class="bg-yellow-400 hover:bg-white hover:text-orange-600 text-black px-4 py-2 rounded shadow font-semibold">
+  <a href="home#menu" class="bg-yellow-400 hover:bg-white hover:text-orange-600 text-black px-4 py-2 rounded shadow font-semibold">
     Order Now
   </a>
 </nav>

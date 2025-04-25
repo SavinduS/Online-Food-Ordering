@@ -54,6 +54,7 @@
         <p><strong>Email:</strong> <%= delivery.getEmail() %></p>
         <p><strong>Phone:</strong> <%= delivery.getPhone() %></p>
         <p><strong>Address:</strong> <%= delivery.getAddress() %>, <%= delivery.getCity() %></p>
+        <p><strong>Postal Code:</strong> <%= delivery.getPostalCode() %></p>
       <% } else { %>
         <p class="text-red-600 font-semibold">No delivery data available.</p>
       <% } %>
