@@ -24,7 +24,7 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("userEmail", email);
 
             // ✅ Redirect to UserProfile.jsp
-            response.sendRedirect("UserProfile.jsp");
+            response.sendRedirect("home");
         } else {
             request.setAttribute("error", "Invalid email or password");
             RequestDispatcher dis = request.getRequestDispatcher("Login.jsp");

@@ -1,6 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.sql.*, com.foodordering.Util.DBConnect" %>
-<%
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>User Profile</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <%@ include file="./partials/header.jsp" %>
+</head>
+<body class="font-[sans-serif] bg-gray-100">
+
+    function validateUpdateForm() {
+      const pass = document.getElementById("newPassword").value;
+      const confirm = document.getElementById("confirmPassword").value;
+      if (pass !== "" && pass !== confirm) {
+        alert("Passwords do not match!");
+        return false;
+      }
+      return true;
+    }
+    
+    <%
     String email = (String) session.getAttribute("userEmail");
 
     if (email == null) {
@@ -30,65 +53,9 @@
         e.printStackTrace();
     }
 %>
-
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Quickbites Profile</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="css/Footer.css"></link>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <script>
-    function validateUpdateForm() {
-      const pass = document.getElementById("newPassword").value;
-      const confirm = document.getElementById("confirmPassword").value;
-      if (pass !== "" && pass !== confirm) {
-        alert("Passwords do not match!");
-        return false;
-      }
-      return true;
-    }
+    
   </script>
-</head>
-<header class="font-[sans-serif] sticky top-0 z-50 bg-orange-600 shadow-md">
 
-  <div class="max-w-7xl mx-auto px-4 py-4 flex items-center justify-between">
-    <!-- Logo -->
-    <div class="text-white text-2xl font-bold flex items-center gap-2">
-      <i class="fas fa-utensils"></i>
-      <a href="#">QuickBites</a>
-    </div>
-
-    <!-- Navigation -->
-    <nav class="hidden md:flex space-x-6 text-white font-medium items-center">
-      <a href="home" class="hover:text-yellow-300">Home</a>
-      <a href="Review.jsp" class="hover:text-yellow-300">Reviews</a>
-      <a href="AboutUs.jsp" class="hover:text-yellow-300">About Us</a>
-      <a href="#menu" class="bg-yellow-400 hover:bg-white hover:text-orange-600 text-black px-4 py-2 rounded shadow font-semibold">Order Now</a>
-    </nav>
-
-    <!-- Right Icons -->
-    <div class="flex items-center gap-4">
-      <div class="relative hidden md:flex items-center bg-white rounded px-2 py-1">
-        <input type="text" id="foodSearch" placeholder="Search food..." class="outline-none px-2 w-40 text-sm">
-        <button id="searchButton"><i class="fas fa-search text-orange-600"></i></button>
-      </div>
-      <a href="#" class="text-white text-xl relative">
-        <i class="fas fa-shopping-cart"></i>
-        <span class="absolute -top-2 -right-3 bg-yellow-300 text-black text-xs rounded-full px-1">0</span>
-      </a>
-      <a href="#" class="text-white text-xl"><i class="fas fa-user"></i></a>
-    </div>
-
-    <!-- Mobile Menu Toggle -->
-    <div class="md:hidden text-white text-2xl">
-      <i class="fas fa-bars"></i>
-    </div>
-  </div>
-</header>
-<br><br>
 <body class="flex flex-col min-h-screen bg-white z-10">
 
   <!-- Background & Overlay -->
@@ -166,46 +133,7 @@
     </div>
   </div>
 
-  <!-- Footer Start -->
-  <footer class="footer z-10 relative mt-auto">
-    <div class="footer-container">
-        <div class="footer-column">
-            <h3>Quick Links</h3>
-            <ul>
-                <li><a href="#"><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="#menu"><i class="fas fa-utensils"></i> Menu</a></li>
-                <li><a href="#"><i class="fas fa-phone"></i> Contact</a></li>
-                <li><a href="#"><i class="fas fa-question-circle"></i> FAQs</a></li>
-                <li><a href="#"><i class="fas fa-user-secret"></i> Privacy Policy</a></li>
-            </ul>
-        </div>
-        <div class="footer-column">
-            <h3>Follow Us</h3>
-            <div class="social-icons">
-                <a href="https://www.facebook.com/"><i class="fab fa-facebook"></i></a>
-                <a href="https://www.instagram.com/"><i class="fab fa-instagram"></i></a>
-                <a href="https://x.com/i/flow/login?lang=en"><i class="fab fa-twitter"></i></a>
-            </div>
-        </div>
-        <div class="footer-column">
-            <h3>Customer Support</h3>
-            <p><i class="fas fa-envelope"></i> support@quickbites.com</p>
-            <p><i class="fas fa-phone"></i> +1 234 567 890</p>
-            <p><i class="fas fa-map-marker-alt"></i> 123 Food Street, City, USA</p>
-        </div>
-        <div class="footer-column">
-            <h3>We Accept</h3>
-            <div class="payment-icons">
-                <i class="fab fa-cc-visa"></i>
-                <i class="fab fa-cc-mastercard"></i>
-            </div>
-        </div>
-    </div>
-    <div class="footer-bottom">
-        <p>&copy; 2024 QuickBites. All Rights Reserved.</p>
-    </div>
-  </footer>
-  <!-- Footer End -->
+   <%@ include file="./partials/footer.jsp" %>
 
 </body>
 </html>
