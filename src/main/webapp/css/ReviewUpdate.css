@@ -1,0 +1,337 @@
+/* Base styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  color: #000;
+  background-color: #f5f5f5;
+  line-height: 1.5;
+}
+
+/* Main container */
+.review-form {
+  margin-top:90px;
+  width: 100%;
+  max-width: none;
+  min-height: 100vh;
+}
+
+/* Header section */
+.review-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  height: 500px; /* Adjust height as needed */
+  overflow: hidden;
+}
+
+
+.slider-container {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.slider {
+  display: flex;
+  width: 100%;
+  height: 100%;
+  transition: transform 0.5s ease-in-out;
+}
+
+.slider img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures the image covers the entire container */
+  flex-shrink: 0;
+  position: relative; /* Required for the overlay to work correctly */
+}
+
+.slider-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);    /* Adjust the opacity (0.5) to control darkness */
+  pointer-events: none;                        /* Ensures the overlay doesn't interfere with interactions */
+  z-index: 1;                    /* Ensures the overlay is above the images */
+}
+
+/* Hero text overlay */
+.hero-text {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  color: rgb(238, 237, 232);
+  z-index: 10; /* Ensure it's above the image */
+}
+
+.hero-text h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8); /* Stronger shadow */
+  filter: brightness(4.5); 
+}
+
+.hero-text p {
+  font-size: 1.5rem;
+  text-shadow: 4px 4px 8px rgba(0, 0, 0, 0.8); /* Stronger shadow */
+  filter: brightness(4.5); 
+}
+/* Content section */
+.review-content {
+  display: flex;
+  gap: 3rem;
+  justify-content: center;
+  padding: 4rem 5rem;
+  
+}
+
+/* Cards */
+.review-input-card,
+.feedback-summary-card {
+  padding: 2rem;
+  background-color: white;
+  border-radius: 1rem;
+  box-shadow:
+      0 4px 6px rgba(0, 0, 0, 0.1),
+      0 10px 15px rgba(0, 0, 0, 0.1);
+  width: 600px;
+}
+
+/* Review input card */
+.review-input-card h2 {
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: black;
+}
+
+.input-group {
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+.input-icon {
+  position: absolute;
+  top: 50%;
+  left: 1rem;
+  transform: translateY(-50%);
+  color: #666;
+  font-size: 1rem;
+}
+
+.input-group input,
+.input-group textarea {
+  padding-left: 2.5rem;      /* Space for the icon */
+  padding-right: 1rem;        /* Added right padding for more space */
+  padding-top: 0.75rem;          /* Increased top padding */
+  padding-bottom: 0.75rem;    /* Increased bottom padding */
+  width: 100%;
+  font-size: 1rem;
+  color: black;
+  border-radius: 0.5rem;
+  border: 1px solid #d1d5db;
+  outline: none;
+}
+
+.review-rating {
+  margin-bottom: 1.5rem;
+}
+
+.review-rating label {
+  display: block;
+  font-size: 1rem;
+  font-weight: 600;
+  color: black;
+  margin-bottom: 0.5rem;
+}
+
+.review-rating select {
+  width: 100%;
+  padding: 0.75rem;
+  font-size: 1rem;
+  color: black;
+  border: 1px solid #d1d5db;
+  border-radius: 0.5rem;
+  outline: none;
+  background-color: white;
+  cursor: pointer;
+}
+
+.review-rating select:focus {
+  border-color: #000; /* Highlight border when focused */
+  box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1); /* Add a subtle focus effect */
+}
+
+/* Submit button */
+button[type="submit"] {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 3.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  background-color: rgb(200, 71, 71);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  border: none;
+  transition: background-color 0.3s ease;    /* Smooth transition for hover effect */
+}
+
+button[type="submit"]:hover {
+  background-color: rgb(180, 50, 50);     /* Darker shade on hover */
+}
+
+button[type="submit"] i {
+  margin-right: 0.5rem;
+}
+
+/* Feedback summary card */
+.feedback-summary-card {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.summary-section {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.summary-section h2 {
+  margin: 1rem 0;
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: black;
+}
+
+.summary-section p {
+  font-size: 1rem;
+  color: #4b5563;
+}
+
+/* Rating section */
+.rating-section {
+  padding: 1.5rem;
+  background-color: #f9fafb;
+  border-radius: 0.75rem;
+}
+
+.progress-bar {
+  overflow: hidden;
+  height: 0.5rem;
+  background-color: #e5e7eb;
+  border-radius: 9999px;
+}
+
+.progress-fill {
+  height: 100%;
+  background-color: #fbbf24;
+  border-radius: 9999px;
+}
+
+/* Achievements section */
+.achievements-section h3 {
+  margin-bottom: 1.25rem;
+  font-size: 1rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+.achievements-grid {
+  display: flex;
+  gap: 1rem;
+  justify-content: space-between;
+}
+
+.achievement-item {
+  flex: 1;
+  padding: 0.875rem 1rem 1rem;
+  text-align: center;
+  background-color: #f9fafb;
+  border-radius: 0.5rem;
+}
+
+.achievement-item i {
+  font-size: 1.5rem;
+  color: #ffa500;
+  margin-bottom: 0.5rem;
+}
+
+.achievement-item p {
+  font-size: 0.875rem;
+  color: black;
+}
+
+/* Responsive styles */
+@media (max-width: 991px) {
+  .review-content {
+      flex-direction: column;
+      align-items: center;
+  }
+
+  .review-input-card,
+  .feedback-summary-card {
+      width: 100%;
+      max-width: 600px;
+  }
+}
+
+@media (max-width: 640px) {
+  .review-header {
+      padding: 1.25rem;
+      padding-top: 2.5rem;
+      padding-bottom: 2.5rem;
+  }
+
+  .hero-text h1 {
+      font-size: 2.25rem;
+  }
+
+  .hero-text p {
+      font-size: 1.125rem;
+  }
+
+  .review-content {
+      padding: 1.25rem;
+      padding-top: 2rem;
+      padding-bottom: 2rem;
+  }
+
+  .achievements-grid {
+      flex-direction: column;
+  }
+
+  .achievement-item {
+      margin-bottom: 1rem;
+  }
+}
+ 
+/*deelete icon*/
+.delete-icon {
+  position: absolute;
+  right: 20px;
+  top: 40px;
+  color: #ba7171;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+.delete-icon:hover {
+  color: red;
+}
+.review-input-card {
+  position: relative;
+}
