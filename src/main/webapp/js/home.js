@@ -20,8 +20,8 @@ function prevSlide() {
     showSlide(currentSlide);
 }
 
-// Auto-slide every 5 seconds
-setInterval(nextSlide, 5000);
+// Auto-slide every 4 seconds
+setInterval(nextSlide, 4000);
 
 // Show the first slide initially
 showSlide(currentSlide);

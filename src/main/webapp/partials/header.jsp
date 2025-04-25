@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="icon" type="image/png" href="images/Q.png" />
   <title>QuickBites</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
@@ -15,19 +16,22 @@
 
     <!-- Left: Logo -->
     <div class="text-white text-2xl font-bold flex items-center gap-2">
-      <i class="fas fa-utensils"></i>
-      <a href="#">QuickBites</a>
-    </div>
+	  <i class="fas fa-utensils"></i>
+	  <a href="home" >QuickBites</a>
+	</div>
+    
 
     <!-- Middle: Navigation -->
-    <nav class="hidden md:flex space-x-6 text-white font-medium items-center">
-      <a href="home" class="hover:text-yellow-300">Home</a>
-      <a href="Review.jsp" class="hover:text-yellow-300">Reviews</a>
-      <a href="AboutUs.jsp" class="hover:text-yellow-300">About Us</a>
-      <a href="#menu" class="bg-yellow-400 hover:bg-white hover:text-orange-600 text-black px-4 py-2 rounded shadow font-semibold">
-        Order Now
-      </a>
-    </nav>
+  <nav id="navbar" class="hidden md:flex space-x-6 text-white font-medium items-center">
+  <a href="home" class="nav-link" data-page="home"><b>Home</b></a>
+  <a href="Review.jsp" class="nav-link" data-page="Review.jsp"><b>Reviews</b></a>
+  <a href="AboutUs.jsp" class="nav-link" data-page="AboutUs.jsp"><b>About Us</b></a>
+  <a href="#menu" class="bg-yellow-400 hover:bg-white hover:text-orange-600 text-black px-4 py-2 rounded shadow font-semibold">
+    Order Now
+  </a>
+</nav>
+  
+   
 
     <!-- Right: Icons + Log Out -->
     <div class="flex items-center gap-4">
@@ -35,18 +39,15 @@
 
       <!-- Cart Icon -->
       <a href="cart.jsp" class="text-white text-xl relative">
-        <i class="fas fa-shopping-cart"></i>
-        
-      </a>
+  <i class="fas fa-shopping-cart"></i>
+</a>
+      
 
       <!-- User Icon -->
-      <a href="profile.jsp" class="text-white text-xl"><i class="fas fa-user"></i></a>
+      <a href="UserProfile.jsp" class="text-white text-xl"><i class="fas fa-user"></i></a>
 
       <!-- Log Out Button (Black) -->
-    <a href="logout.jsp"
-   class="bg-rose-700 hover:bg-rose-800 text-white px-4 py-1.5 rounded-md text-sm font-semibold shadow-md transition duration-200">
-   Log Out
-</a>
+    <a href="LogoutServlet" class="bg-rose-700 hover:bg-rose-800 text-white px-4 py-1.5 rounded-md text-sm font-semibold shadow-md transition duration-200"> Log Out</a>
     
      
     </div>
@@ -57,8 +58,16 @@
     </div>
   </div>
 </header>
-
-
-
 </body>
+<script>
+  const currentPath = window.location.pathname.split("/").pop(); // ex: home.jsp
+  document.querySelectorAll(".nav-link").forEach(link => {
+    if (link.getAttribute("data-page") === currentPath) {
+      link.classList.add("border-b-2", "border-yellow-400", "pb-1", "text-yellow-300");
+    } else {
+      link.classList.add("hover:text-yellow-300", "transition", "duration-200");
+    }
+  });
+</script>
+
 </html>

@@ -1,0 +1,171 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background-color: #fff;
+}
+
+
+
+.about-content {
+    position: relative; /* Positioning context for pseudo-element */
+    text-align: center;
+    padding: 50px;
+    background-image: url('../images/Food Burger.jpg'); /* Relative path to the image */
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    color: rgb(234, 233, 229);
+    min-height: 250px; /* Adjust the height as needed */
+}
+
+/* Add a dark shadow overlay */
+.about-content::after {
+    content: ''; /* Necessary for pseudo-element */
+    position: absolute; /* Covers the entire section */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.5); /* Dark overlay */
+    z-index: 1;
+}
+
+/* Ensure text appears above the overlay */
+.about-content > * {
+    position: relative;
+    z-index: 2;
+}
+
+
+.features {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+    padding: 50px 20px;
+    background: rgba(255, 165, 0, 0.9); /* Semi-transparent orange */
+}
+
+.feature-box {
+    text-align: center;
+    padding: 20px;
+    width: 250px;
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Feature Box Hover Effect */
+.feature-box:hover {
+    transform: translateY(-5px);
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Circle Icon Container */
+.icon-circle {
+    width: 80px;
+    height: 80px;
+    background: #fff;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 15px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+/* Icon Style */
+.icon-circle i {
+    font-size: 32px;
+    color: #e74c3c;
+    transition: transform 0.3s ease, color 0.3s ease;
+}
+
+/* Hover Effect for Icons */
+.feature-box:hover .icon-circle {
+    transform: scale(1.1);
+    background-color: #e74c3c;
+}
+
+.feature-box:hover .icon-circle i {
+    transform: scale(1.2);
+    color: #fff;
+}
+
+/* Headings & Text */
+.feature-box h3 {
+    font-size: 18px;
+    font-weight: bold;
+    color: #fff;
+    margin: 10px 0;
+}
+
+.feature-box p {
+    font-size: 14px;
+    color: #fff;
+    opacity: 0.8;
+}
+
+.feature-link {
+    text-decoration: none;
+    color: inherit; /* Keeps the original text color */
+    display: block;
+}
+
+
+/*History Box*/
+
+.history {
+    text-align: center;
+    padding: 40px;
+    background: #f4f4f4;
+    background-image: url('../images/History\ Burger.jpg');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+
+}
+
+
+.history-content {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.history-box {
+    background: rgba(255, 255, 255, 0.5); /* Slightly transparent but visible */
+    padding: 20px;
+    border-radius: 8px;
+    width: 300px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border 0.3s ease, background 0.3s ease;
+    border: 2px solid rgba(255, 255, 255, 0.6);  /* Subtle border for visibility */
+}
+
+.history-box:hover {
+    transform: translateY(-8px);                          /* Slightly lifts the box */
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2);     /* Soft shadow effect */
+    border: 2px solid red;                             /* Elegant red border */
+    background: rgba(255, 247, 247, 0.7);            /* Slightly less transparent on hover */
+}
+
+.passionate-header {
+    font-size:xx-large;
+    font-size: 48px; 
+  }
+
+
+
+  
+
+
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .features, .history-content {
+        flex-direction: column;
+        align-items: center;
+    }
+    .feature-box, .history-box {
+        width: 80%;
+    }
+}
