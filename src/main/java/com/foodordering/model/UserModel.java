@@ -9,7 +9,10 @@ public class UserModel {
 	private String confirmpass;
 	private String phonenumber;
 	
-	
+	public UserModel() {
+	    
+	}
+
 	
 	public UserModel(String firstname, String lastname, String email, String phonenumber) {
 		super();
