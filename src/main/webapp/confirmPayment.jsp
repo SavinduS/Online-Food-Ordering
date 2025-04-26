@@ -1,5 +1,5 @@
 <%@ page import="java.util.List" %>
-<%@ page import="com.foodordering.model.CartItem" %>
+<%@ page import="com.foodordering.model.CartModel" %>
 <%@ page import="com.foodordering.model.Delivery" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -47,7 +47,7 @@
     <div class="space-y-2 text-base">
       <%
       Delivery delivery = (Delivery) session.getAttribute("delivery");
-      List<CartItem> cartItems = (List<CartItem>) session.getAttribute("cartItems");
+      List<CartModel> cartItems = (List<CartModel>) session.getAttribute("cartItems");
       %>
       <% if (delivery != null) { %>
         <p><strong>Name:</strong> <%= delivery.getFirstName() %> <%= delivery.getLastName() %></p>
@@ -87,7 +87,7 @@
           <% 
             double total = 0;
             if (cartItems != null && !cartItems.isEmpty()) {
-              for (CartItem item : cartItems) {
+              for (CartModel item : cartItems) {
                 double itemTotal = item.getPrice() * item.getQuantity();
                 total += itemTotal;
           %>

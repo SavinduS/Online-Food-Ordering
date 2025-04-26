@@ -38,9 +38,12 @@
      
 
       <!-- Cart Icon -->
-      <a href="cart.jsp" class="text-white text-xl relative">
-  <i class="fas fa-shopping-cart"></i>
-</a>
+      <c:if test="${not empty sessionScope.userEmail}">
+                <!-- Cart Icon -->
+                <a href="cart" class="relative">
+                    <i class="fas fa-shopping-cart text-white text-2xl"></i>
+                </a>
+</c:if>
       
 
       <!-- User Icon -->

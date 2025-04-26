@@ -1,5 +1,5 @@
 <%@ page import="java.util.List" %>
-<%@ page import="com.foodordering.model.CartItem" %>
+<%@ page import="com.foodordering.model.CartModel" %>
 <%@ page import="com.foodordering.model.Delivery" %>
 
 <%

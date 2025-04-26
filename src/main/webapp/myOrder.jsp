@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ page import="java.util.List" %>
-<%@ page import="com.foodordering.model.CartItem" %>
+<%@ page import="com.foodordering.model.CartModel" %>
 <%@ page import="com.foodordering.model.Delivery" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
@@ -85,9 +85,9 @@
     <tbody class="text-gray-800">
       <%
         double total = 0;
-        List<CartItem> cartItems = (List<CartItem>) request.getAttribute("cartItems");
+        List<CartModel> cartItems = (List<CartModel>) request.getAttribute("cartItems");
         if (cartItems != null && !cartItems.isEmpty()) {
-          for (CartItem item : cartItems) {
+          for (CartModel item : cartItems) {
             double itemTotal = item.getPrice() * item.getQuantity();
             total += itemTotal;
       %>

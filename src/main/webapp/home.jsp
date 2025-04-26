@@ -106,7 +106,11 @@
                         <img src="${pageContext.request.contextPath}/images/${burger.imageFilename}" alt="${burger.name}">
                         <h4><b>${burger.name}</b></h4>
                         <p>Rs. ${burger.price}</p>
-                        <button class="add-to-cart">Add to Cart</button>
+                        <form action="add-to-cart" method="POST">
+    <input type="hidden" name="food_id" value="${burger.id}" />
+    <button type="submit" class="add-to-cart">Add to Cart</button>
+</form>
+
                     </div>
                 </c:forEach>
             </div>
@@ -121,7 +125,11 @@
                         <img src="${pageContext.request.contextPath}/images/${pizza.imageFilename}" alt="${pizza.name}">
                         <h4><b>${pizza.name}</b></h4>
                         <p>Rs. ${pizza.price}</p>
-                        <button class="add-to-cart">Add to Cart</button>
+                        <form action="add-to-cart" method="POST">
+    <input type="hidden" name="food_id" value="${pizza.id}" />
+    <button type="submit" class="add-to-cart">Add to Cart</button>
+</form>
+
                     </div>
                 </c:forEach>
             </div>
@@ -136,7 +144,11 @@
                         <img src="${pageContext.request.contextPath}/images/${dessert.imageFilename}" alt="${dessert.name}">
                         <h4><b>${dessert.name}</b></h4>
                         <p>Rs. ${dessert.price}</p>
-                        <button class="add-to-cart">Add to Cart</button>
+                        <form action="add-to-cart" method="POST">
+    <input type="hidden" name="food_id" value="${dessert.id}" />
+    <button type="submit" class="add-to-cart">Add to Cart</button>
+</form>
+
                     </div>
                 </c:forEach>
             </div>
@@ -151,7 +163,11 @@
                         <img src="${pageContext.request.contextPath}/images/${beverage.imageFilename}" alt="${beverage.name}">
                         <h4><b>${beverage.name}</b></h4>
                         <p>Rs. ${beverage.price}</p>
-                        <button class="add-to-cart">Add to Cart</button>
+                        <form action="add-to-cart" method="POST">
+    <input type="hidden" name="food_id" value="${beverage.id}" />
+    <button type="submit" class="add-to-cart">Add to Cart</button>
+</form>
+
                     </div>
                 </c:forEach>
             </div>

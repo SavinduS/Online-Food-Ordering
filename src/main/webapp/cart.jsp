@@ -1,111 +1,93 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.foodordering.model.CartModel" %>
+<%@ page session="true" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My Cart</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <%@ include file="./partials/header.jsp" %>
+    <meta charset="UTF-8">
+    <title>Your Cart - QuickBites</title>
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="font-[sans-serif] bg-gray-100">
 
+<body class="flex flex-col min-h-screen bg-gray-100">
 
+<%@ include file="./partials/header.jsp" %>
 
-    <!-- Cart Container -->
-    <div class="max-w-5xl mx-auto mt-8 p-6 bg-white shadow-lg rounded-lg">
-        
-        <!-- Breadcrumbs -->
-        <nav class="text-sm text-gray-500 mb-4">
-            Home / <span class="text-red-600 font-semibold">Your Basket</span>
-        </nav>
+<main class="flex-grow">
+    <div class="max-w-6xl mx-auto p-6">
+        <h2 class="text-3xl font-bold mb-6 text-orange-600">🛒 Your Cart</h2>
 
-        <h2 class="text-3xl font-bold mb-4">Your Basket</h2>
+        <%
+            List<CartModel> cartItems = (List<CartModel>) request.getAttribute("cartItems");
+            double total = 0.0;
+        %>
 
-        <!-- Cart Items -->
-        <div class="space-y-6">
-            <!-- Item 1 -->
-            <div class="flex items-center border-b pb-4">
-                <img src="burger.jpg" alt="Burger" class="w-24 h-24 rounded-lg mr-4">
-                <div class="flex-1">
-                    <h3 class="text-lg font-bold">Cheese Burger</h3>
-                    <p class="text-gray-500 text-sm">Ref: 123456</p>
-                    <p class="text-green-600 text-sm"><i class="fa fa-check"></i> Home Delivery</p>
+        <% if (cartItems != null && !cartItems.isEmpty()) { 
+               for (CartModel item : cartItems) { 
+                   total += item.getPrice() * item.getQuantity();
+        %>
+
+        <!-- Single Cart Item -->
+        <div class="flex items-center justify-between gap-4 mb-6 p-4 bg-white shadow rounded-lg">
+            <!-- Left Side: Image and Info -->
+            <div class="flex items-center gap-4">
+                <img src="images/<%= item.getImageFilename() %>" class="w-24 h-24 object-cover rounded">
+                <div>
+                    <h3 class="text-xl font-semibold"><%= item.getFoodName() %></h3>
+                    <p class="text-gray-700 mb-2">
+                        Rs. <%= item.getPrice() %> x <%= item.getQuantity() %> = 
+                        <b>Rs. <%= item.getPrice() * item.getQuantity() %></b>
+                    </p>
                 </div>
-                <div class="flex items-center">
-                    <button class="px-3 py-1 bg-gray-200 rounded-lg">-</button>
-                    <span class="px-4">1</span>
-                    <button class="px-3 py-1 bg-gray-200 rounded-lg">+</button>
-                </div>
-                <p class="text-xl font-bold ml-6">$10.99</p>
-                <button class="ml-4 text-red-500"><i class="fa fa-trash"></i></button>
             </div>
 
-            <!-- Item 2 -->
-            <div class="flex items-center border-b pb-4">
-                <img src="pizza.jpg" alt="Pizza" class="w-24 h-24 rounded-lg mr-4">
-                <div class="flex-1">
-                    <h3 class="text-lg font-bold">Pepperoni Pizza</h3>
-                    <p class="text-gray-500 text-sm">Ref: 654321</p>
-                    <p class="text-green-600 text-sm"><i class="fa fa-check"></i> Home Delivery</p>
-                </div>
-                <div class="flex items-center">
-                    <button class="px-3 py-1 bg-gray-200 rounded-lg">-</button>
-                    <span class="px-4">1</span>
-                    <button class="px-3 py-1 bg-gray-200 rounded-lg">+</button>
-                </div>
-                <p class="text-xl font-bold ml-6">$15.99</p>
-                <button class="ml-4 text-red-500"><i class="fa fa-trash"></i></button>
-            </div>
-        </div>
+            <!-- Right Side: Quantity Control and Remove -->
+            <div class="flex items-center gap-2">
+                <form action="update-cart" method="post">
+                    <input type="hidden" name="cart_id" value="<%= item.getId() %>"/>
+                    <input type="hidden" name="action" value="decrease"/>
+                    <button type="submit" class="w-8 h-8 rounded-md bg-orange-300 hover:bg-orange-400 text-white text-lg font-bold flex items-center justify-center">−</button>
+                </form>
 
-        <!-- Checkout Summary -->
-        <div class="flex justify-between items-start mt-6">
-            <!-- Delivery Options -->
-            <div class="w-1/2 p-4 bg-gray-50 rounded-lg border">
-                <h3 class="text-lg font-semibold mb-2">Delivery Options</h3>
-                <label class="block">
-                    <input type="radio" name="delivery" checked class="mr-2"> Home Delivery
-                </label>
-                <label class="block mt-2">
-                    <input type="radio" name="delivery" class="mr-2"> Click & Collect
-                </label>
-            </div>
+                <span class="font-semibold text-lg"><%= item.getQuantity() %></span>
 
-            <!-- Total -->
-            <div class="w-1/3 bg-gray-50 p-4 rounded-lg border">
-                <p class="flex justify-between text-lg font-semibold">
-                    <span>Subtotal:</span> <span>$26.98</span>
-                </p>
-                <p class="flex justify-between text-sm text-gray-500">
-                    <span>Delivery:</span> <span>Free</span>
-                </p>
-                <p class="flex justify-between text-xl font-bold mt-2">
-                    <span>Total:</span> <span>$26.98</span>
-                </p>
-                <a href="payment.jsp" class="block">
-				  <button class="w-full mt-4 bg-black text-white py-2 rounded-lg hover:bg-gray-800">
-				    Checkout
-				  </button>
-				</a>
-				                
+                <form action="update-cart" method="post">
+                    <input type="hidden" name="cart_id" value="<%= item.getId() %>"/>
+                    <input type="hidden" name="action" value="increase"/>
+                    <button type="submit" class="w-8 h-8 rounded-md bg-orange-500 hover:bg-orange-600 text-white text-lg font-bold flex items-center justify-center">+</button>
+                </form>
+
+                <form action="remove-cart-item" method="post" onsubmit="return confirm('Are you sure you want to remove this item?');">
+                    <input type="hidden" name="cart_id" value="<%= item.getId() %>"/>
+                    <button type="submit" class="ml-2 px-2 py-1 text-sm text-red-500 hover:underline font-semibold">Remove</button>
+                </form>
             </div>
         </div>
 
-        <!-- Delivery Information -->
-        <div class="mt-8 p-4 bg-gray-50 rounded-lg border">
-            <h3 class="text-lg font-semibold">Delivery Information:</h3>
-            <p class="text-gray-600 text-sm mt-2">
-                Standard Delivery is <span class="font-bold">2-4 working days</span>.
-            </p>
-            <p class="text-gray-600 text-sm mt-2">
-                You can upgrade to <span class="font-bold">Next Day Delivery</span> during checkout for orders before 10 PM.
-            </p>
+        <% } %>
+
+        <!-- Total Section -->
+        <div class="mt-8 p-6 bg-white rounded shadow flex items-center justify-between">
+            <h3 class="text-xl font-bold">Total: Rs. <%= String.format("%.2f", total) %></h3>
+            <a href="payment.jsp" class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-lg font-semibold">Proceed to Checkout</a>
         </div>
 
+        <% } else { %>
+
+        <!-- Empty Cart -->
+        <div class="bg-white p-8 text-center text-gray-600 rounded shadow min-h-[300px] flex items-center justify-center flex-col">
+            <p>Your cart is empty.</p>
+            <a href="home" class="text-orange-600 font-semibold hover:underline mt-2">Shop Now</a>
+        </div>
+
+        <% } %>
     </div>
-    <br>
-   
+</main>
+
 <%@ include file="./partials/footer.jsp" %>
+
 </body>
 </html>

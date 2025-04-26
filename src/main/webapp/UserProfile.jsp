@@ -13,16 +13,6 @@
 </head>
 <body class="font-[sans-serif] bg-gray-100">
 
-    function validateUpdateForm() {
-      const pass = document.getElementById("newPassword").value;
-      const confirm = document.getElementById("confirmPassword").value;
-      if (pass !== "" && pass !== confirm) {
-        alert("Passwords do not match!");
-        return false;
-      }
-      return true;
-    }
-    
     <%
     String email = (String) session.getAttribute("userEmail");
 
@@ -61,7 +51,7 @@
   <!-- Background & Overlay -->
   <div class="absolute inset-0 -z-10 bg-[url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1950&q=80')] bg-cover bg-center"></div>
   <div class="absolute inset-0 -z-10 bg-black/70 backdrop-blur-sm"></div>
-
+<br><br>
   <!-- Page Content Wrapper to push footer down -->
   <div class="flex-grow pb-28">
     <!-- Main Content -->
@@ -76,13 +66,9 @@
           <p><strong>Phone:</strong> <span class="text-lg font-semibold"><%= phone %></span></p>
         </div>
 
-        <!-- Logout Button (Blue) -->
-        <div class="mt-6">
-          <a href="LogoutServlet" class="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition text-base">
-            👋 Log Out
-          </a>
-        </div>
+        
         <br>
+        <br><br>
         <form action="DeleteAccountServlet" method="post" onsubmit="return confirm('Are you sure you want to delete your account?');">
             <input type="hidden" name="email" value="<%= email %>">
             <button type="submit" class="bg-red-600 text-white px-6 py-2 rounded-lg hover:bg-red-700 transition">

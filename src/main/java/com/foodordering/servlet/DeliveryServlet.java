@@ -2,7 +2,8 @@ package com.foodordering.servlet;
 
 import com.foodordering.model.Delivery;
 import com.foodordering.model.Payment;
-import com.foodordering.model.CartItem;
+import com.foodordering.model.CartModel;
+
 import com.foodordering.services.DeliveryService;
 import com.foodordering.services.CartService;
 
@@ -70,9 +71,9 @@ public class DeliveryServlet extends HttpServlet {
                 CartService cartService = new CartService();
                 Integer userId = (Integer) session.getAttribute("userId");
 
-                List<CartItem> cartItems = null;
+                List<CartModel> cartItems = null;
                 if (userId != null) {
-                    cartItems = cartService.getCartItemsByUserId(userId);
+                    cartItems = cartService.getCartItems(userId);
                 }
 
                 session.setAttribute("cartItems", cartItems);

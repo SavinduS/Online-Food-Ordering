@@ -2,19 +2,18 @@ package com.foodordering.model;
 
 public class CartModel {
     private int id;
-    private int userId;
+    private String userEmail;
     private int foodId;
     private int quantity;
     private String foodName;
     private double price;
     private String imageFilename;
 
-    // Constructors
     public CartModel() {}
 
-    public CartModel(int id, int userId, int foodId, int quantity, String foodName, double price, String imageFilename) {
+    public CartModel(int id, String userEmail, int foodId, int quantity, String foodName, double price, String imageFilename) {
         this.id = id;
-        this.userId = userId;
+        this.userEmail = userEmail;
         this.foodId = foodId;
         this.quantity = quantity;
         this.foodName = foodName;
@@ -26,8 +25,8 @@ public class CartModel {
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
-    public int getUserId() { return userId; }
-    public void setUserId(int userId) { this.userId = userId; }
+    public String getUserEmail() { return userEmail; }
+    public void setUserEmail(String userEmail) { this.userEmail = userEmail; }
 
     public int getFoodId() { return foodId; }
     public void setFoodId(int foodId) { this.foodId = foodId; }
@@ -44,4 +43,3 @@ public class CartModel {
     public String getImageFilename() { return imageFilename; }
     public void setImageFilename(String imageFilename) { this.imageFilename = imageFilename; }
 }
-

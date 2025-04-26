@@ -1,50 +1,46 @@
 package com.foodordering.servlet;
 
-import com.foodordering.Util.DBConnect;
-
+import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
-import java.io.IOException;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 
-@WebServlet("/AddToCartServlet")
+import com.foodordering.services.CartService;
+import com.foodordering.model.CartModel;
+
+@WebServlet("/add-to-cart")
 public class AddToCartServlet extends HttpServlet {
+
     private static final long serialVersionUID = 1L;
+    CartService cartService = new CartService();
 
-    public AddToCartServlet() {
-        super();
-    }
-
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        
+
         try {
-            int foodId = Integer.parseInt(request.getParameter("foodId"));
-            int quantity = Integer.parseInt(request.getParameter("quantity"));
+            String userEmail = (String) request.getSession().getAttribute("userEmail");
+            String foodIdStr = request.getParameter("food_id");
 
-            // Simulated user ID (you can update this to use session)
-            int userId = 1;
-
-            // DB Insertion
-            try (Connection conn = DBConnect.getConnection()) {
-                String sql = "INSERT INTO cart (user_id, food_id, quantity) VALUES (?, ?, ?)";
-
-                try (PreparedStatement stmt = conn.prepareStatement(sql)) {
-                    stmt.setInt(1, userId);
-                    stmt.setInt(2, foodId);
-                    stmt.setInt(3, quantity);
-                    stmt.executeUpdate();
-                }
+            if (userEmail == null || foodIdStr == null) {
+                response.sendRedirect("Login.jsp");
+                return;
             }
 
-            // Redirect back to the menu/home after adding to cart
-            response.sendRedirect("home.jsp");
+            int foodId = Integer.parseInt(foodIdStr);
+
+            CartModel cart = new CartModel();
+            cart.setUserEmail(userEmail);
+            cart.setFoodId(foodId);
+            cart.setQuantity(1);
+
+            cartService.addCart(cart);
+
+            response.sendRedirect("cart");
 
         } catch (Exception e) {
             e.printStackTrace();
-            response.sendRedirect("error.jsp");
+            response.getWriter().println("Error adding to cart: " + e.getMessage());
         }
     }
 }
