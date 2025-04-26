@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.foodordering.model.*;
 import com.foodordering.services.*;
 
-
+@WebServlet("/deleteEmpServlet")
 public class deleteEmpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
     
@@ -41,13 +41,13 @@ public class deleteEmpServlet extends HttpServlet {
 			List <employee> DeleteDetails = employee_service.getById(Integer.parseInt(request.getParameter("empID")));
 			request.setAttribute("DeleteDetails", DeleteDetails);
 			
-			response.getWriter().println("<script>alert('Data Delete Successfully!'); window.location.href='AdminDashboard';</script>");
+			response.getWriter().println("<script>alert('Data Delete Successfully!'); window.location.href='employeeManagement';</script>");
 
 		}
 		
 		else{
 			response.getWriter().println("<script>alert('Data Delete Unsuccessfully!!!');</script>");
-			RequestDispatcher dispatcher =request.getRequestDispatcher("AdminDashboard");
+			RequestDispatcher dispatcher =request.getRequestDispatcher("employeeManagement.jsp");
 			dispatcher.forward(request, response);
 		}
 	}

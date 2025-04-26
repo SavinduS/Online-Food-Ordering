@@ -1,73 +1,57 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
+<%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>QuickBites - Admin Dashboard</title>
+    <%@ include file="./partials/header.jsp" %>
 
+    <!-- Tailwind CSS and FontAwesome already included in header.jsp -->
+</head>
 
-<title>QuickBites - Admin Dashboard</title>
+<!-- No need to add body class again because already in header.jsp -->
 
-<%@ include file="./partials/header.jsp" %>
+<div class="bg-gray-900 min-h-screen flex flex-col">
 
-<link rel="stylesheet" href="css/Admin.css">
-<script src="js/adminpageJS.js"></script>
+    <div class="flex-grow flex flex-col items-center justify-center p-8">
+        <h1 class="text-4xl font-bold text-white mb-10">Admin Dashboard</h1>
 
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl">
 
-	
-    <div class="container">
-        <h2>Employee Management</h2>
-        <button class="add-btn" onclick="location.href='AddEmployee.jsp'"><i class="fas fa-user-plus"></i> Add New Employee</button>
-        
-        <input type="text" id="searchInput" placeholder="Search Details...">
-        
-        <table>
-            <thead>
-                <tr>
-                	<th>Employee ID</th>
-                    <th>NIC</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Phone Number</th>
-                    <th>Position</th>
-                    <th>Edit</th>
-                    <th>Delete</th>
-                </tr>
-            </thead>
-            <tbody>
-            	<c:forEach var="emp" items="${allEmp}">
-            	<tr>
-            		<td> ${emp.empID} </td>
-            		<td> ${emp.NIC} </td>
-            		<td> ${emp.name} </td>
-            		<td> ${emp.email} </td>
-            		<td> ${emp.phone_num} </td>
-            		<td> ${emp.position} </td>
-                    <td>
-   						 <form action="UpdateEmployee.jsp" method="get" style="display:inline;">
-       						 <input type="hidden" name="empID" value="${emp.empID}">
-       						 <input type="hidden" name="NIC" value="${emp.NIC}">
-      						 <input type="hidden" name="name" value="${emp.name}">
-      						 <input type="hidden" name="email" value="${emp.email}">
-      						 <input type="hidden" name="phone_num" value="${emp.phone_num}">
-     						 <input type="hidden" name="position" value="${emp.position}">
-       						 <button type="submit" class="edit-btn">Edit <i class="fas fa-edit"></i></button>
-    					</form>
-					</td>
-					
-					<td>
-						<form action="deleteEmpServlet" method="post" style="display:inline;">
-							<input type="hidden" name="empID" value="${emp.empID}">
-							<button class="delete-btn">Delete <i class="fas fa-trash-alt"></i></button>
-						</form>
-                    </td>
-                </tr>
-                </c:forEach>
-            </tbody>
-        </table>
+            <!-- Employee Management Button -->
+            <button onclick="location.href='employeeManagement'"
+                class="flex items-center justify-center bg-blue-700 hover:bg-blue-600 text-white font-bold py-10 rounded-2xl shadow-lg text-2xl gap-4 transition duration-300 w-full h-40">
+                <i class="fas fa-users-cog text-4xl"></i> 
+                Employee Management
+            </button>
+
+            <!-- View Feedbacks Button -->
+            <button onclick="location.href='feedbackSummary'"
+                class="flex items-center justify-center bg-green-700 hover:bg-green-600 text-white font-bold py-10 rounded-2xl shadow-lg text-2xl gap-4 transition duration-300 w-full h-40">
+                <i class="fas fa-comments text-4xl"></i> 
+                View Feedbacks
+            </button>
+
+            <!-- View Deliveries Button -->
+            <button onclick="location.href='deliverySummary'"
+                class="flex items-center justify-center bg-orange-700 hover:bg-orange-600 text-white font-bold py-10 rounded-2xl shadow-lg text-2xl gap-4 transition duration-300 w-full h-40">
+                <i class="fas fa-truck text-4xl"></i> 
+                View Deliveries
+            </button>
+
+            <!-- View Customers Details Button -->
+            <button onclick="location.href='customerSummary'"
+                class="flex items-center justify-center bg-purple-700 hover:bg-purple-600 text-white font-bold py-10 rounded-2xl shadow-lg text-2xl gap-4 transition duration-300 w-full h-40">
+                <i class="fas fa-user-friends text-4xl"></i> 
+                View Customers Details
+            </button>
+
+        </div>
     </div>
-    
-    
+
     <%@ include file="./partials/footer.jsp" %>
-    
-</body>
+
+</div> <!-- dark background div closes here -->
+
 </html>

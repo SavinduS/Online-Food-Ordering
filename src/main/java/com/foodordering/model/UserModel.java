@@ -9,6 +9,15 @@ public class UserModel {
 	private String confirmpass;
 	private String phonenumber;
 	
+	
+	
+	public UserModel(String firstname, String lastname, String email, String phonenumber) {
+		super();
+		this.firstname = firstname;
+		this.lastname = lastname;
+		this.email = email;
+		this.phonenumber = phonenumber;
+	}
 	public String getFirstname() {
 		return firstname;
 	}

@@ -14,7 +14,7 @@ import com.foodordering.model.*;
 import com.foodordering.services.*;
 
 
-
+@WebServlet("/updateEmpServlet")
 public class updateEmpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -49,14 +49,12 @@ public class updateEmpServlet extends HttpServlet {
 			List <employee> EmpDetails = employee_service.getById(Integer.parseInt(request.getParameter("empID")));
 			request.setAttribute("EmpDetails", EmpDetails);
 			
-			response.getWriter().println("<script>alert('Data Updated Successfully!'); window.location.href='AdminDashboard';</script>");
+			response.getWriter().println("<script>alert('Data Updated Successfully!'); window.location.href='employeeManagement';</script>");
 
 		}
 		
 		else{
-			response.getWriter().println("<script>alert('Data Updated Unsuccessfully!!!');</script>");
-			RequestDispatcher dispatcher =request.getRequestDispatcher("AdminDashboard");
-			dispatcher.forward(request, response);
+			response.getWriter().println("<script>alert('Data Update Unsuccessfully!!! Please update again.'); window.location.href='employeeManagement';</script>");
 		}
 		
 		

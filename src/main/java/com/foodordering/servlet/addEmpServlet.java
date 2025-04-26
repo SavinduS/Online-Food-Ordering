@@ -14,7 +14,7 @@ import com.foodordering.model.*;
 import com.foodordering.services.*;
 
 
-
+@WebServlet("/addEmpServlet")
 public class addEmpServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -48,15 +48,14 @@ public class addEmpServlet extends HttpServlet {
 		isTrue= service.addEmployee(emp);
 		
 		if(isTrue == true) {
-			response.getWriter().println("<script>alert('Data Insert Successfully!'); window.location.href='AdminDashboard';</script>");
+			response.getWriter().println("<script>alert('Data Insert Successfully!'); window.location.href='employeeManagement';</script>");
 
 		}
 		
-		else{
-			response.getWriter().println("<script>alert('Data Insert Unsuccessfully!!!');</script>");
-			RequestDispatcher dispatcher =request.getRequestDispatcher("AdminDashboard");
-			dispatcher.forward(request, response);
+		else {
+		    response.getWriter().println("<script>alert('Data Insert Unsuccessfully!!! Please add again.'); window.location.href='AddEmployee.jsp';</script>");
 		}
+
 		
 	}
 

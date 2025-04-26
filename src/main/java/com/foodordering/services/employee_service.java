@@ -6,6 +6,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.foodordering.Util.DBConnect;
+import com.foodordering.model.Delivery;
+import com.foodordering.model.Payment;
+import com.foodordering.model.UserModel;
 import com.foodordering.model.employee;
 
 
@@ -162,5 +165,68 @@ public class employee_service {
 			e.printStackTrace();
 		}
 		return isSuccess;
+	}
+	
+	//read all delivery summary
+	public static List<Delivery> readAllDelivery(){
+		
+		ArrayList <Delivery> deliveryArr = new ArrayList<>();
+		
+		try {
+			DBConnect db = new DBConnect();
+			Statement statement = DBConnect.getConnection().createStatement();
+			
+			String query  = "select first_name,last_name,email,phone,address,city,postal_code from delivery";
+			
+			rs = statement.executeQuery(query);
+			
+			while(rs.next()) {
+				String firstName = rs.getString(1);
+				String lastName = rs.getString(2);
+				String email = rs.getString(3);
+				String phone = rs.getString(4);
+				String address = rs.getString(5);
+				String city = rs.getString(6);
+				String postalCode = rs.getString(7);
+				
+				Delivery delivery = new Delivery(firstName,lastName,email,phone,address,city,postalCode);
+				deliveryArr.add(delivery);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return deliveryArr;
+	}
+	
+	//read all customers
+	public static List<UserModel> readAllCustomers(){
+		
+		ArrayList <UserModel> customerArr = new ArrayList<>();
+		
+		try {
+			DBConnect db = new DBConnect();
+			Statement statement = DBConnect.getConnection().createStatement();
+			
+			String query  = "select firstname,lastname,email,phonenumber from customerregistration";
+			
+			rs = statement.executeQuery(query);
+			
+			while(rs.next()) {
+				String firstName = rs.getString(1);
+				String lastName = rs.getString(2);
+				String email = rs.getString(3);
+				String phone = rs.getString(4);
+				
+				UserModel customer = new UserModel(firstName,lastName,email,phone);
+				customerArr.add(customer);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		return customerArr;
 	}
 }

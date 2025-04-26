@@ -10,16 +10,16 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.foodordering.model.*;
-import com.foodordering.services.*;
+import com.foodordering.model.Customer;
+import com.foodordering.services.service;
 
 
-@WebServlet("/employeeManagement")
-public class readEmpServlet extends HttpServlet {
+@WebServlet("/feedbackSummary")
+public class readFeedbackSummaryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
-   
-    public readEmpServlet() {
+    
+    public readFeedbackSummaryServlet() {
         super();
         
     }
@@ -27,21 +27,20 @@ public class readEmpServlet extends HttpServlet {
 	
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		
-		List <employee> allEmp = employee_service.getAll();
-		request.setAttribute("allEmp", allEmp);
-		
-		RequestDispatcher dispatcher =request.getRequestDispatcher("employeeManagement.jsp");
-		dispatcher.forward(request, response);
-		
-		
+		service service = new service();
+        List<Customer> allFeedback = service.getAllReviews();
+        request.setAttribute("allFeedback", allFeedback);
+        
+        RequestDispatcher dispatcher = request.getRequestDispatcher("feedbackSummary.jsp");
+        dispatcher.forward(request, response);
+
 		
 	}
 
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request,response);
 		
+		doGet(request, response);
 	}
 
 }
