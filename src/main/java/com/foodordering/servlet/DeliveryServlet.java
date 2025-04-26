@@ -18,10 +18,12 @@ public class DeliveryServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
     private DeliveryService deliveryService;
+    private CartService cartService;
 
     @Override
     public void init() throws ServletException {
         deliveryService = new DeliveryService();
+        cartService = new CartService();  // ✅ initialize cartService also
     }
 
     @Override
@@ -60,22 +62,17 @@ public class DeliveryServlet extends HttpServlet {
             boolean paymentSaved = deliveryService.savePaymentOnly(payment);
 
             if (deliveryId > 0 && paymentSaved) {
-                // ✅ Session first
+                // ✅ Session
                 HttpSession session = request.getSession();
 
-                // ✅ Retrieve saved delivery and store
+                // ✅ Store delivery details
                 Delivery savedDelivery = deliveryService.getDeliveryById(deliveryId);
                 session.setAttribute("delivery", savedDelivery);
 
-                // ✅ Get cart items for current user
-                CartService cartService = new CartService();
-                Integer userId = (Integer) session.getAttribute("userId");
+                // ✅ Store cart items for current user
+                String userEmail = (String) session.getAttribute("userEmail");
 
-                List<CartModel> cartItems = null;
-                if (userId != null) {
-                    cartItems = cartService.getCartItems(userId);
-                }
-
+                List<CartModel> cartItems = cartService.getCartItems(userEmail);
                 session.setAttribute("cartItems", cartItems);
 
                 // ✅ Redirect to confirmation page

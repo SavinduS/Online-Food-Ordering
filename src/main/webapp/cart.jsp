@@ -9,6 +9,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Your Cart - QuickBites</title>
+    <link rel="icon" type="image/png" href="images/Q.png" />
     <script src="https://cdn.tailwindcss.com"></script>
 </head>
 

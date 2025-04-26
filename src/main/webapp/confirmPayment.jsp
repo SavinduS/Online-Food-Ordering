@@ -37,50 +37,48 @@
 <div class="bg-white max-w-5xl mx-auto p-8 rounded-xl shadow-md border border-black">
   <h2 class="text-2xl font-bold text-center mb-8">Order Confirmation</h2>
 
- <div class="grid md:grid-cols-2 gap-6">
-  <!-- User Info Card -->
-  <div class="border p-6 rounded-md">
-    <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
-      <i class="fas fa-user"></i> Your Details
-    </h3>
-    
-    <div class="space-y-2 text-base">
-      <%
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+    <% 
       Delivery delivery = (Delivery) session.getAttribute("delivery");
       List<CartModel> cartItems = (List<CartModel>) session.getAttribute("cartItems");
-      %>
-      <% if (delivery != null) { %>
-        <p><strong>Name:</strong> <%= delivery.getFirstName() %> <%= delivery.getLastName() %></p>
-        <p><strong>Email:</strong> <%= delivery.getEmail() %></p>
-        <p><strong>Phone:</strong> <%= delivery.getPhone() %></p>
-        <p><strong>Address:</strong> <%= delivery.getAddress() %>, <%= delivery.getCity() %></p>
-        <p><strong>Postal Code:</strong> <%= delivery.getPostalCode() %></p>
-      <% } else { %>
-        <p class="text-red-600 font-semibold">No delivery data available.</p>
-      <% } %>
-    </div>
+    %>
 
-    <!-- ✅ Edit Button -->
-    <div class="mt-6">
-      <button
-        onclick="location.href='editDetails.jsp'" 
-        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow font-semibold"
-      >
-        <i class="fas fa-edit mr-2"></i> Edit Details
-      </button>
+    <!-- User Info Card -->
+    <div class="border p-6 rounded-md w-full ">
+      <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+        <i class="fas fa-user"></i> Your Details
+      </h3>
+      <div class="space-y-2 text-base">
+        <% if (delivery != null) { %>
+          <p><strong>Name:</strong> <%= delivery.getFirstName() %> <%= delivery.getLastName() %></p>
+          <p><strong>Email:</strong> <%= delivery.getEmail() %></p>
+          <p><strong>Phone:</strong> <%= delivery.getPhone() %></p>
+          <p><strong>Address:</strong> <%= delivery.getAddress() %>, <%= delivery.getCity() %></p>
+          <p><strong>Postal Code:</strong> <%= delivery.getPostalCode() %></p>
+        <% } else { %>
+          <p class="text-red-600 font-semibold">No delivery data available.</p>
+        <% } %>
+      </div>
+
+      <div class="mt-6">
+        <button onclick="location.href='editDetails.jsp'"
+          class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow font-semibold">
+          <i class="fas fa-edit mr-2"></i> Edit Details
+        </button>
+      </div>
     </div>
-  </div>
- 
 
     <!-- Order Summary Card -->
-    <div class="border p-6 rounded-md">
-      <h3 class="text-lg font-semibold mb-4 flex items-center gap-2"><i class="fas fa-shopping-cart"></i> Order Summary</h3>
+    <div class="border p-6 rounded-md w-full ">
+      <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
+        <i class="fas fa-shopping-cart"></i> Order Summary
+      </h3>
       <table class="w-full text-left border-collapse">
         <thead>
           <tr class="bg-red-600 text-white">
-            <th class="p-2">Product</th>
-            <th class="p-2">Quantity</th>
-            <th class="p-2">Price</th>
+            <th class="p-2 text-center">Product</th>
+            <th class="p-2 text-center">Quantity</th>
+            <th class="p-2 text-center">Price</th>
           </tr>
         </thead>
         <tbody class="text-gray-800">
@@ -91,34 +89,50 @@
                 double itemTotal = item.getPrice() * item.getQuantity();
                 total += itemTotal;
           %>
-            <tr class="border-b">
-              <td class="p-2"><%= item.getFoodName() %></td>
-              <td class="p-2"><%= item.getQuantity() %></td>
-              <td class="p-2">$<%= String.format("%.2f", itemTotal) %></td>
-            </tr>
+          <tr class="border-b">
+            <td class="p-4">
+              <div class="flex items-center gap-4">
+                <img src="<%= request.getContextPath() %>/images/<%= item.getImageFilename() %>" 
+                     class="w-16 h-16 object-cover rounded-md border" alt="Food Image">
+                <span class="text-lg font-medium"><%= item.getFoodName() %></span>
+              </div>
+            </td>
+            <td class="p-4 text-center align-middle"><%= item.getQuantity() %></td>
+            <td class="p-4 text-center align-middle whitespace-nowrap">
+              <span class="text-gray-800">Rs. <%= String.format("%.2f", itemTotal) %></span>
+            </td>
+          </tr>
           <% 
               }
             } else {
           %>
-            <tr><td colspan="3" class="text-red-500 p-2">No cart items found.</td></tr>
+          <tr>
+            <td colspan="3" class="text-red-500 p-2 text-center">No cart items found.</td>
+          </tr>
           <% } %>
         </tbody>
         <tfoot>
-          <tr class="font-semibold">
-            <td colspan="2" class="p-2">Total:</td>
-            <td class="p-2">$<%= String.format("%.2f", total) %></td>
+          <tr class="font-semibold bg-gray-100">
+            <td colspan="3" class="p-4">
+              <div class="flex justify-between items-center w-full">
+                <span class="text-left"><b>Total:</b></span>
+                <span class="text-right"><b>Rs. <%= String.format("%.2f", total) %></b></span>
+              </div>
+            </td>
           </tr>
         </tfoot>
       </table>
     </div>
   </div>
 
-  <div class="text-center mt-10">
-   <button type="button" onclick="location.href='myOrder.jsp'" id="confirmOrder" class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded shadow font-semibold">
-  <i class="fas fa-check-circle"></i> Confirm Your Order
-</button>
-   
+  <!-- Confirm Order Button Center -->
+  <div class="mt-10 flex justify-center">
+    <button type="button" onclick="location.href='myOrder.jsp'" id="confirmOrder"
+      class="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded shadow transform hover:scale-105 transition-transform duration-300">
+      <i class="fas fa-check-circle"></i><b>  Confirm Your Order</b>
+    </button>
   </div>
+
 </div>
 
 <div><br><br></div>

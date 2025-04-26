@@ -2,19 +2,18 @@
 <%@ page import="com.foodordering.model.CartModel" %>
 <%@ page import="java.util.List" %>
 
-
-
-
 <%
     Delivery delivery = (Delivery) session.getAttribute("delivery");
     List<CartModel> cartItems = (List<CartModel>) session.getAttribute("cartItems");
     double total = 0;
 %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
   <title>QuickBites - Invoice</title>
+  <link rel="icon" type="image/png" href="images/Q.png" />
 
   <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -25,8 +24,6 @@
   <!-- html2pdf.js for PDF generation -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 
-  <%@ include file="./partials/header.jsp" %>
-
   <style>
     body {
       font-family: 'Poppins', sans-serif;
@@ -34,13 +31,13 @@
   </style>
 </head>
 
-<body class="bg-white text-black pt-32 px-10 pb-10"><br><br>
+<body class="bg-white text-black px-10 py-10">
 
   <!-- ✅ Invoice Content Wrapper -->
   <div id="invoiceContent" class="max-w-4xl mx-auto border p-8 rounded-lg shadow-lg">
 
     <!-- Header -->
-    <div class="flex justify-between items-center mb-6">
+    <div class="flex justify-between items-center mb-8">
       <div>
         <h1 class="text-3xl font-bold text-red-600">QUICKBITES</h1>
         <p class="text-sm">123 Main Street, Colombo, Sri Lanka</p>
@@ -62,6 +59,7 @@
           <p><%= delivery.getAddress() %>, <%= delivery.getCity() %></p>
           <p>Phone: <%= delivery.getPhone() %></p>
           <p>Email: <%= delivery.getEmail() %></p>
+          <p>Postal Code: <%= delivery.getPostalCode() %></p>
         <% } else { %>
           <p class="text-red-600">No delivery information available.</p>
         <% } %>
@@ -73,9 +71,9 @@
       <thead class="bg-red-600 text-white">
         <tr>
           <th class="p-2 border">Product</th>
-          <th class="p-2 border">Quantity</th>
-          <th class="p-2 border">Price</th>
-          <th class="p-2 border">Amount</th>
+          <th class="p-2 border text-center">Quantity</th>
+          <th class="p-2 border text-center">Price</th>
+          <th class="p-2 border text-center">Amount</th>
         </tr>
       </thead>
       <tbody>
@@ -87,9 +85,9 @@
         %>
         <tr class="border">
           <td class="p-2 border"><%= item.getFoodName() %></td>
-          <td class="p-2 border"><%= item.getQuantity() %></td>
-          <td class="p-2 border">Rs. <%= String.format("%.2f", item.getPrice()) %></td>
-          <td class="p-2 border">Rs. <%= String.format("%.2f", itemTotal) %></td>
+          <td class="p-2 border text-center"><%= item.getQuantity() %></td>
+          <td class="p-2 border text-center">Rs. <%= String.format("%.2f", item.getPrice()) %></td>
+          <td class="p-2 border text-center">Rs. <%= String.format("%.2f", itemTotal) %></td>
         </tr>
         <%   } 
           } else { %>
@@ -101,15 +99,15 @@
     </table>
 
     <!-- Total Summary -->
-    <div class="text-right">
+    <div class="text-right mb-8">
       <p class="text-base font-medium">Subtotal: Rs. <%= String.format("%.2f", total) %></p>
       <p class="text-lg font-bold text-black">Total: <span class="text-red-600">Rs. <%= String.format("%.2f", total) %></span></p>
     </div>
 
     <!-- Footer -->
-    <div class="mt-10 text-sm text-gray-700">
+    <div class="border-t pt-4 text-sm text-gray-700 text-center">
       <p><b>Thank you for ordering with QuickBites!</b></p>
-      <p>For any inquiries, please contact us at quickbites@email.com</p>
+      <p>If you have any questions, please contact quickbites@email.com</p>
     </div>
 
   </div>
@@ -120,7 +118,7 @@
     <button onclick="downloadInvoice()" class="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-2 rounded shadow">
       <i class="fas fa-download mr-1"></i> Download Receipt
     </button>
-  </div><br><br>
+  </div>
 
   <!-- ✅ Script for PDF Download -->
   <script>
@@ -137,7 +135,5 @@
     }
   </script>
 
-  <%@ include file="./partials/footer.jsp" %>
-  
 </body>
 </html>
