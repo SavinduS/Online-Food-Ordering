@@ -5,6 +5,7 @@
 <head>
     <title>QuickBites - Add New Employee</title>
     <%@ include file="./partials/header.jsp" %>
+    <script src="js/adminpageJS.js"></script>
 </head>
 
 <div class="bg-gray-900 min-h-screen flex flex-col items-center p-8">

@@ -5,6 +5,7 @@
 <head>
     <title>QuickBites - Update Employee</title>
     <%@ include file="./partials/header.jsp" %>
+    <script src="js/adminpageJS.js"></script>
 </head>
 
 <%
