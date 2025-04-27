@@ -13,7 +13,7 @@ public class DBConnect {
 	String user="root";
 	String pass="12345";
 			
-	Class.forName("com.mysql.jdbc.Driver");
+	Class.forName("com.mysql.cj.jdbc.Driver");
 	Connection conn= DriverManager.getConnection(url,user,pass);
 	return conn;
 	

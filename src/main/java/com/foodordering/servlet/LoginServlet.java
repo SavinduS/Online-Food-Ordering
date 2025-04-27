@@ -21,23 +21,19 @@ public class LoginServlet extends HttpServlet {
         UserLoginModel user = new UserLoginModel(email, password);
         LoginService service = new LoginService();
 
-        
         if (service.validateAdmin(emp)) {
-        	
             HttpSession session = request.getSession();
             session.setAttribute("userEmail", email);
             session.setAttribute("role", "admin");
 
             response.sendRedirect("AdminDashboard.jsp");
         } else if (service.validateCustomer(user)) {
-        	
             HttpSession session = request.getSession();
             session.setAttribute("userEmail", email);
             session.setAttribute("role", "user");
 
             response.sendRedirect("home"); 
         } else {
-        	
             request.setAttribute("error", "Invalid email or password");
             RequestDispatcher dis = request.getRequestDispatcher("Login.jsp");
             dis.forward(request, response);

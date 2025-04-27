@@ -1,4 +1,11 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"%>
+<%@ page session="true" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%
+    if (session == null || !"admin".equals(session.getAttribute("role"))) {
+        response.sendRedirect("Login.jsp");
+    }
+%>
+
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
@@ -6,6 +13,7 @@
 <head>
     <title>QuickBites - Admin Dashboard</title>
     <%@ include file="./partials/header.jsp" %>
+    
 
     <!-- Tailwind CSS and FontAwesome already included in header.jsp -->
 </head>
