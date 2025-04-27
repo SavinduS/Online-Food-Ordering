@@ -32,6 +32,14 @@ public class employee {
 		this.position = position;
 	}
 
+	
+
+	public employee(String email, String password) {
+		super();
+		this.email = email;
+		this.password = password;
+	}
+
 	public int getEmpID() {
 		return empID;
 	}

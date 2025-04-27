@@ -38,18 +38,14 @@ public class FoodServlet extends HttpServlet {
     private void showFoodMenu(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         try {
-            System.out.println("📦 Fetching food data...");
+            
 
             List<Food> burgers = foodService.getFoodsByCategory("Burgers");
             List<Food> pizzas = foodService.getFoodsByCategory("Pizzas");
             List<Food> desserts = foodService.getFoodsByCategory("Desserts");
             List<Food> beverages = foodService.getFoodsByCategory("Beverages");
 
-            // Debug output
-            System.out.println("✅ Burgers count: " + burgers.size());
-            System.out.println("✅ Pizzas count: " + pizzas.size());
-            System.out.println("✅ Desserts count: " + desserts.size());
-            System.out.println("✅ Beverages count: " + beverages.size());
+            
 
             // Pass to JSP
             request.setAttribute("burgers", burgers);
