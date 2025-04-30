@@ -1,16 +1,19 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" session="true"%>
 <%@ page import="java.util.List" %>
 <%@ page import="com.foodordering.model.CartModel" %>
 <%@ page import="com.foodordering.model.Delivery" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Step 3: Payment Confirmation</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" />
   <%@ include file="./partials/header.jsp" %>
 </head>
+
 <body class="font-[sans-serif] bg-gray-100">
 
 <!-- Step Progress Bar -->
@@ -38,13 +41,13 @@
   <h2 class="text-2xl font-bold text-center mb-8">Order Confirmation</h2>
 
   <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-    <% 
+    <%
       Delivery delivery = (Delivery) session.getAttribute("delivery");
-      List<CartModel> cartItems = (List<CartModel>) session.getAttribute("cartItems");
+      List<CartModel> itemsInCart = (List<CartModel>) session.getAttribute("cartItems");
     %>
 
     <!-- User Info Card -->
-    <div class="border p-6 rounded-md w-full ">
+    <div class="border p-6 rounded-md w-full">
       <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
         <i class="fas fa-user"></i> Your Details
       </h3>
@@ -61,15 +64,15 @@
       </div>
 
       <div class="mt-6">
-        <button onclick="location.href='editDetails.jsp'"
-          class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow font-semibold">
+        <a href="editDetails.jsp"
+          class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow font-semibold inline-block">
           <i class="fas fa-edit mr-2"></i> Edit Details
-        </button>
+        </a>
       </div>
     </div>
 
     <!-- Order Summary Card -->
-    <div class="border p-6 rounded-md w-full ">
+    <div class="border p-6 rounded-md w-full">
       <h3 class="text-lg font-semibold mb-4 flex items-center gap-2">
         <i class="fas fa-shopping-cart"></i> Order Summary
       </h3>
@@ -82,10 +85,10 @@
           </tr>
         </thead>
         <tbody class="text-gray-800">
-          <% 
-            double total = 0;
-            if (cartItems != null && !cartItems.isEmpty()) {
-              for (CartModel item : cartItems) {
+          <%
+            double total = 0.0;
+            if (itemsInCart != null && !itemsInCart.isEmpty()) {
+              for (CartModel item : itemsInCart) {
                 double itemTotal = item.getPrice() * item.getQuantity();
                 total += itemTotal;
           %>
@@ -97,27 +100,22 @@
                 <span class="text-lg font-medium"><%= item.getFoodName() %></span>
               </div>
             </td>
-            <td class="p-4 text-center align-middle"><%= item.getQuantity() %></td>
-            <td class="p-4 text-center align-middle whitespace-nowrap">
-              <span class="text-gray-800">Rs. <%= String.format("%.2f", itemTotal) %></span>
-            </td>
+            <td class="p-4 text-center"><%= item.getQuantity() %></td>
+            <td class="p-4 text-center whitespace-nowrap">Rs. <%= String.format("%.2f", itemTotal) %></td>
           </tr>
-          <% 
+          <%
               }
             } else {
           %>
           <tr>
-            <td colspan="3" class="text-red-500 p-2 text-center">No cart items found.</td>
+            <td colspan="3" class="text-red-500 p-4 text-center">No cart items found.</td>
           </tr>
           <% } %>
         </tbody>
         <tfoot>
           <tr class="font-semibold bg-gray-100">
-            <td colspan="3" class="p-4">
-              <div class="flex justify-between items-center w-full">
-                <span class="text-left"><b>Total:</b></span>
-                <span class="text-right"><b>Rs. <%= String.format("%.2f", total) %></b></span>
-              </div>
+            <td colspan="3" class="p-4 text-right">
+              Total: Rs. <%= String.format("%.2f", total) %>
             </td>
           </tr>
         </tfoot>
@@ -125,14 +123,17 @@
     </div>
   </div>
 
-  <!-- Confirm Order Button Center -->
+  <!-- Confirm Order Button -->
   <div class="mt-10 flex justify-center">
-    <button type="button" onclick="location.href='myOrder.jsp'" id="confirmOrder"
-      class="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded shadow transform hover:scale-105 transition-transform duration-300">
-      <i class="fas fa-check-circle"></i><b>  Confirm Your Order</b>
-    </button>
+   <form action="clear-cart" method="post">
+  <button type="submit"
+    class="bg-green-600 hover:bg-green-700 text-white px-8 py-4 rounded shadow transform hover:scale-105 transition-transform duration-300">
+    <i class="fas fa-check-circle mr-2"></i><b>Confirm Your Order</b>
+  </button>
+</form>
+   
+    
   </div>
-
 </div>
 
 <div><br><br></div>

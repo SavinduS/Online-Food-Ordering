@@ -39,51 +39,45 @@
           <h3 class="font-semibold text-lg mb-2">Delivery Address</h3>
           <% if (delivery != null) { %>
             <div class="space-y-2 text-base">
-		  <div class="flex items-center gap-2">
-		    <i class="fas fa-user text-black-600"></i>
-		    <span><b>Name:</b> <%= delivery.getFirstName() %> <%= delivery.getLastName() %></span>
-		  </div>
-		
-		  <div class="flex items-center gap-2">
-		    <i class="fas fa-map-marker-alt text-black-600"></i>
-		    <span><b>Address:</b> <%= delivery.getAddress() %>, <%= delivery.getCity() %></span>
-		  </div>
-		
-		  <div class="flex items-center gap-2">
-		    <i class="fas fa-envelope text-black-600"></i>
-		    <span><b>Postal Code:</b> <%= delivery.getPostalCode() %></span>
-		  </div>
-		
-		
-		 <div class="flex items-center gap-2">
-	    <i class="fas fa-phone text-black-600"></i>
-	    <span><b>Phone:</b> <%= delivery.getPhone() %></span>
-	   </div>
-	   </div>
-
+              <div class="flex items-center gap-2">
+                <i class="fas fa-user text-black-600"></i>
+                <span><b>Name:</b> <%= delivery.getFirstName() %> <%= delivery.getLastName() %></span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i class="fas fa-map-marker-alt text-black-600"></i>
+                <span><b>Address:</b> <%= delivery.getAddress() %>, <%= delivery.getCity() %></span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i class="fas fa-envelope text-black-600"></i>
+                <span><b>Postal Code:</b> <%= delivery.getPostalCode() %></span>
+              </div>
+              <div class="flex items-center gap-2">
+                <i class="fas fa-phone text-black-600"></i>
+                <span><b>Phone:</b> <%= delivery.getPhone() %></span>
+              </div>
+            </div>
           <% } else { %>
             <p class="text-red-600 font-semibold">No delivery data available.</p>
           <% } %>
         </div>
 
-     <div class="mt-6 flex flex-col md:flex-row items-center gap-4 justify-center">
-	  <form action="CancelOrderServlet" method="post" onsubmit="return confirmCancel()">
-	    <input type="hidden" name="id" value="<%= (delivery != null) ? delivery.getId() : "" %>" />
-	    <button type="submit"
-	      class="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-2 rounded shadow flex items-center gap-2 w-48 justify-center">
-	      <i class="fas fa-times"></i> Cancel Order
-	    </button>
-	  </form>
-	
-	  <a href="invoice.jsp" target="_blank">
-	    <button type="button"
-	      class="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded shadow flex items-center gap-2 w-60 justify-center">
-	      <i class="fas fa-download"></i> Download Receipt
-	    </button>
-	  </a>
-	</div>
-	</div>
-
+        <!-- Buttons -->
+        <div class="mt-6 flex flex-col md:flex-row items-center gap-4 justify-center">
+          <form action="CancelOrderServlet" method="post" onsubmit="return confirmCancel()">
+            <input type="hidden" name="id" value="<%= (delivery != null) ? delivery.getId() : "" %>" />
+            <button type="submit"
+              class="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-2 rounded shadow flex items-center gap-2 w-48 justify-center">
+              <i class="fas fa-times"></i> Cancel Order
+            </button>
+          </form>
+          <a href="invoice.jsp" target="_blank">
+            <button type="button"
+              class="bg-green-600 hover:bg-green-700 text-white font-semibold px-6 py-2 rounded shadow flex items-center gap-2 w-60 justify-center">
+              <i class="fas fa-download"></i> Download Receipt
+            </button>
+          </a>
+        </div>
+      </div>
 
       <!-- Order Summary -->
       <div class="border p-6 rounded-md w-full">
@@ -102,9 +96,9 @@
           <tbody class="text-gray-800">
             <%
               double total = 0;
-              List<CartModel> cartItems = (List<CartModel>) session.getAttribute("cartItems");
-              if (cartItems != null && !cartItems.isEmpty()) {
-                for (CartModel item : cartItems) {
+              List<CartModel> itemsInCart = (List<CartModel>) request.getAttribute("orderItems");
+              if (itemsInCart != null && !itemsInCart.isEmpty()) {
+                for (CartModel item : itemsInCart) {
                   double itemTotal = item.getPrice() * item.getQuantity();
                   total += itemTotal;
             %>
@@ -121,11 +115,11 @@
                 <span class="text-gray-800">Rs. <%= String.format("%.2f", itemTotal) %></span>
               </td>
             </tr>
-            <% 
+            <%
                 }
               } else {
             %>
-            <tr><td colspan="3" class="text-red-500 p-2 text-center">No cart items found.</td></tr>
+            <tr><td colspan="3" class="text-red-500 p-2 text-center">No order items found.</td></tr>
             <% } %>
           </tbody>
           <tfoot>

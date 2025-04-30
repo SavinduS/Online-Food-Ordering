@@ -6,10 +6,12 @@ import com.foodordering.model.CartModel;
 
 import com.foodordering.services.DeliveryService;
 import com.foodordering.services.CartService;
+import com.foodordering.services.OrderService;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
+
 import java.io.IOException;
 import java.util.List;
 
@@ -19,11 +21,13 @@ public class DeliveryServlet extends HttpServlet {
 
     private DeliveryService deliveryService;
     private CartService cartService;
+    private OrderService orderService;
 
     @Override
     public void init() throws ServletException {
         deliveryService = new DeliveryService();
-        cartService = new CartService();  // ✅ initialize cartService also
+        cartService = new CartService();
+        orderService = new OrderService();
     }
 
     @Override
@@ -31,7 +35,7 @@ public class DeliveryServlet extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            // ===== Get Delivery Fields =====
+            // ====== Get Delivery Fields ======
             String firstName = request.getParameter("firstName");
             String lastName = request.getParameter("lastName");
             String email = request.getParameter("email");
@@ -49,7 +53,7 @@ public class DeliveryServlet extends HttpServlet {
             delivery.setCity(city);
             delivery.setPostalCode(postalCode);
 
-            // ===== Get Payment Fields =====
+            // ====== Get Payment Fields ======
             String cardholderName = request.getParameter("cardholderName");
             String cardNumber = request.getParameter("cardNumber");
             String expiryDate = request.getParameter("expiryDate");
@@ -57,29 +61,38 @@ public class DeliveryServlet extends HttpServlet {
 
             Payment payment = new Payment(cardholderName, cardNumber, expiryDate, cvv);
 
-            // ===== Save Delivery and Payment =====
+            // ====== Save Delivery and Payment ======
             int deliveryId = deliveryService.saveDeliveryAndReturnId(delivery);
             boolean paymentSaved = deliveryService.savePaymentOnly(payment);
 
-            if (deliveryId > 0 && paymentSaved) {
-                // ✅ Session
-                HttpSession session = request.getSession();
+            HttpSession session = request.getSession();
+            String userEmail = (String) session.getAttribute("userEmail");
 
-                // ✅ Store delivery details
+            // ====== Get session cart ======
+            List<CartModel> sessionCart = (List<CartModel>) session.getAttribute("cartItems");
+
+            if (deliveryId > 0 && paymentSaved && sessionCart != null && !sessionCart.isEmpty()) {
+                // Clear old DB cart and reinsert from session (sync)
+                cartService.clearCartByEmail(userEmail);
+                for (CartModel item : sessionCart) {
+                    item.setUserEmail(userEmail);
+                    cartService.addCart(item);
+                }
+
+                // Save confirmed order to orders table
+                orderService.saveOrderItems(deliveryId, sessionCart);
+
+                // Get latest delivery and cart
                 Delivery savedDelivery = deliveryService.getDeliveryById(deliveryId);
                 session.setAttribute("delivery", savedDelivery);
 
-                // ✅ Store cart items for current user
-                String userEmail = (String) session.getAttribute("userEmail");
+                List<CartModel> updatedCart = cartService.getCartItems(userEmail);
+                session.setAttribute("cartItems", updatedCart);
 
-                List<CartModel> cartItems = cartService.getCartItems(userEmail);
-                session.setAttribute("cartItems", cartItems);
-
-                // ✅ Redirect to confirmation page
+                // Redirect to confirm page
                 response.sendRedirect("confirmPayment.jsp");
-
             } else {
-                request.setAttribute("error", "Error saving your delivery or payment data.");
+                request.setAttribute("error", "Delivery or payment failed or cart empty.");
                 request.getRequestDispatcher("error.jsp").forward(request, response);
             }
 

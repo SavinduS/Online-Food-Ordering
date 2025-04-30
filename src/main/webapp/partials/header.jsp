@@ -1,5 +1,12 @@
 <%@ page session="true" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page import="java.util.List" %>
+<%@ page import="com.foodordering.model.CartModel" %>
+
+<%
+    List<CartModel> cartItems = (List<CartModel>) session.getAttribute("cartItems");
+    int cartCount = (cartItems != null) ? cartItems.size() : 0;
+%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -21,7 +28,7 @@
     <!-- Left: Logo -->
     <div class="text-white text-2xl font-bold flex items-center gap-2">
       <i class="fas fa-utensils"></i>
-      <a href="home" >QuickBites</a>
+      <a href="home">QuickBites</a>
     </div>
 
     <!-- Middle: Navigation -->
@@ -34,17 +41,22 @@
       </a>
     </nav>
 
-    <!-- Right: Icons + Log Out -->
+    <!-- Right: Cart + Profile + Logout -->
     <div class="flex items-center gap-4">
-      
-      <!-- Cart Icon: only if logged in -->
+
+      <!-- Cart Icon with Count -->
       <c:if test="${not empty sessionScope.userEmail}">
-        <a href="cart" class="relative">
-          <i class="fas fa-shopping-cart text-white text-2xl"></i>
+        <a href="cart" class="relative text-white text-2xl">
+          <i class="fas fa-shopping-cart"></i>
+          <c:if test="<%= cartCount > 0 %>">
+            <span class="absolute -top-2 -right-2 bg-red-600 text-white text-xs px-2 py-0.5 rounded-full">
+              <%= cartCount %>
+            </span>
+          </c:if>
         </a>
       </c:if>
 
-      <!-- Dynamic Profile Icon -->
+      <!-- Profile Icon (Role Based) -->
       <c:choose>
         <c:when test="${sessionScope.role == 'user'}">
           <a href="UserProfile.jsp" class="text-white text-xl">
@@ -58,14 +70,13 @@
         </c:when>
       </c:choose>
 
-      <!-- Log Out Button: always show -->
+      <!-- Log Out Button -->
       <a href="LogoutServlet" class="bg-rose-700 hover:bg-rose-800 text-white px-4 py-1.5 rounded-md text-sm font-semibold shadow-md transition duration-200">
         Log Out
       </a>
-
     </div>
 
-    <!-- Mobile Menu Icon -->
+    <!-- Mobile Menu Icon (optional functionality) -->
     <div class="md:hidden text-white text-2xl">
       <i class="fas fa-bars"></i>
     </div>

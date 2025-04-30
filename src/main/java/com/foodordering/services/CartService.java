@@ -74,4 +74,17 @@ public class CartService {
         }
         return list;
     }
+
+    // ✅ Clear all cart items for a specific user
+    public void clearCartByEmail(String email) {
+        try (Connection conn = DBConnect.getConnection()) {
+            String sql = "DELETE FROM cart WHERE user_email = ?";
+            PreparedStatement stmt = conn.prepareStatement(sql);
+            stmt.setString(1, email);
+            stmt.executeUpdate();
+            stmt.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

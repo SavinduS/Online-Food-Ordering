@@ -22,12 +22,12 @@
         <h2 class="text-3xl font-bold mb-6 text-orange-600">🛒 Your Cart</h2>
 
         <%
-            List<CartModel> cartItems = (List<CartModel>) request.getAttribute("cartItems");
+            List<CartModel> itemsInCart = (List<CartModel>) session.getAttribute("cartItems");
             double total = 0.0;
         %>
 
-        <% if (cartItems != null && !cartItems.isEmpty()) { 
-               for (CartModel item : cartItems) { 
+        <% if (itemsInCart != null && !itemsInCart.isEmpty()) {
+               for (CartModel item : itemsInCart) {
                    total += item.getPrice() * item.getQuantity();
         %>
 
@@ -39,30 +39,33 @@
                 <div>
                     <h3 class="text-xl font-semibold"><%= item.getFoodName() %></h3>
                     <p class="text-gray-700 mb-2">
-                        Rs. <%= item.getPrice() %> x <%= item.getQuantity() %> = 
-                        <b>Rs. <%= item.getPrice() * item.getQuantity() %></b>
+                        Rs. <%= item.getPrice() %> x <%= item.getQuantity() %> =
+                        <b>Rs. <%= String.format("%.2f", item.getPrice() * item.getQuantity()) %></b>
                     </p>
                 </div>
             </div>
 
             <!-- Right Side: Quantity Control and Remove -->
             <div class="flex items-center gap-2">
+                <!-- Decrease -->
                 <form action="update-cart" method="post">
-                    <input type="hidden" name="cart_id" value="<%= item.getId() %>"/>
+                    <input type="hidden" name="cart_id" value="<%= item.getFoodId() %>"/>
                     <input type="hidden" name="action" value="decrease"/>
                     <button type="submit" class="w-8 h-8 rounded-md bg-orange-300 hover:bg-orange-400 text-white text-lg font-bold flex items-center justify-center">−</button>
                 </form>
 
                 <span class="font-semibold text-lg"><%= item.getQuantity() %></span>
 
+                <!-- Increase -->
                 <form action="update-cart" method="post">
-                    <input type="hidden" name="cart_id" value="<%= item.getId() %>"/>
+                    <input type="hidden" name="cart_id" value="<%= item.getFoodId() %>"/>
                     <input type="hidden" name="action" value="increase"/>
                     <button type="submit" class="w-8 h-8 rounded-md bg-orange-500 hover:bg-orange-600 text-white text-lg font-bold flex items-center justify-center">+</button>
                 </form>
 
+                <!-- Remove -->
                 <form action="remove-cart-item" method="post" onsubmit="return confirm('Are you sure you want to remove this item?');">
-                    <input type="hidden" name="cart_id" value="<%= item.getId() %>"/>
+                    <input type="hidden" name="cart_id" value="<%= item.getFoodId() %>"/>
                     <button type="submit" class="ml-2 px-2 py-1 text-sm text-red-500 hover:underline font-semibold">Remove</button>
                 </form>
             </div>

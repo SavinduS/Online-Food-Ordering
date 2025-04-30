@@ -4,7 +4,7 @@
 
 <%
     Delivery delivery = (Delivery) session.getAttribute("delivery");
-    List<CartModel> cartItems = (List<CartModel>) session.getAttribute("cartItems");
+    List<CartModel> orderItems = (List<CartModel>) request.getAttribute("orderItems");
     double total = 0;
 %>
 
@@ -78,8 +78,8 @@
       </thead>
       <tbody>
         <% 
-          if (cartItems != null && !cartItems.isEmpty()) {
-            for (CartModel item : cartItems) {
+          if (orderItems != null && !orderItems.isEmpty()) {
+            for (CartModel item : orderItems) {
               double itemTotal = item.getPrice() * item.getQuantity();
               total += itemTotal;
         %>
@@ -92,7 +92,7 @@
         <%   } 
           } else { %>
         <tr>
-          <td colspan="4" class="p-2 text-red-500 text-center">No cart items found.</td>
+          <td colspan="4" class="p-2 text-red-500 text-center">No order items found.</td>
         </tr>
         <% } %>
       </tbody>
