@@ -35,10 +35,17 @@ public class DeliveryServlet extends HttpServlet {
             throws ServletException, IOException {
 
         try {
-            // ====== Get Delivery Fields ======
+            HttpSession session = request.getSession();
+            String userEmail = (String) session.getAttribute("userEmail");
+
+            if (userEmail == null || userEmail.isEmpty()) {
+                response.sendRedirect("Login.jsp");
+                return;
+            }
+
+            // ✅ Force email from session
             String firstName = request.getParameter("firstName");
             String lastName = request.getParameter("lastName");
-            String email = request.getParameter("email");
             String phone = request.getParameter("phone");
             String address = request.getParameter("address");
             String city = request.getParameter("city");
@@ -47,13 +54,13 @@ public class DeliveryServlet extends HttpServlet {
             Delivery delivery = new Delivery();
             delivery.setFirstName(firstName);
             delivery.setLastName(lastName);
-            delivery.setEmail(email);
+            delivery.setEmail(userEmail); // ✅ Force login email
             delivery.setPhone(phone);
             delivery.setAddress(address);
             delivery.setCity(city);
             delivery.setPostalCode(postalCode);
 
-            // ====== Get Payment Fields ======
+            // ✅ Get Payment Fields
             String cardholderName = request.getParameter("cardholderName");
             String cardNumber = request.getParameter("cardNumber");
             String expiryDate = request.getParameter("expiryDate");
@@ -61,36 +68,22 @@ public class DeliveryServlet extends HttpServlet {
 
             Payment payment = new Payment(cardholderName, cardNumber, expiryDate, cvv);
 
-            // ====== Save Delivery and Payment ======
+            // ✅ Save to DB
             int deliveryId = deliveryService.saveDeliveryAndReturnId(delivery);
             boolean paymentSaved = deliveryService.savePaymentOnly(payment);
-
-            HttpSession session = request.getSession();
-            String userEmail = (String) session.getAttribute("userEmail");
-
-            // ====== Get session cart ======
             List<CartModel> sessionCart = (List<CartModel>) session.getAttribute("cartItems");
 
             if (deliveryId > 0 && paymentSaved && sessionCart != null && !sessionCart.isEmpty()) {
-                // Clear old DB cart and reinsert from session (sync)
+                // ✅ Clear old cart and insert new items
                 cartService.clearCartByEmail(userEmail);
                 for (CartModel item : sessionCart) {
                     item.setUserEmail(userEmail);
                     cartService.addCart(item);
                 }
 
-                // Save confirmed order to orders table
+                // ✅ Save order and redirect
                 orderService.saveOrderItems(deliveryId, sessionCart);
-
-                // Get latest delivery and cart
-                Delivery savedDelivery = deliveryService.getDeliveryById(deliveryId);
-                session.setAttribute("delivery", savedDelivery);
-
-                List<CartModel> updatedCart = cartService.getCartItems(userEmail);
-                session.setAttribute("cartItems", updatedCart);
-
-                // Redirect to confirm page
-                response.sendRedirect("confirmPayment.jsp");
+                response.sendRedirect("confirmPayment.jsp?deliveryId=" + deliveryId);
             } else {
                 request.setAttribute("error", "Delivery or payment failed or cart empty.");
                 request.getRequestDispatcher("error.jsp").forward(request, response);
@@ -98,7 +91,7 @@ public class DeliveryServlet extends HttpServlet {
 
         } catch (Exception e) {
             e.printStackTrace();
-            request.setAttribute("error", "Unexpected server error.");
+            request.setAttribute("error", "Unexpected server error: " + e.getMessage());
             request.getRequestDispatcher("error.jsp").forward(request, response);
         }
     }

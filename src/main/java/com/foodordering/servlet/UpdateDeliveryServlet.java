@@ -12,10 +12,19 @@ import java.io.IOException;
 public class UpdateDeliveryServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
 
+    private DeliveryService service;
+
+    @Override
+    public void init() throws ServletException {
+        service = new DeliveryService();
+    }
+
+    @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         System.out.println("🔔 UpdateDeliveryServlet POST called");
 
         try {
+            // Get form values
             int id = Integer.parseInt(request.getParameter("id"));
             String fname = request.getParameter("firstName");
             String lname = request.getParameter("lastName");
@@ -28,6 +37,7 @@ public class UpdateDeliveryServlet extends HttpServlet {
             System.out.println("📥 Received update request for ID: " + id);
             System.out.println("📌 Name: " + fname + " " + lname + ", Email: " + email + ", Postal: " + postalCode);
 
+            // Create delivery object
             Delivery delivery = new Delivery();
             delivery.setId(id);
             delivery.setFirstName(fname);
@@ -38,26 +48,18 @@ public class UpdateDeliveryServlet extends HttpServlet {
             delivery.setCity(city);
             delivery.setPostalCode(postalCode);
 
-            DeliveryService service = new DeliveryService();
+            // Try to update in DB
             boolean success = service.updateDelivery(delivery);
-
             System.out.println("🛠 Update success status: " + success);
 
             if (success) {
-                HttpSession session = request.getSession();
-
-                // ✅ Refresh the delivery from DB to reflect latest values
-                Delivery updatedDelivery = service.getDeliveryById(id);
-                session.setAttribute("delivery", updatedDelivery);
-
-                System.out.println("✅ Update succeeded. Redirecting to confirmPayment.jsp");
-                response.sendRedirect("confirmPayment.jsp");
-
+                System.out.println("✅ Update succeeded. Redirecting with deliveryId...");
+                // ✅ Redirect with deliveryId so confirmPayment.jsp can load via request param
+                response.sendRedirect("confirmPayment.jsp?deliveryId=" + id);
             } else {
-                request.setAttribute("error", "Update failed");
-                request.setAttribute("delivery", delivery);
-
                 System.out.println("❌ Update failed. Forwarding back to editDetails.jsp");
+                request.setAttribute("delivery", delivery);
+                request.setAttribute("error", "Update failed");
                 request.getRequestDispatcher("editDetails.jsp").forward(request, response);
             }
 

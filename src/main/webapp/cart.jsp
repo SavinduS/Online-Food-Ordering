@@ -82,10 +82,17 @@
         <% } else { %>
 
         <!-- Empty Cart -->
-        <div class="bg-white p-8 text-center text-gray-600 rounded shadow min-h-[300px] flex items-center justify-center flex-col">
-            <p>Your cart is empty.</p>
-            <a href="home" class="text-orange-600 font-semibold hover:underline mt-2">Shop Now</a>
-        </div>
+		        <div class="bg-white rounded-xl shadow-lg p-10 text-center max-w-xl mx-auto mt-10 animate-fade-in-up">
+		  <div class="flex justify-center mb-4 text-orange-500 text-5xl">
+		    <i class="fas fa-shopping-cart"></i>
+		  </div>
+		  <h3 class="text-2xl font-bold text-gray-800 mb-2">Your Cart is Empty</h3>
+		  <p class="text-gray-600 mb-6">Looks like you haven’t added anything to your cart yet.</p>
+		  <a href="home.jsp" class="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-lg transition">
+		    <i class="fas fa-store"></i> Shop Now
+		  </a>
+		</div>
+        
 
         <% } %>
     </div>

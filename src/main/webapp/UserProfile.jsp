@@ -103,13 +103,24 @@
         <p><strong>Phone:</strong> <span class="text-lg font-semibold"><%= phone %></span></p>
       </div>
 
+		 <div class="w-full mt-2">
+	  <a href="myOrder">
+	    <button type="button" class="w-full bg-orange-500 hover:bg-orange-600 py-3 rounded-lg text-white font-semibold transition duration-300 shadow">
+	      <i class="fas fa-receipt mr-2"></i> My Order
+	    </button>
+	  </a>
+	</div>
+		 
+        
       <!-- Delete Account Button -->
       <form action="DeleteAccountServlet" method="post" onsubmit="return confirm('Are you sure you want to delete your account?');" class="w-full mt-6">
-        <input type="hidden" name="email" value="<%= email %>">
-        <button type="submit" class="w-full bg-red-600 hover:bg-red-700 py-3 rounded-lg text-white font-semibold transition">
-          Delete Account
-        </button>
-      </form>
+  <input type="hidden" name="email" value="<%= email %>">
+  <button type="submit"
+    class="w-full bg-red-600 hover:bg-red-700 py-3 rounded-lg text-white font-semibold transition inline-flex items-center justify-center gap-2">
+    <i class="fas fa-trash-alt"></i> Delete Account
+  </button>
+</form>
+      
 
     </div>
 
@@ -147,10 +158,12 @@
       <input type="hidden" name="email" value="<%= email %>">
 
       <div class="pt-4">
-        <button type="submit" class="w-full bg-black hover:bg-gray-800 py-3 rounded-lg text-white font-semibold transition">
-          Save Changes
-        </button>
-      </div>
+  <button type="submit"
+    class="w-full bg-black hover:bg-gray-800 py-3 rounded-lg text-white font-semibold transition inline-flex items-center justify-center gap-2">
+    <i class="fas fa-save"></i> Save Changes
+  </button>
+</div>
+      
 
     </form>
 

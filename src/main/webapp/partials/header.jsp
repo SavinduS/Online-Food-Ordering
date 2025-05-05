@@ -1,4 +1,4 @@
-<%@ page session="true" %>
+<%@ page session="true" %> 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="java.util.List" %>
 <%@ page import="com.foodordering.model.CartModel" %>
@@ -31,7 +31,7 @@
       <a href="home">QuickBites</a>
     </div>
 
-    <!-- Middle: Navigation -->
+    <!-- Middle: Desktop Nav -->
     <nav id="navbar" class="hidden md:flex space-x-6 text-white font-medium items-center">
       <a href="home" class="nav-link" data-page="home"><b>Home</b></a>
       <a href="ReviewCreate.jsp" class="nav-link" data-page="ReviewCreate.jsp"><b>Reviews</b></a>
@@ -41,7 +41,7 @@
       </a>
     </nav>
 
-    <!-- Right: Cart + Profile + Logout -->
+    <!-- Right: Icons -->
     <div class="flex items-center gap-4">
 
       <!-- Cart Icon with Count -->
@@ -56,7 +56,7 @@
         </a>
       </c:if>
 
-      <!-- Profile Icon (Role Based) -->
+      <!-- Profile Icon -->
       <c:choose>
         <c:when test="${sessionScope.role == 'user'}">
           <a href="UserProfile.jsp" class="text-white text-xl">
@@ -74,12 +74,20 @@
       <a href="LogoutServlet" class="bg-rose-700 hover:bg-rose-800 text-white px-4 py-1.5 rounded-md text-sm font-semibold shadow-md transition duration-200">
         Log Out
       </a>
-    </div>
 
-    <!-- Mobile Menu Icon (optional functionality) -->
-    <div class="md:hidden text-white text-2xl">
-      <i class="fas fa-bars"></i>
+      <!-- Mobile Toggle -->
+      <button id="menu-toggle" class="md:hidden text-white text-2xl">
+        <i class="fas fa-bars"></i>
+      </button>
     </div>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 bg-orange-500 text-white space-y-3 text-center">
+    <a href="home" class="block font-semibold">Home</a>
+    <a href="ReviewCreate.jsp" class="block font-semibold">Reviews</a>
+    <a href="AboutUs.jsp" class="block font-semibold">About Us</a>
+    <a href="home#menu" class="block font-semibold bg-yellow-400 text-black px-3 py-1 rounded">Order Now</a>
   </div>
 </header>
 
@@ -91,6 +99,20 @@
       link.classList.add("border-b-2", "border-yellow-400", "pb-1", "text-yellow-300");
     } else {
       link.classList.add("hover:text-yellow-300", "transition", "duration-200");
+    }
+  });
+</script>
+
+<!-- Toggle Script -->
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const toggle = document.getElementById('menu-toggle');
+    const mobileMenu = document.getElementById('mobile-menu');
+
+    if (toggle && mobileMenu) {
+      toggle.addEventListener('click', () => {
+        mobileMenu.classList.toggle('hidden');
+      });
     }
   });
 </script>

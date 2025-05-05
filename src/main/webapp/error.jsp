@@ -9,6 +9,6 @@
 <body>
     <h1>Oops! Something went wrong</h1>
     <p>${error}</p>
-    <a href="home.jsp">Go back to home</a>
+    <a href="home">Go back to home</a>
 </body>
 </html>

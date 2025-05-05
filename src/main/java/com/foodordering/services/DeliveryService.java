@@ -2,7 +2,7 @@ package com.foodordering.services;
 
 import com.foodordering.model.Delivery;
 import com.foodordering.model.Payment;
-import com.foodordering.Util.*;
+import com.foodordering.Util.DBConnect;
 
 import java.sql.*;
 
@@ -41,7 +41,7 @@ public class DeliveryService {
     }
 
     // Save only payment details
-    public boolean savePaymentOnly(Payment payment) throws ClassNotFoundException  {
+    public boolean savePaymentOnly(Payment payment) throws ClassNotFoundException {
         String sql = "INSERT INTO payment (cardholder_name, card_number, expiry_date, cvv) VALUES (?, ?, ?, ?)";
 
         try (Connection conn = DBConnect.getConnection();
@@ -62,17 +62,19 @@ public class DeliveryService {
         return false;
     }
 
-    // Delete using Delivery model object
+    // ✅ Cancel order by deleting from orders table using delivery_id
     public boolean cancelOrder(Delivery delivery) throws ClassNotFoundException {
         boolean success = false;
 
         try (Connection conn = DBConnect.getConnection()) {
-            String sql = "DELETE FROM delivery WHERE id = ?";
+            String sql = "DELETE FROM orders WHERE delivery_id = ?";
             PreparedStatement stmt = conn.prepareStatement(sql);
             stmt.setInt(1, delivery.getId());
 
-            success = stmt.executeUpdate() > 0;
+            int rowsDeleted = stmt.executeUpdate();
+            success = rowsDeleted > 0;
 
+            stmt.close();
         } catch (SQLException e) {
             e.printStackTrace();
         }

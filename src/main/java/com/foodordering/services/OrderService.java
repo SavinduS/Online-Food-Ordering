@@ -13,10 +13,11 @@ public class OrderService {
 
     // ✅ Save confirmed cart items to 'orders' table
     public void saveOrderItems(int deliveryId, List<CartModel> cartItems) throws Exception {
-        try (Connection conn = DBConnect.getConnection()) {
-            String sql = "INSERT INTO orders(delivery_id, food_id, food_name, quantity, price, image_filename, status) " +
-                         "VALUES (?, ?, ?, ?, ?, ?, 'Processing')";
-            PreparedStatement ps = conn.prepareStatement(sql);
+        String sql = "INSERT INTO orders(delivery_id, food_id, food_name, quantity, price, image_filename, status) " +
+                     "VALUES (?, ?, ?, ?, ?, ?, 'Processing')";
+
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
 
             for (CartModel item : cartItems) {
                 ps.setInt(1, deliveryId);
@@ -29,18 +30,22 @@ public class OrderService {
             }
 
             ps.executeBatch();
-            ps.close();
         }
     }
 
-    // ✅ Fetch all order items from 'orders' table (for admin or all users)
-    public List<CartModel> getAllOrderItems() throws Exception {
-        List<CartModel> orderItems = new ArrayList<>();
+    // ✅ Fetch all orders by user email
+    public List<CartModel> getAllOrdersByEmail(String email) throws Exception {
+        List<CartModel> allOrders = new ArrayList<>();
 
-        try (Connection conn = DBConnect.getConnection()) {
-            String sql = "SELECT delivery_id, food_id, food_name, quantity, price, image_filename FROM orders ORDER BY delivery_id DESC";
-            PreparedStatement ps = conn.prepareStatement(sql);
+        String sql = "SELECT o.*, d.first_name, d.last_name, d.address, d.city, d.phone, d.postal_code " +
+                     "FROM orders o " +
+                     "JOIN delivery d ON o.delivery_id = d.id " +
+                     "WHERE d.email = ? ORDER BY o.delivery_id DESC";
 
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
+            ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -50,26 +55,28 @@ public class OrderService {
                 item.setQuantity(rs.getInt("quantity"));
                 item.setPrice(rs.getDouble("price"));
                 item.setImageFilename(rs.getString("image_filename"));
-
-                orderItems.add(item);
+                item.setStatus(rs.getString("status"));
+                item.setDeliveryId(rs.getInt("delivery_id"));
+                allOrders.add(item);
             }
 
             rs.close();
-            ps.close();
         }
 
-        return orderItems;
+        return allOrders;
     }
 
-    // ✅ Fetch order items by delivery ID (used in MyOrderServlet)
-    public static List<CartModel> getOrderItemsByDeliveryId(int deliveryId) throws Exception {
+    // ✅ Fetch order items for one delivery (e.g., for invoice, confirm page)
+    public List<CartModel> getOrderItemsByDeliveryId(int deliveryId) throws Exception {
         List<CartModel> orderItems = new ArrayList<>();
 
-        try (Connection conn = DBConnect.getConnection()) {
-            String sql = "SELECT food_id, food_name, quantity, price, image_filename FROM orders WHERE delivery_id = ?";
-            PreparedStatement ps = conn.prepareStatement(sql);
+        String sql = "SELECT food_id, food_name, quantity, price, image_filename, status " +
+                     "FROM orders WHERE delivery_id = ?";
+
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement(sql)) {
+
             ps.setInt(1, deliveryId);
-
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
@@ -79,11 +86,12 @@ public class OrderService {
                 item.setQuantity(rs.getInt("quantity"));
                 item.setPrice(rs.getDouble("price"));
                 item.setImageFilename(rs.getString("image_filename"));
+                item.setStatus(rs.getString("status"));
+                item.setDeliveryId(deliveryId);
                 orderItems.add(item);
             }
 
             rs.close();
-            ps.close();
         }
 
         return orderItems;

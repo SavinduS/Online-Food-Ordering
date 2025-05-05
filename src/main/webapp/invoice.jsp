@@ -1,11 +1,24 @@
 <%@ page import="com.foodordering.model.Delivery" %>
 <%@ page import="com.foodordering.model.CartModel" %>
+<%@ page import="com.foodordering.services.DeliveryService" %>
+<%@ page import="com.foodordering.services.OrderService" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.Date" %>
 
 <%
-    Delivery delivery = (Delivery) session.getAttribute("delivery");
-    List<CartModel> orderItems = (List<CartModel>) request.getAttribute("orderItems");
+    int deliveryId = Integer.parseInt(request.getParameter("deliveryId"));
+
+    DeliveryService deliveryService = new DeliveryService();
+    Delivery delivery = deliveryService.getDeliveryById(deliveryId);
+
+    OrderService orderService = new OrderService(); // ✅ fixed: use instance
+    List<CartModel> orderItems = orderService.getOrderItemsByDeliveryId(deliveryId);
     double total = 0;
+
+    if (delivery == null || orderItems == null || orderItems.isEmpty()) {
+        response.sendRedirect("myOrder.jsp");
+        return;
+    }
 %>
 
 <!DOCTYPE html>
@@ -14,28 +27,16 @@
   <meta charset="UTF-8">
   <title>QuickBites - Invoice</title>
   <link rel="icon" type="image/png" href="images/Q.png" />
-
-  <!-- Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-
-  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
-
-  <!-- html2pdf.js for PDF generation -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
-
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-    }
-  </style>
+  <style>body { font-family: 'Poppins', sans-serif; }</style>
 </head>
 
 <body class="bg-white text-black px-10 py-10">
 
   <!-- ✅ Invoice Content Wrapper -->
   <div id="invoiceContent" class="max-w-4xl mx-auto border p-8 rounded-lg shadow-lg">
-
     <!-- Header -->
     <div class="flex justify-between items-center mb-8">
       <div>
@@ -45,8 +46,8 @@
       </div>
       <div class="text-right">
         <h2 class="text-xl font-bold">INVOICE</h2>
-        <p class="text-sm text-gray-700">Order ID: <strong>#<%= delivery != null ? delivery.getId() : "N/A" %></strong></p>
-        <p class="text-sm">Date: <%= new java.util.Date() %></p>
+        <p class="text-sm text-gray-700">Order ID: <strong>#<%= delivery.getId() %></strong></p>
+        <p class="text-sm">Date: <%= new Date() %></p>
       </div>
     </div>
 
@@ -54,15 +55,11 @@
     <div class="grid grid-cols-2 gap-6 mb-8">
       <div>
         <h3 class="font-semibold text-gray-800 mb-1">Bill To:</h3>
-        <% if (delivery != null) { %>
-          <p><strong><%= delivery.getFirstName() %> <%= delivery.getLastName() %></strong></p>
-          <p><%= delivery.getAddress() %>, <%= delivery.getCity() %></p>
-          <p>Phone: <%= delivery.getPhone() %></p>
-          <p>Email: <%= delivery.getEmail() %></p>
-          <p>Postal Code: <%= delivery.getPostalCode() %></p>
-        <% } else { %>
-          <p class="text-red-600">No delivery information available.</p>
-        <% } %>
+        <p><strong><%= delivery.getFirstName() %> <%= delivery.getLastName() %></strong></p>
+        <p><%= delivery.getAddress() %>, <%= delivery.getCity() %></p>
+        <p>Phone: <%= delivery.getPhone() %></p>
+        <p>Email: <%= delivery.getEmail() %></p>
+        <p>Postal Code: <%= delivery.getPostalCode() %></p>
       </div>
     </div>
 
@@ -77,22 +74,15 @@
         </tr>
       </thead>
       <tbody>
-        <% 
-          if (orderItems != null && !orderItems.isEmpty()) {
-            for (CartModel item : orderItems) {
-              double itemTotal = item.getPrice() * item.getQuantity();
-              total += itemTotal;
+        <% for (CartModel item : orderItems) {
+             double itemTotal = item.getPrice() * item.getQuantity();
+             total += itemTotal;
         %>
         <tr class="border">
           <td class="p-2 border"><%= item.getFoodName() %></td>
           <td class="p-2 border text-center"><%= item.getQuantity() %></td>
           <td class="p-2 border text-center">Rs. <%= String.format("%.2f", item.getPrice()) %></td>
           <td class="p-2 border text-center">Rs. <%= String.format("%.2f", itemTotal) %></td>
-        </tr>
-        <%   } 
-          } else { %>
-        <tr>
-          <td colspan="4" class="p-2 text-red-500 text-center">No order items found.</td>
         </tr>
         <% } %>
       </tbody>
@@ -109,9 +99,7 @@
       <p><b>Thank you for ordering with QuickBites!</b></p>
       <p>If you have any questions, please contact quickbites@email.com</p>
     </div>
-
   </div>
-  <!-- ✅ Invoice End -->
 
   <!-- ✅ Download Button -->
   <div class="mt-8 text-center">
