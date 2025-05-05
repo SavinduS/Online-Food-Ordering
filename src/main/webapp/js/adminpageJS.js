@@ -39,30 +39,42 @@ document.addEventListener("DOMContentLoaded", function () {
 
 //search item js
 function filterTable() {
-    var input, filter, table, tr, td, i, j, txtValue;
-    input = document.getElementById("searchInput");
-    filter = input.value.toUpperCase();
-    table = document.querySelector("table");
-    tr = table.getElementsByTagName("tr");
+    const input = document.getElementById("searchInput");
+    const filter = input.value.toUpperCase();
+    const table = document.querySelector("table");
+    const tr = table.getElementsByTagName("tr");
 
-    for (i = 0; i < tr.length; i++) {
-        td = tr[i].getElementsByTagName("td");
-        for (j = 0; j < td.length; j++) {
-            if (td[j]) {
-                txtValue = td[j].textContent || td[j].innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                    break;
-                } else {
-                    tr[i].style.display = "none";
-                }
+    for (let i = 1; i < tr.length; i++) { // Skip the header row
+        const td = tr[i].getElementsByTagName("td");
+        let rowMatches = false;
+
+        for (let j = 0; j < td.length; j++) {
+            const cell = td[j];
+
+            // ✅ Skip this cell if it contains a <select> element
+            if (cell.querySelector("select")) continue;
+
+            // ✅ Extract only direct text nodes (ignore text inside child tags like <option>)
+            const textNodes = Array.from(cell.childNodes)
+                .filter(node => node.nodeType === Node.TEXT_NODE)
+                .map(node => node.textContent.trim())
+                .join(" ");
+
+            if (textNodes.toUpperCase().includes(filter)) {
+                rowMatches = true;
+                break;
             }
         }
+
+        tr[i].style.display = rowMatches ? "" : "none";
     }
 }
 
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("searchInput").addEventListener("input", filterTable);
 });
+
+
+
 
 
