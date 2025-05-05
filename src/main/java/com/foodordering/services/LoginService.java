@@ -11,24 +11,26 @@ import com.foodordering.model.employee;
 public class LoginService {
 
     // Validate admin
-    public boolean validateAdmin(employee emp) {
-        boolean isAdmin = false;
-        try (Connection conn = DBConnect.getConnection()) {
-            String sql = "SELECT * FROM employee WHERE email = ? AND password = ?";
-            PreparedStatement stmt = conn.prepareStatement(sql);
-            stmt.setString(1, emp.getEmail());
-            stmt.setString(2, emp.getPassword());
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                isAdmin = true;
-            }
-            rs.close();
-            stmt.close();
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return isAdmin;
-    }
+	public String getEmployeePosition(employee emp) {
+	    String position = null;
+	    try (Connection conn = DBConnect.getConnection()) {
+	        String sql = "SELECT position FROM employee WHERE email = ? AND password = ?";
+	        PreparedStatement stmt = conn.prepareStatement(sql);
+	        stmt.setString(1, emp.getEmail());
+	        stmt.setString(2, emp.getPassword());
+	        ResultSet rs = stmt.executeQuery();
+	        if (rs.next()) {
+	            position = rs.getString("position"); // "Manager", "Staff", etc.
+	        }
+	        rs.close();
+	        stmt.close();
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+	    return position;
+	}
+
+
 
     // Validate customer
     public boolean validateCustomer(UserLoginModel user) {

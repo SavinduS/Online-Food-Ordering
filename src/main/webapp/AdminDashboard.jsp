@@ -1,12 +1,16 @@
 <%@ page session="true" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%
-    if (session == null || !"admin".equals(session.getAttribute("role"))) {
-        response.sendRedirect("Login.jsp");
-    }
-%>
+
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+
+<%
+String role = (String) session.getAttribute("role");
+if (role == null || !(role.equals("Manager") || role.equals("Staff") || role.equals("Delivery_Person"))) {
+    out.println("<script>alert('Restricted: Valid employee login required.'); window.location='Login.jsp';</script>");
+    return;
+}
+%>
 
 <!DOCTYPE html>
 <html lang="en">

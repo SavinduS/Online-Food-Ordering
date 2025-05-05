@@ -2,6 +2,14 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ page import="java.util.*, com.foodordering.model.UpdateStatusModel, com.foodordering.services.UpdateStatusService" %>
 
+<%
+String role = (String) session.getAttribute("role");
+if (role == null || !(role.equals("Manager") || role.equals("Staff") || role.equals("Delivery_Person"))) {
+    out.println("<script>alert('Restricted: Valid employee login required.'); window.location='Login.jsp';</script>");
+    return;
+}
+%>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>

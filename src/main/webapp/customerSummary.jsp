@@ -1,6 +1,15 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
+<%
+String role = (String) session.getAttribute("role");
+if (role == null || !(role.equals("Manager") || role.equals("Staff"))) {
+    out.println("<script>alert('Restricted: Only Manager or Staff allowed.'); window.location='AdminDashboard.jsp';</script>");
+    return;
+}
+%>
+
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
