@@ -13,53 +13,54 @@
 <head>
     <title>QuickBites - Admin Dashboard</title>
     <%@ include file="./partials/header.jsp" %>
-    
-
-    <!-- Tailwind CSS and FontAwesome already included in header.jsp -->
 </head>
 
-<!-- No need to add body class again because already in header.jsp -->
+<body class="bg-gray-100 min-h-screen text-gray-800 font-sans">
 
-<div class="bg-gray-900 min-h-screen flex flex-col">
+    <div class="flex flex-col min-h-screen">
 
-    <div class="flex-grow flex flex-col items-center justify-center p-8">
-        <h1 class="text-4xl font-bold text-white mb-10">Admin Dashboard</h1>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-4xl">
-
-            <!-- Employee Management Button -->
-            <button onclick="location.href='employeeManagement'"
-                class="flex items-center justify-center bg-blue-700 hover:bg-blue-600 text-white font-bold py-10 rounded-2xl shadow-lg text-2xl gap-4 transition duration-300 w-full h-40">
-                <i class="fas fa-users-cog text-4xl"></i> 
-                Employee Management
-            </button>
-
-            <!-- View Feedbacks Button -->
-            <button onclick="location.href='feedbackSummary'"
-                class="flex items-center justify-center bg-green-700 hover:bg-green-600 text-white font-bold py-10 rounded-2xl shadow-lg text-2xl gap-4 transition duration-300 w-full h-40">
-                <i class="fas fa-comments text-4xl"></i> 
-                View Feedbacks
-            </button>
-
-            <!-- View Deliveries Button -->
-            <button onclick="location.href='deliverySummary'"
-                class="flex items-center justify-center bg-orange-700 hover:bg-orange-600 text-white font-bold py-10 rounded-2xl shadow-lg text-2xl gap-4 transition duration-300 w-full h-40">
-                <i class="fas fa-truck text-4xl"></i> 
-                View Deliveries
-            </button>
-
-            <!-- View Customers Details Button -->
-            <button onclick="location.href='customerSummary'"
-                class="flex items-center justify-center bg-purple-700 hover:bg-purple-600 text-white font-bold py-10 rounded-2xl shadow-lg text-2xl gap-4 transition duration-300 w-full h-40">
-                <i class="fas fa-user-friends text-4xl"></i> 
-                View Customers Details
-            </button>
-
+        <!-- Header area -->
+        <div class="bg-white shadow-md py-6">
+            <h1 class="text-center text-3xl font-bold text-gray-800">Admin Dashboard</h1>
         </div>
+
+        <!-- Main buttons grid -->
+        <div class="flex-grow flex flex-col items-center justify-center p-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl">
+
+                <!-- Employee Management Button -->
+                <button onclick="location.href='employeeManagement'"
+                    class="flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white font-semibold py-10 rounded-xl shadow-md text-xl gap-4 transition duration-300 w-full h-36">
+                    <i class="fas fa-users-cog text-3xl"></i> 
+                    Employee Management
+                </button>
+
+                <!-- View Feedbacks Button -->
+                <button onclick="location.href='feedbackSummary'"
+                    class="flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-semibold py-10 rounded-xl shadow-md text-xl gap-4 transition duration-300 w-full h-36">
+                    <i class="fas fa-comments text-3xl"></i> 
+                    View Feedbacks
+                </button>
+
+                <!-- View Deliveries Button -->
+                <button onclick="location.href='deliverySummary'"
+                    class="flex items-center justify-center bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-10 rounded-xl shadow-md text-xl gap-4 transition duration-300 w-full h-36">
+                    <i class="fas fa-truck text-3xl"></i> 
+                    Update Delivery Status
+                </button>
+
+                <!-- View Customers Details Button -->
+                <button onclick="location.href='customerSummary'"
+                    class="flex items-center justify-center bg-purple-500 hover:bg-purple-600 text-white font-semibold py-10 rounded-xl shadow-md text-xl gap-4 transition duration-300 w-full h-36">
+                    <i class="fas fa-user-friends text-3xl"></i> 
+                    View Customer Details
+                </button>
+
+            </div>
+        </div>
+
+        <%@ include file="./partials/footer.jsp" %>
+
     </div>
-
-    <%@ include file="./partials/footer.jsp" %>
-
-</div> <!-- dark background div closes here -->
-
+</body>
 </html>
