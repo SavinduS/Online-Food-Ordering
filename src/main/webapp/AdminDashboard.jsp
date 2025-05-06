@@ -17,55 +17,58 @@ if (role == null || !(role.equals("Manager") || role.equals("Staff") || role.equ
     <%@ include file="./partials/header.jsp" %>
 </head>
 
-<body class="bg-gray-100 min-h-screen text-gray-800 font-sans">
+<body class="bg-gray-50 min-h-screen text-gray-800 font-sans">
     <div class="flex flex-col min-h-screen">
 
-        <!-- Header with Edit Profile Button -->
-        <div class="relative bg-white shadow-md py-6 px-4 md:px-10">
-            <h1 class="text-center text-3xl font-bold text-gray-800">Admin Dashboard</h1>
-
-            <!-- Edit Employee Profile Button -->
-            <div class="absolute right-4 top-6 md:right-10">
+        <!-- Header -->
+        <header class="bg-white py-6 shadow relative text-center">
+            <div class="absolute right-6 top-6">
                 <a href="EmployeeProfile.jsp"
-                   class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md shadow transition duration-300">
-                    <i class="fas fa-user-edit mr-2"></i> Edit Employee Profile
+                   class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded-md flex items-center gap-2 shadow">
+                    <i class="fas fa-user-edit"></i> Edit Employee Profile
                 </a>
             </div>
-        </div>
+            <h1 class="text-4xl font-bold text-gray-800 mt-10">Admin Dashboard</h1>
+        </header>
 
-        <!-- Main buttons grid -->
-        <div class="flex-grow flex flex-col items-center justify-center p-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-5xl">
+        <!-- Button Grid with Blog Styling -->
+        <main class="flex-grow flex items-center justify-center p-10 bg-gradient-to-br from-white to-gray-100">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-6 gap-y-6 max-w-2xl w-full">
 
-                <!-- Employee Management Button -->
-                <button onclick="location.href='employeeManagement'"
-                    class="flex items-center justify-center bg-blue-500 hover:bg-blue-600 text-white font-semibold py-10 rounded-xl shadow-md text-xl gap-4 transition duration-300 w-full h-36">
-                    <i class="fas fa-users-cog text-3xl"></i> 
-                    Employee Management
-                </button>
+                <div class="bg-white rounded-xl shadow p-4">
+                    <button onclick="location.href='employeeManagement'"
+                            class="bg-teal-500 hover:bg-teal-600 text-white text-lg font-semibold rounded-lg px-4 py-6 w-full h-40 flex items-center justify-center gap-4 transition duration-300">
+                        <i class="fas fa-users-cog text-3xl"></i> Employee Management
+                    </button>
+                </div>
 
-                <!-- View Feedbacks Button -->
-                <button onclick="location.href='feedbackSummary'"
-                    class="flex items-center justify-center bg-green-500 hover:bg-green-600 text-white font-semibold py-10 rounded-xl shadow-md text-xl gap-4 transition duration-300 w-full h-36">
-                    <i class="fas fa-comments text-3xl"></i> 
-                    View Feedbacks
-                </button>
+                <div class="bg-white rounded-xl shadow p-4">
+                    <button onclick="location.href='feedbackSummary'"
+                            class="bg-green-600 hover:bg-green-700 text-white text-lg font-semibold rounded-lg px-4 py-6 w-full h-40 flex items-center justify-center gap-4 transition duration-300">
+                        <i class="fas fa-comments text-3xl"></i> View Feedbacks
+                    </button>
+                </div>
 
-                <!-- View Deliveries Button -->
-                <button onclick="location.href='deliverySummary'"
-                    class="flex items-center justify-center bg-yellow-500 hover:bg-yellow-600 text-white font-semibold py-10 rounded-xl shadow-md text-xl gap-4 transition duration-300 w-full h-36">
-                    <i class="fas fa-truck text-3xl"></i> 
-                    Update Delivery Status
-                </button>
+                <div class="bg-white rounded-xl shadow p-4">
+                    <button onclick="location.href='deliverySummary'"
+                            class="bg-yellow-400 hover:bg-yellow-500 text-white text-lg font-semibold rounded-lg px-4 py-6 w-full h-40 flex items-center justify-center gap-4 transition duration-300">
+                        <i class="fas fa-truck text-3xl"></i> Update Delivery Status
+                    </button>
+                </div>
 
-                <!-- View Customers Details Button -->
-                <button onclick="location.href='customerSummary'"
-                    class="flex items-center justify-center bg-purple-500 hover:bg-purple-600 text-white font-semibold py-10 rounded-xl shadow-md text-xl gap-4 transition duration-300 w-full h-36">
-                    <i class="fas fa-user-friends text-3xl"></i> 
-                    View Customer Details
-                </button>
+                <div class="bg-white rounded-xl shadow p-4">
+                    <button onclick="location.href='customerSummary'"
+                            class="bg-purple-600 hover:bg-purple-700 text-white text-lg font-semibold rounded-lg px-4 py-6 w-full h-40 flex items-center justify-center gap-4 transition duration-300">
+                        <i class="fas fa-user-friends text-3xl"></i> View Customer Details
+                    </button>
+                </div>
 
             </div>
+        </main>
+
+        <!-- QuickBites Branding -->
+        <div class="text-center -mt-2 mb-4 text-lg font-semibold text-gray-600">
+            QuickBites
         </div>
 
         <%@ include file="./partials/footer.jsp" %>
