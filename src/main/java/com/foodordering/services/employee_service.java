@@ -26,7 +26,7 @@ public class employee_service {
 			DBConnect db = new DBConnect();
 			Statement statement = DBConnect.getConnection().createStatement();
 			
-			String query = "insert into employee values(0,'"+emp.getNIC()+"','"+emp.getName()+"','"+emp.getEmail()+"','"+emp.getPhone_num()+"','"+emp.getPassword()+"','"+emp.getPosition()+"')";
+			String query = "insert into employee values(0,'"+emp.getNIC()+"','"+emp.getName()+"','"+emp.getEmail()+"','"+emp.getPhone_num()+"','"+emp.getPassword()+"','"+emp.getPassword_confirm()+"','"+emp.getPosition()+"')";
 			
 			int result;
 			
@@ -67,9 +67,10 @@ public class employee_service {
 				String email = rs.getString(4);
 				String phone_num = rs.getString(5);
 				String password = rs.getString(6);
-				String position = rs.getString(7);
+				String password_confirm = rs.getString(7);
+				String position = rs.getString(8);
 				
-				employee EMP = new employee(empID,NIC,name,email,phone_num,password,position);
+				employee EMP = new employee(empID,NIC,name,email,phone_num,password,password_confirm,position);
 				emp.add(EMP);
 			}
 			
@@ -119,7 +120,7 @@ public class employee_service {
 			DBConnect db = new DBConnect();
 			Statement statement = DBConnect.getConnection().createStatement();
 			
-			String query = "update employee set NIC='"+emp.getNIC()+"', name='"+emp.getName()+"',email='"+emp.getEmail()+"',phone_num='"+emp.getPhone_num()+"',password='"+emp.getPassword()+"',position='"+emp.getPosition()+"'"
+			String query = "update employee set NIC='"+emp.getNIC()+"', name='"+emp.getName()+"',email='"+emp.getEmail()+"',phone_num='"+emp.getPhone_num()+"',password='"+emp.getPassword()+"',password_confirm='"+emp.getPassword_confirm()+"',position='"+emp.getPosition()+"'"
 							+"where empID= '"+emp.getEmpID()+"'";
 			
 			int result;

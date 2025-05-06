@@ -6,21 +6,20 @@ document.addEventListener("DOMContentLoaded", function () {
         const nic = form.elements["NIC"].value.trim();
         const phone = form.elements["phone_num"].value.trim();
         const password = form.elements["password"].value.trim();
-		const name = form.elements["name"].value.trim();
-		
-		if (name.split(" ").length < 2) {
-				    alert("Invalid name. Please enter at least a first name and a last name.");
-				    event.preventDefault();
-				    return;
-		}
-				
-				
+        const confirmPassword = form.elements["password_confirm"].value.trim();
+        const name = form.elements["name"].value.trim();
+
+        if (name.split(" ").length < 2) {
+            alert("Invalid name. Please enter at least a first name and a last name.");
+            event.preventDefault();
+            return;
+        }
+
         if (nic.length < 10) {
             alert("Invalid NIC number. Please enter a valid NIC.");
             event.preventDefault();
             return;
         }
-
 
         if (!/^\d{10}$/.test(phone)) {
             alert("Invalid phone number. Please enter a valid 10-digit phone number.");
@@ -33,8 +32,15 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
             return;
         }
+
+        if (password !== confirmPassword) {
+            alert("Passwords do not match. Please re-enter.");
+            event.preventDefault();
+            return;
+        }
     });
 });
+
 
 
 //search item js
@@ -51,10 +57,10 @@ function filterTable() {
         for (let j = 0; j < td.length; j++) {
             const cell = td[j];
 
-            // ✅ Skip this cell if it contains a <select> element
+            
             if (cell.querySelector("select")) continue;
 
-            // ✅ Extract only direct text nodes (ignore text inside child tags like <option>)
+            
             const textNodes = Array.from(cell.childNodes)
                 .filter(node => node.nodeType === Node.TEXT_NODE)
                 .map(node => node.textContent.trim())
@@ -73,6 +79,9 @@ function filterTable() {
 document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("searchInput").addEventListener("input", filterTable);
 });
+
+
+
 
 
 

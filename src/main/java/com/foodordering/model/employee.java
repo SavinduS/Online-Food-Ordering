@@ -7,11 +7,12 @@ public class employee {
 	String email;
 	String phone_num;
 	String password;
+	String password_confirm;
 	String position;
 	
 	
 	
-	public employee(int empID, String NIC, String name, String email, String phone_num, String password, String position) {
+	public employee(int empID, String NIC, String name, String email, String phone_num, String password, String password_confirm, String position) {
 		super();
 		this.empID = empID;
 		this.NIC = NIC;
@@ -19,6 +20,7 @@ public class employee {
 		this.email = email;
 		this.phone_num = phone_num;
 		this.password = password;
+		this.password_confirm= password_confirm;
 		this.position = position;
 	}
 
@@ -38,6 +40,10 @@ public class employee {
 		super();
 		this.email = email;
 		this.password = password;
+	}
+
+	public employee() {
+		// TODO Auto-generated constructor stub
 	}
 
 	public int getEmpID() {
@@ -76,6 +82,14 @@ public class employee {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+	public String getPassword_confirm() {
+		return password_confirm;
+	}
+
+	public void setPassword_confirm(String password_confirm) {
+		this.password_confirm = password_confirm;
+	}
+
 	public String getPosition() {
 		return position;
 	}

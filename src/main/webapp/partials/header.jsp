@@ -63,7 +63,7 @@
             <i class="fas fa-user"></i>
           </a>
         </c:when>
-        <c:when test="${sessionScope.role == 'admin'}">
+        <c:when test="${sessionScope.role == 'Manager' || sessionScope.role == 'Staff' || sessionScope.role == 'Delivery_Person'}">
           <a href="AdminDashboard.jsp" class="text-white text-xl">
             <i class="fas fa-user"></i>
           </a>

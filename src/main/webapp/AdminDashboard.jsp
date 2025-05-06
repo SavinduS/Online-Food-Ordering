@@ -1,7 +1,5 @@
 <%@ page session="true" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
-
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <%
@@ -20,12 +18,19 @@ if (role == null || !(role.equals("Manager") || role.equals("Staff") || role.equ
 </head>
 
 <body class="bg-gray-100 min-h-screen text-gray-800 font-sans">
-
     <div class="flex flex-col min-h-screen">
 
-        <!-- Header area -->
-        <div class="bg-white shadow-md py-6">
+        <!-- Header with Edit Profile Button -->
+        <div class="relative bg-white shadow-md py-6 px-4 md:px-10">
             <h1 class="text-center text-3xl font-bold text-gray-800">Admin Dashboard</h1>
+
+            <!-- Edit Employee Profile Button -->
+            <div class="absolute right-4 top-6 md:right-10">
+                <a href="EmployeeProfile.jsp"
+                   class="bg-indigo-600 hover:bg-indigo-700 text-white font-medium py-2 px-4 rounded-md shadow transition duration-300">
+                    <i class="fas fa-user-edit mr-2"></i> Edit Employee Profile
+                </a>
+            </div>
         </div>
 
         <!-- Main buttons grid -->
@@ -64,7 +69,6 @@ if (role == null || !(role.equals("Manager") || role.equals("Staff") || role.equ
         </div>
 
         <%@ include file="./partials/footer.jsp" %>
-
     </div>
 </body>
 </html>

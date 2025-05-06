@@ -20,12 +20,12 @@ public class LoginServlet extends HttpServlet {
         employee emp = new employee(email, password);
         UserLoginModel user = new UserLoginModel(email, password);
         LoginService service = new LoginService();
-        String position = service.getEmployeePosition(emp); // Get role from DB
+        employee employee = service.validateEMP(email, password); // Get role from DB
 
-        if (position != null) {
-            HttpSession session = request.getSession();
-            session.setAttribute("userEmail", email);
-            session.setAttribute("role", position); // Now "Manager", "Staff", etc.
+        if (employee != null) {
+        	HttpSession session = request.getSession();
+            session.setAttribute("loggedEmployee", employee);
+            session.setAttribute("role", employee.getPosition());
 
             response.sendRedirect("AdminDashboard.jsp"); // You can customize this if needed
         } else if (service.validateCustomer(user)) {
