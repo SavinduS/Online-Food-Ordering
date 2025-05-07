@@ -13,7 +13,7 @@ if (role == null || !(role.equals("Manager") || role.equals("Staff") || role.equ
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>QuickBites - Admin Dashboard</title>
+    <title>QuickBites - Employee Dashboard</title>
     <%@ include file="./partials/header.jsp" %>
 </head>
 
@@ -28,7 +28,7 @@ if (role == null || !(role.equals("Manager") || role.equals("Staff") || role.equ
                     <i class="fas fa-user-edit"></i> Edit Employee Profile
                 </a>
             </div>
-            <h1 class="text-4xl font-bold text-gray-800 mt-10">Admin Dashboard</h1>
+            <h1 class="text-4xl font-bold text-gray-800 mt-10">Employee Dashboard</h1>
         </header>
 
         <!-- Button Grid with Blog Styling -->
