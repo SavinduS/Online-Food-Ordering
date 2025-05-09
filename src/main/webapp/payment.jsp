@@ -52,35 +52,35 @@
     <div class="grid grid-cols-2 gap-4">
       <div>
         <label class="font-semibold flex items-center gap-2"><i class="fas fa-user"></i> First Name</label>
-        <input type="text" name="firstName" class="w-full border p-2 rounded" required>
+        <input type="text" name="firstName" placeholder="Romesh" class="w-full border p-2 rounded" required>
       </div>
       <div>
         <label class="font-semibold flex items-center gap-2"><i class="fas fa-user"></i> Last Name</label>
-        <input type="text" name="lastName" class="w-full border p-2 rounded" required>
+        <input type="text" name="lastName" placeholder="Perera" class="w-full border p-2 rounded" required>
       </div>
     </div>
 
     <br>
     <div>
       <label class="font-semibold flex items-center gap-2"><i class="fas fa-phone"></i> Phone Number</label>
-      <input type="tel" name="phone" class="w-full border p-2 rounded" pattern="[0-9]{10}" maxlength="10" required>
+      <input type="tel" name="phone" placeholder="0771234567" class="w-full border p-2 rounded" pattern="[0-9]{10}" maxlength="10" required>
     </div>
 
     <br>
     <div>
       <label class="font-semibold flex items-center gap-2"><i class="fas fa-home"></i> Address</label>
-      <input type="text" name="address" class="w-full border p-2 rounded" required>
+      <input type="text" name="address" placeholder="123, Main Street" class="w-full border p-2 rounded" required>
     </div>
 
     <br>
     <div class="grid grid-cols-2 gap-4">
       <div>
         <label class="font-semibold flex items-center gap-2"><i class="fas fa-city"></i> City</label>
-        <input type="text" name="city" class="w-full border p-2 rounded" required>
+        <input type="text" name="city" placeholder="Colombo" class="w-full border p-2 rounded" required>
       </div>
       <div>
         <label class="font-semibold flex items-center gap-2"><i class="fas fa-mail-bulk"></i> Postal Code</label>
-        <input type="text" name="postalCode" class="w-full border p-2 rounded" pattern="[0-9]{5}" maxlength="5" inputmode="numeric" required>
+        <input type="text" name="postalCode" placeholder="80250" class="w-full border p-2 rounded" pattern="[0-9]{5}" maxlength="5" inputmode="numeric" required>
       </div>
     </div>
   </div>
@@ -95,7 +95,7 @@
       <label class="font-semibold flex items-center gap-2">
         <i class="fas fa-user"></i> Cardholder Name
       </label>
-      <input type="text" name="cardholderName" class="w-full border p-2 rounded" required>
+      <input type="text" name="cardholderName" placeholder="Romesh Perera" class="w-full border p-2 rounded" required>
     </div>
 
     <br>
@@ -103,7 +103,7 @@
       <label class="font-semibold flex items-center gap-2">
         <i class="fas fa-credit-card"></i> Card Number
       </label>
-      <input type="text" name="cardNumber" class="w-full border p-2 rounded" pattern="[0-9]{16}" maxlength="16" inputmode="numeric" required>
+      <input type="text" name="cardNumber" placeholder="1234 5678 9012 3456" class="w-full border p-2 rounded" pattern="[0-9]{16}" maxlength="16" inputmode="numeric" required>
     </div>
 
     <br>
@@ -124,11 +124,10 @@
         <label class="font-semibold flex items-center gap-2">
           <i class="fas fa-lock"></i> CVV
         </label>
-        <input type="password" name="cvv" class="w-full border p-2 rounded" pattern="[0-9]{3}" maxlength="3" required>
+        <input type="password" name="cvv" placeholder="123" class="w-full border p-2 rounded" pattern="[0-9]{3}" maxlength="3" required>
       </div>
     </div>
-
-    <br>
+     <br>
     <label class="font-semibold flex items-center gap-2"><i class="fas fa-money-bill-wave"></i> Payment Method</label>
     <div class="flex gap-4 text-3xl justify-center mt-2">
       <i class="fab fa-cc-visa text-blue-600 hover:scale-150 transition-transform"></i>
@@ -136,21 +135,27 @@
       <i class="fab fa-cc-paypal text-sky-600 hover:scale-150 transition-transform"></i>
       <i class="fab fa-cc-apple-pay text-gray-800 hover:scale-150 transition-transform"></i>
     </div>
-  </div>
+    </div>
 
-  <!-- Navigation Buttons -->
-  <div class="col-span-2 flex justify-between mt-10 px-4">
-    <a href="cart.jsp">
-      <button type="button" class="bg-gray-500 hover:bg-gray-600 text-white px-6 py-3 rounded flex items-center gap-2">
-        <i class="fas fa-arrow-left"></i> Back
-      </button>
-    </a>
-    <button type="submit" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded flex items-center gap-2">
-      Next <i class="fas fa-arrow-right"></i>
-    </button>
-  </div>
 </form>
 
+
+<!-- ✅ Navigation Buttons OUTSIDE the form but aligned nicely -->
+<div class="max-w-6xl mx-auto px-10 mt-6 flex justify-between items-center">
+  <!-- Back Button -->
+  <a href="cart.jsp">
+    <button type="button" class="bg-gray-600 hover:bg-gray-700 text-white px-6 py-3 rounded flex items-center gap-2 shadow">
+      <i class="fas fa-arrow-left"></i> Back
+    </button>
+  </a>
+
+  <!-- Next (Submit) Button -->
+  <button type="submit" form="paymentForm" class="bg-red-600 hover:bg-red-700 text-white px-6 py-3 rounded flex items-center gap-2 shadow">
+    Next <i class="fas fa-arrow-right"></i>
+  </button>
+</div>
+
+  
 <div><br><br></div>
 
 <script src="js/payment.js"></script>

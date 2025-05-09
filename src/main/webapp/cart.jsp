@@ -88,7 +88,7 @@
 		  </div>
 		  <h3 class="text-2xl font-bold text-gray-800 mb-2">Your Cart is Empty</h3>
 		  <p class="text-gray-600 mb-6">Looks like you haven’t added anything to your cart yet.</p>
-		  <a href="home.jsp" class="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-lg transition">
+		  <a href="home" class="inline-flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold py-2 px-6 rounded-lg transition">
 		    <i class="fas fa-store"></i> Shop Now
 		  </a>
 		</div>

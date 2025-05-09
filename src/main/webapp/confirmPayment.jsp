@@ -49,7 +49,7 @@
   </div>
   <div class="z-10 flex flex-col items-center">
     <span class="w-9 h-9 rounded-full bg-red-600 text-white flex items-center justify-center font-bold">3</span>
-    <i class="fas fa-check-circle text-white mt-2"></i>
+    <i class="fas fa-check-circle text-red-600 mt-2"></i>
     <p class="text-sm font-bold">Confirmation</p>
   </div>
 </div>
