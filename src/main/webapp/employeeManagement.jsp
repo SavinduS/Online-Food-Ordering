@@ -27,7 +27,7 @@ if (role == null || !role.equals("Manager")) {
         <div class="flex justify-between w-full max-w-7xl mb-6">
             <button onclick="location.href='AdminDashboard.jsp'"
                 class="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-5 py-3 rounded-xl shadow-md transition">
-                <i class="fas fa-arrow-left"></i> Admin Dashboard
+                <i class="fas fa-arrow-left"></i> Employee Dashboard
             </button>
             <button onclick="location.href='AddEmployee.jsp'"
                 class="flex items-center gap-2 bg-green-500 hover:bg-green-600 text-white font-semibold px-5 py-3 rounded-xl shadow-md transition">

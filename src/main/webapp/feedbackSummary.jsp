@@ -12,7 +12,7 @@ if (role == null || !(role.equals("Manager") || role.equals("Staff"))) {
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>QuickBites - Feedback Summary</title>
+    <title>QuickBites - Customer Feedbacks</title>
     <%@ include file="./partials/header.jsp" %>
     <script src="js/adminpageJS.js"></script>
 </head>
@@ -25,13 +25,13 @@ if (role == null || !(role.equals("Manager") || role.equals("Staff"))) {
         <div class="flex justify-start w-full max-w-7xl mb-6">
             <button onclick="location.href='AdminDashboard.jsp'"
                 class="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-5 py-3 rounded-xl shadow-md transition">
-                <i class="fas fa-arrow-left"></i> Admin Dashboard
+                <i class="fas fa-arrow-left"></i> Employee Dashboard
             </button>
         </div>
 
         <!-- Heading -->
         <h1 class="text-4xl font-bold text-gray-800 mb-8 flex items-center gap-4 w-full max-w-7xl">
-            <i class="fas fa-comments"></i> Feedback Summary
+            <i class="fas fa-comments"></i> Customer Feedbacks
         </h1>
 
         <!-- Search Input -->

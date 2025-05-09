@@ -13,7 +13,7 @@ if (role == null || !(role.equals("Manager") || role.equals("Staff") || role.equ
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>QuickBites - Delivery Update</title>
+    <title>QuickBites - Update Delivery Status</title>
     <%@ include file="./partials/header.jsp" %>
     <script src="js/adminpageJS.js"></script>
 </head>
@@ -26,7 +26,7 @@ if (role == null || !(role.equals("Manager") || role.equals("Staff") || role.equ
         <div class="flex justify-start w-full max-w-7xl mb-6">
             <button onclick="location.href='AdminDashboard.jsp'"
                 class="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-5 py-3 rounded-xl shadow-md transition">
-                <i class="fas fa-arrow-left"></i> Admin Dashboard
+                <i class="fas fa-arrow-left"></i> Employee Dashboard
             </button>
         </div>
 
