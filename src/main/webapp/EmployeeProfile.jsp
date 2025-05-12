@@ -7,12 +7,14 @@
     String role = (String) session.getAttribute("role");
     employee employee = (employee) session.getAttribute("loggedEmployee");
 
-    if (role == null || employee == null || 
+    if (employee == null || role == null ||
        !(role.equals("Manager") || role.equals("Staff") || role.equals("Delivery_Person"))) {
         out.println("<script>alert('Restricted: Valid employee login required.'); window.location='Login.jsp';</script>");
         return;
     }
 %>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -27,7 +29,7 @@
 
     <div class="flex flex-col items-center p-8 min-h-screen">
 
-        <!-- Top Navigation -->
+        <!-- Back to Dashboard -->
         <div class="flex justify-start w-full max-w-7xl mb-6">
             <button onclick="location.href='AdminDashboard.jsp'"
                 class="flex items-center gap-2 bg-orange-500 hover:bg-orange-600 text-white font-semibold px-5 py-3 rounded-xl shadow-md transition">
@@ -35,7 +37,6 @@
             </button>
         </div>
 
-        <!-- Heading -->
         <h1 class="text-4xl font-bold text-gray-800 mb-8 flex items-center gap-4 w-full max-w-7xl">
             <i class="fas fa-user-tie"></i> Employee Profile
         </h1>
@@ -58,13 +59,13 @@
                 </div>
             </div>
 
-            <!-- RIGHT: Edit Info -->
+            <!-- RIGHT: Edit Form -->
             <div class="md:w-1/2 w-full">
                 <h3 class="text-xl font-semibold mb-4 text-gray-800">Edit Information</h3>
-                <form action="employeeProfile" method="post" class="space-y-5">
+                
+                <form action="employeeProfileUpdate" method="post" class="space-y-5">
                     <input type="hidden" name="empID" value="<%= employee.getEmpID() %>" />
 
-                    <!-- Phone Number -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">
                             <i class="fas fa-phone-alt mr-1 text-green-500"></i>Phone Number
@@ -73,7 +74,6 @@
                             class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-orange-500 shadow-sm" />
                     </div>
 
-                    <!-- New Password -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">
                             <i class="fas fa-lock mr-1 text-gray-500"></i>New Password
@@ -82,7 +82,6 @@
                             class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-orange-500 shadow-sm" />
                     </div>
 
-                    <!-- Confirm Password -->
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-1">
                             <i class="fas fa-lock mr-1 text-gray-500"></i>Confirm Password
@@ -91,7 +90,6 @@
                             class="w-full border border-gray-300 rounded-xl px-4 py-3 focus:ring-2 focus:ring-orange-500 shadow-sm" />
                     </div>
 
-                    <!-- Submit Button -->
                     <div>
                         <button type="submit" class="bg-black text-white px-6 py-3 rounded-xl hover:bg-gray-800 shadow-md inline-flex items-center text-base">
                             <i class="fas fa-save mr-2"></i>Save Changes

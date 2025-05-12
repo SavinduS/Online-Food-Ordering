@@ -230,4 +230,35 @@ public class employee_service {
 		
 		return customerArr;
 	}
+	
+	//update employee profile
+	public boolean updateEmpProfile(employee emp) {
+	    boolean isSuccess = false;
+
+	    try {
+	        DBConnect db = new DBConnect();
+	        Statement statement = DBConnect.getConnection().createStatement();
+
+	        String query;
+	        if (emp.getPassword().isEmpty()) {
+	            query = "UPDATE employee SET phone_num='" + emp.getPhone_num() + "' WHERE empID='" + emp.getEmpID() + "'";
+	        } else {
+	            query = "UPDATE employee SET phone_num='" + emp.getPhone_num() + 
+	                    "', password='" + emp.getPassword() + 
+	                    "', password_confirm='" + emp.getPassword_confirm() + 
+	                    "' WHERE empID='" + emp.getEmpID() + "'";
+	        }
+
+	        int result = statement.executeUpdate(query);
+	        statement.close();
+
+	        isSuccess = result > 0;
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	    }
+
+	    return isSuccess;
+	}
+
 }

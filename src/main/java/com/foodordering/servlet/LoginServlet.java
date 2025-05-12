@@ -19,6 +19,7 @@ public class LoginServlet extends HttpServlet {
 
         employee emp = new employee(email, password);
         UserLoginModel user = new UserLoginModel(email, password);
+        
         LoginService service = new LoginService();
         employee employee = service.validateEMP(email, password); // Get role from DB
 
@@ -27,7 +28,7 @@ public class LoginServlet extends HttpServlet {
             session.setAttribute("loggedEmployee", employee);
             session.setAttribute("role", employee.getPosition());
 
-            response.sendRedirect("AdminDashboard.jsp"); // You can customize this if needed
+            response.sendRedirect("AdminDashboard.jsp"); 
         } else if (service.validateCustomer(user)) {
             HttpSession session = request.getSession();
             session.setAttribute("userEmail", email);

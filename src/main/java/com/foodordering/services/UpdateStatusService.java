@@ -9,14 +9,15 @@ public class UpdateStatusService {
 	
 	 public List<UpdateStatusModel> getAllOrders() {
 	        List<UpdateStatusModel> list = new ArrayList<>();
-	        String sql = "SELECT o.id AS order_id, d.first_name, d.last_name, d.phone, d.address, d.city, d.postal_code, " +
+	        String query = "SELECT o.id AS order_id, d.first_name, d.last_name, d.phone, d.address, d.city, d.postal_code, " +
 	                     "o.food_name, o.quantity, o.price, o.status " +
 	                     "FROM delivery d JOIN orders o ON d.id = o.delivery_id " +
 	                     "ORDER BY o.id DESC";
 
-	        try (Connection conn = DBConnect.getConnection();
-	             PreparedStatement ps = conn.prepareStatement(sql);
-	             ResultSet rs = ps.executeQuery()) {
+	        try {
+	        	DBConnect db = new DBConnect();
+	    		Statement statement = DBConnect.getConnection().createStatement();
+	            ResultSet rs = statement.executeQuery(query); 
 
 	            while (rs.next()) {
 	                UpdateStatusModel o = new UpdateStatusModel();
@@ -40,17 +41,30 @@ public class UpdateStatusService {
 	        return list;
 	    }
 
-	    public void updateOrderStatus(int orderId, String newStatus) {
-	        String sql = "UPDATE orders SET status = ? WHERE id = ?";
+	 public boolean updateOrderStatus(int orderId, String newStatus) {
+		    boolean isSuccess = false;
 
-	        try (Connection conn = DBConnect.getConnection();
-	             PreparedStatement ps = conn.prepareStatement(sql)) {
-	            ps.setString(1, newStatus);
-	            ps.setInt(2, orderId);
-	            ps.executeUpdate();
-	        } catch (Exception e) {
-	            e.printStackTrace();
-	        }
-	    }
+		    try {
+		        DBConnect db = new DBConnect();
+		        Statement statement = DBConnect.getConnection().createStatement();
+
+		        String query = "UPDATE orders SET status='" + newStatus + "' WHERE id='" + orderId + "'";
+
+		        int result = statement.executeUpdate(query);
+		        statement.close();
+
+		        if (result > 0) {
+		            isSuccess = true;
+		        } else {
+		            isSuccess = false;
+		        }
+
+		    } catch (Exception e) {
+		        e.printStackTrace();
+		    }
+
+		    return isSuccess;
+		}
+
 
 }

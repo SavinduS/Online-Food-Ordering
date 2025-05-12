@@ -44,6 +44,7 @@ if (role == null || !role.equals("Manager")) {
 
         <!-- Update Employee Form -->
         <div class="w-full max-w-2xl bg-white p-8 rounded-2xl shadow-md border border-gray-200">
+        
             <form action="updateEmpServlet" method="post" class="flex flex-col gap-6 text-gray-700">
 
                 <div class="flex flex-col">
