@@ -8,23 +8,33 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 import java.io.IOException;
 
+/*
+ * OOP Concepts:
+  - Inheritance: This class extends HttpServlet.
+  - Polymorphism: Overrides the doPost() method from HttpServlet.
+  - Encapsulation: Uses the Delivery model with setters to pass data.
+  - Exception Handling: try-catch block is used to handle runtime errors.
+ */
+
 @WebServlet("/UpdateDeliveryServlet")
 public class UpdateDeliveryServlet extends HttpServlet {
-    private static final long serialVersionUID = 1L;
+// Inheritance: This class extends HttpServlet
 
+    private static final long serialVersionUID = 1L;
     private DeliveryService service;
 
+    // Initializes the service layer object
     @Override
     public void init() throws ServletException {
         service = new DeliveryService();
     }
 
+    // Polymorphism: Overrides the doPost method of the HttpServlet class
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        System.out.println("🔔 UpdateDeliveryServlet POST called");
 
         try {
-            // Get form values
+            // Get delivery fields from form submission
             int id = Integer.parseInt(request.getParameter("id"));
             String fname = request.getParameter("firstName");
             String lname = request.getParameter("lastName");
@@ -34,10 +44,7 @@ public class UpdateDeliveryServlet extends HttpServlet {
             String city = request.getParameter("city");
             String postalCode = request.getParameter("postalCode");
 
-            System.out.println("📥 Received update request for ID: " + id);
-            System.out.println("📌 Name: " + fname + " " + lname + ", Email: " + email + ", Postal: " + postalCode);
-
-            // Create delivery object
+            // Encapsulation: Use setter methods to assign values to Delivery object
             Delivery delivery = new Delivery();
             delivery.setId(id);
             delivery.setFirstName(fname);
@@ -48,22 +55,21 @@ public class UpdateDeliveryServlet extends HttpServlet {
             delivery.setCity(city);
             delivery.setPostalCode(postalCode);
 
-            // Try to update in DB
+            // Call service method to update the delivery record
             boolean success = service.updateDelivery(delivery);
-            System.out.println("🛠 Update success status: " + success);
 
             if (success) {
-                System.out.println("✅ Update succeeded. Redirecting with deliveryId...");
-                // ✅ Redirect with deliveryId so confirmPayment.jsp can load via request param
+                // Redirect to confirmation page with updated delivery ID
                 response.sendRedirect("confirmPayment.jsp?deliveryId=" + id);
             } else {
-                System.out.println("❌ Update failed. Forwarding back to editDetails.jsp");
+                // If update fails, reload edit page with error message
                 request.setAttribute("delivery", delivery);
                 request.setAttribute("error", "Update failed");
                 request.getRequestDispatcher("editDetails.jsp").forward(request, response);
             }
 
         } catch (Exception e) {
+            // Exception Handling: Display error message on edit page
             e.printStackTrace();
             request.setAttribute("error", "Something went wrong: " + e.getMessage());
             request.getRequestDispatcher("editDetails.jsp").forward(request, response);

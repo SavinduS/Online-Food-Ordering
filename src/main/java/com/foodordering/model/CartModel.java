@@ -9,7 +9,7 @@ public class CartModel {
     private double price;
     private String imageFilename;
 
-    // ✅ New fields for order display
+    //New fields for order display
     private int deliveryId;
     private String status;
 
@@ -47,7 +47,7 @@ public class CartModel {
     public String getImageFilename() { return imageFilename; }
     public void setImageFilename(String imageFilename) { this.imageFilename = imageFilename; }
 
-    // ✅ New Fields: Delivery ID and Order Status
+    //New Fields: Delivery ID and Order Status
     public int getDeliveryId() { return deliveryId; }
     public void setDeliveryId(int deliveryId) { this.deliveryId = deliveryId; }
 

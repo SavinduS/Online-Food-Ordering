@@ -10,15 +10,6 @@ public class Food {
     /** Default constructor */
     public Food() {}
 
-    /**
-     * Constructor with parameters.
-     * 
-     * @param id            ID of the food
-     * @param name          Name of the food item
-     * @param category      Category (e.g., Burgers, Pizzas)
-     * @param price         Price of the food
-     * @param imageFilename Image file name for displaying the product
-     */
     public Food(int id, String name, String category, double price, String imageFilename) {
         this.id = id;
         this.name = name;

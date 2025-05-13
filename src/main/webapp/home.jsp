@@ -90,8 +90,7 @@
         <div class="flex items-center bg-white rounded px-2 py-1 ml-auto shadow-md w-full max-w-xs focus-within:ring-2 focus-within:ring-orange-500 transition duration-200">
             <input type="text" id="foodSearch"
                    placeholder="Search food..."
-                   class="flex-grow outline-none px-2 py-1 text-sm text-black"
-            />
+                   class="flex-grow outline-none px-2 py-1 text-sm text-black"/>
             <button id="searchButton" class="text-orange-600 text-lg">
                 <i class="fas fa-search"></i>
             </button>
@@ -107,10 +106,9 @@
                         <h4><b>${burger.name}</b></h4>
                         <p>Rs. ${burger.price}</p>
                         <form action="add-to-cart" method="POST">
-    <input type="hidden" name="food_id" value="${burger.id}" />
-    <button type="submit" class="add-to-cart">Add to Cart</button>
-</form>
-
+    						<input type="hidden" name="food_id" value="${burger.id}" />
+   							<button type="submit" class="add-to-cart">Add to Cart</button>
+						</form>
                     </div>
                 </c:forEach>
             </div>
@@ -126,9 +124,9 @@
                         <h4><b>${pizza.name}</b></h4>
                         <p>Rs. ${pizza.price}</p>
                         <form action="add-to-cart" method="POST">
-    <input type="hidden" name="food_id" value="${pizza.id}" />
-    <button type="submit" class="add-to-cart">Add to Cart</button>
-</form>
+    						<input type="hidden" name="food_id" value="${pizza.id}" />
+    						<button type="submit" class="add-to-cart">Add to Cart</button>
+						</form>
 
                     </div>
                 </c:forEach>
@@ -145,10 +143,9 @@
                         <h4><b>${dessert.name}</b></h4>
                         <p>Rs. ${dessert.price}</p>
                         <form action="add-to-cart" method="POST">
-    <input type="hidden" name="food_id" value="${dessert.id}" />
-    <button type="submit" class="add-to-cart">Add to Cart</button>
-</form>
-
+    						<input type="hidden" name="food_id" value="${dessert.id}" />
+    						<button type="submit" class="add-to-cart">Add to Cart</button>
+						</form>
                     </div>
                 </c:forEach>
             </div>
@@ -164,10 +161,9 @@
                         <h4><b>${beverage.name}</b></h4>
                         <p>Rs. ${beverage.price}</p>
                         <form action="add-to-cart" method="POST">
-    <input type="hidden" name="food_id" value="${beverage.id}" />
-    <button type="submit" class="add-to-cart">Add to Cart</button>
-</form>
-
+   							<input type="hidden" name="food_id" value="${beverage.id}" />
+    						<button type="submit" class="add-to-cart">Add to Cart</button>
+						</form>
                     </div>
                 </c:forEach>
             </div>
