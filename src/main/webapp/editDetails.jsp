@@ -1,11 +1,40 @@
 <%@ page import="java.util.*" %>
 <%@ page import="com.foodordering.model.Delivery" %>
-<%@ page import="com.foodordering.services.DeliveryService" %>
+<%@ page import="com.foodordering.services.*" %>
 
 <%
-    int deliveryId = Integer.parseInt(request.getParameter("deliveryId"));
-    DeliveryService deliveryService = new DeliveryService();
-    Delivery delivery = deliveryService.getDeliveryById(deliveryId);
+    // 🔐 Step 1: Check login session
+    String userEmail = (String) session.getAttribute("userEmail");
+    if (userEmail == null) {
+        response.sendRedirect("Login.jsp");
+        return;
+    }
+
+    // 🧾 Step 2: Get deliveryId from request
+    String deliveryIdParam = request.getParameter("deliveryId");
+    Delivery delivery = null;
+    List<CartModel> itemsInCart = new ArrayList<>();
+    double total = 0.0;
+
+    // 🔁 Step 3: Load data only if deliveryId exists
+    if (deliveryIdParam != null && !deliveryIdParam.isEmpty()) {
+        try {
+            int deliveryId = Integer.parseInt(deliveryIdParam);
+            DeliveryService deliveryService = new DeliveryService();
+            OrderService orderService = new OrderService();
+
+            delivery = deliveryService.getDeliveryById(deliveryId);
+            itemsInCart = orderService.getOrderItemsByDeliveryId(deliveryId);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    // 🔐 Step 4: Block access if data missing (protection!)
+    if (delivery == null || itemsInCart == null || itemsInCart.isEmpty()) {
+        response.sendRedirect("payment.jsp?error=unauthorized");
+        return;
+    }
 %>
 
 <!DOCTYPE html>

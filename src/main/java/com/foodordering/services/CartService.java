@@ -7,21 +7,31 @@ import java.util.List;
 import com.foodordering.Util.DBConnect;
 import com.foodordering.model.CartModel;
 
+/*
+ * OOP Concepts:
+ * - Encapsulation: CartModel is used to access data via getters/setters.
+ * - Separation of Concerns: Handles DB logic separately from controllers.
+ * - Exception Handling: All methods use try-catch or throws to handle SQL errors.
+ */
+
 public class CartService {
 
-    // Add to Cart
+    // Add an item to the cart table
     public void addCart(CartModel cartModel) throws Exception {
         try (Connection conn = DBConnect.getConnection()) {
             String sql = "INSERT INTO cart (user_email, food_id, quantity) VALUES (?, ?, ?)";
             PreparedStatement ps = conn.prepareStatement(sql);
+            
+            // Encapsulation: Access data using getters
             ps.setString(1, cartModel.getUserEmail());
             ps.setInt(2, cartModel.getFoodId());
             ps.setInt(3, cartModel.getQuantity());
+
             ps.executeUpdate();
         }
     }
 
-    // Update Quantity
+    // Update the quantity of an item based on action ("increase" or "decrease")
     public void updateQuantity(int cartId, String action) throws Exception {
         try (Connection conn = DBConnect.getConnection()) {
             String sql = "";
@@ -39,7 +49,7 @@ public class CartService {
         }
     }
 
-    // Remove Cart Item
+    // Remove a specific item from the cart
     public void removeCart(int cartId) throws Exception {
         try (Connection conn = DBConnect.getConnection()) {
             String sql = "DELETE FROM cart WHERE id = ?";
@@ -49,9 +59,10 @@ public class CartService {
         }
     }
 
-    // Get Cart Items by userEmail
+    // Get all cart items for a specific user by email
     public List<CartModel> getCartItems(String userEmail) throws Exception {
         List<CartModel> list = new ArrayList<>();
+
         try (Connection conn = DBConnect.getConnection()) {
             String sql = "SELECT c.id, c.user_email, c.food_id, c.quantity, f.name, f.price, f.image_filename " +
                          "FROM cart c INNER JOIN food f ON c.food_id = f.id WHERE c.user_email = ?";
@@ -59,6 +70,7 @@ public class CartService {
             ps.setString(1, userEmail);
             ResultSet rs = ps.executeQuery();
 
+            // Encapsulation: Fill CartModel using constructor
             while (rs.next()) {
                 CartModel cart = new CartModel(
                     rs.getInt("id"),
@@ -72,10 +84,11 @@ public class CartService {
                 list.add(cart);
             }
         }
+
         return list;
     }
 
-    // ✅ Clear all cart items for a specific user
+    // Clear all items from the cart for a given user
     public void clearCartByEmail(String email) {
         try (Connection conn = DBConnect.getConnection()) {
             String sql = "DELETE FROM cart WHERE user_email = ?";
@@ -84,7 +97,7 @@ public class CartService {
             stmt.executeUpdate();
             stmt.close();
         } catch (Exception e) {
-            e.printStackTrace();
+            e.printStackTrace(); // Exception Handling
         }
     }
 }
