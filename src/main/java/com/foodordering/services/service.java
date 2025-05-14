@@ -1,61 +1,77 @@
 package com.foodordering.services;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.foodordering.Util.*;
-
+import com.foodordering.Util.DBConnect;
 import com.foodordering.model.Customer;
 
 public class service {
 
-    // ✅ Create (Insert)
-    public void insertData(Customer cus) {
+    public boolean insertData(Customer cus) {
+        Connection conn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+
         try {
-            String name = cus.getName();
-            String email = cus.getEmail();
-            String mobile = cus.getMobile();
+            String name = cus.getName().trim();
+            String email = cus.getEmail().trim();
+            String mobile = cus.getMobile().trim();
             String rate = cus.getRate();
             String comment = cus.getComment();
 
-            if (rate == null || rate.trim().isEmpty()) {
-                rate = "Not Given";
+            if (rate == null || rate.trim().isEmpty()) rate = "Not Given";
+            if (comment == null || comment.trim().isEmpty()) comment = "No comment";
+
+            conn = DBConnect.getConnection();
+
+            // 🔍 Duplicate check
+            String checkSql = "SELECT COUNT(*) FROM customer WHERE LOWER(email) = LOWER(?) AND mobile = ?";
+            ps = conn.prepareStatement(checkSql);
+            ps.setString(1, email);
+            ps.setString(2, mobile);
+            rs = ps.executeQuery();
+            rs.next();
+            int count = rs.getInt(1);
+
+            if (count > 0) {
+                System.out.println("🛑 Duplicate review found for: " + email + " | " + mobile);
+                return false;
             }
 
-            if (comment == null || comment.trim().isEmpty()) {
-                comment = "No comment";
-            }
+            rs.close();
+            ps.close();
 
-            Connection conn = DBConnect.getConnection();
+            // ✅ Insert review
             String sql = "INSERT INTO customer (name, email, mobile, rating, comment) VALUES (?, ?, ?, ?, ?)";
-            PreparedStatement ps = conn.prepareStatement(sql);
+            ps = conn.prepareStatement(sql);
             ps.setString(1, name);
             ps.setString(2, email);
             ps.setString(3, mobile);
             ps.setString(4, rate);
             ps.setString(5, comment);
-
             ps.executeUpdate();
-            ps.close();
-            conn.close();
+
+            System.out.println("✅ Review inserted for: " + email);
+            return true;
 
         } catch (Exception e) {
             e.printStackTrace();
+            return false;
+        } finally {
+            try { if (rs != null) rs.close(); } catch (Exception e) { e.printStackTrace(); }
+            try { if (ps != null) ps.close(); } catch (Exception e) { e.printStackTrace(); }
+            try { if (conn != null) conn.close(); } catch (Exception e) { e.printStackTrace(); }
         }
     }
 
-    // ✅ Read (Select All)
     public List<Customer> getAllReviews() {
         List<Customer> reviews = new ArrayList<>();
 
-        try {
-            Connection conn = DBConnect.getConnection();
-            String sql = "SELECT * FROM customer ORDER BY id DESC";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement("SELECT * FROM customer ORDER BY id DESC");
+             ResultSet rs = ps.executeQuery()) {
 
             while (rs.next()) {
                 Customer cus = new Customer();
@@ -68,9 +84,6 @@ public class service {
                 reviews.add(cus);
             }
 
-            rs.close();
-            ps.close();
-            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -78,53 +91,36 @@ public class service {
         return reviews;
     }
 
-    // ✅ Update (Rating + Comment only)
     public void updateReview(Customer cus) {
-        try {
-            String name = cus.getName();
-            String email = cus.getEmail();
-            String mobile = cus.getMobile();
+        try (Connection conn = DBConnect.getConnection()) {
+            String email = cus.getEmail().trim();
+            String mobile = cus.getMobile().trim();
             String rate = cus.getRate();
             String comment = cus.getComment();
 
-            if (rate == null || rate.trim().isEmpty()) {
-                rate = "Not Given";
+            if (rate == null || rate.trim().isEmpty()) rate = "Not Given";
+            if (comment == null || comment.trim().isEmpty()) comment = "No comment";
+
+            String sql = "UPDATE customer SET rating = ?, comment = ? WHERE LOWER(email) = LOWER(?) AND mobile = ?";
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ps.setString(1, rate);
+                ps.setString(2, comment);
+                ps.setString(3, email);
+                ps.setString(4, mobile);
+                ps.executeUpdate();
             }
 
-            if (comment == null || comment.trim().isEmpty()) {
-                comment = "No comment";
-            }
-
-            Connection conn = DBConnect.getConnection();
-            String sql = "UPDATE customer SET rating = ?, comment = ? WHERE name = ? AND email = ? AND mobile = ?";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, rate);
-            ps.setString(2, comment);
-            ps.setString(3, name);
-            ps.setString(4, email);
-            ps.setString(5, mobile);
-
-            ps.executeUpdate();
-            ps.close();
-            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    // ✅ Delete (Identify by name + email + mobile)
-    public void deleteReview(String name, String email, String mobile) {
-        try {
-            Connection conn = DBConnect.getConnection();
-            String sql = "DELETE FROM customer WHERE name = ? AND email = ? AND mobile = ?";
-            PreparedStatement ps = conn.prepareStatement(sql);
-            ps.setString(1, name);
-            ps.setString(2, email);
-            ps.setString(3, mobile);
-
+    public void deleteReview(String email, String mobile) {
+        try (Connection conn = DBConnect.getConnection();
+             PreparedStatement ps = conn.prepareStatement("DELETE FROM customer WHERE LOWER(email) = LOWER(?) AND mobile = ?")) {
+            ps.setString(1, email.trim());
+            ps.setString(2, mobile.trim());
             ps.executeUpdate();
-            ps.close();
-            conn.close();
         } catch (Exception e) {
             e.printStackTrace();
         }

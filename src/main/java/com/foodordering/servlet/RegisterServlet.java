@@ -6,50 +6,47 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.*;
 
 import com.foodordering.model.Customer;
-import com.foodordering.services.*;
-
-/*
- 
- * OOP Concepts:
- * - Inheritance: This class extends HttpServlet.
- * - Polymorphism: Overrides doPost() method to process review form.
- * - Encapsulation: Uses Customer model to hold user-submitted data.
- * - Exception Handling: try-catch block to catch and redirect on failure.
- */
+import com.foodordering.services.service;
 
 @WebServlet("/RegisterServlet")
-public class RegisterServlet extends HttpServlet { // Inheritance: This class extends HttpServlet
+public class RegisterServlet extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
-    // Polymorphism: Overriding doPost method to handle review submission
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         try {
-            // Encapsulation: create and populate Customer object
-            Customer cus = new Customer();
-            String name = request.getParameter("name");
-            String email = request.getParameter("email");
-            String mobile = request.getParameter("mobile");
+            // 🔁 Read and sanitize form input
+            String name = request.getParameter("name").trim();
+            String email = request.getParameter("email").trim();
+            String mobile = request.getParameter("mobile").trim();
             String rating = request.getParameter("rating");
             String comment = request.getParameter("message");
 
+            // ✅ Logging for debugging
+            System.out.println("🔥 RegisterServlet: Form received");
+            System.out.println("Name: " + name + " | Email: " + email + " | Mobile: " + mobile);
+
+            // 👤 Create model
+            Customer cus = new Customer();
             cus.setName(name);
             cus.setEmail(email);
             cus.setMobile(mobile);
             cus.setRate(rating);
             cus.setComment(comment);
 
-            // Call service layer to insert data
+            // 🚀 Insert review
             service service = new service();
-            service.insertData(cus);
+            boolean inserted = service.insertData(cus);
 
-            // Redirect with parameters to enable update/delete in review-list
-            response.sendRedirect("review-list?name=" + name + "&email=" + email + "&mobile=" + mobile);
+            if (inserted) {
+                response.sendRedirect("displayReviews?success=true&email=" + email + "&mobile=" + mobile);
+            } else {
+                response.sendRedirect("ReviewCreate.jsp?duplicate=true");
+            }
 
         } catch (Exception e) {
-            // Exception Handling: redirect to form with error flag
             e.printStackTrace();
             response.sendRedirect("ReviewCreate.jsp?error=true");
         }

@@ -34,7 +34,7 @@
     <!-- Middle: Desktop Nav -->
     <nav id="navbar" class="hidden md:flex space-x-6 text-white font-medium items-center">
       <a href="home" class="nav-link" data-page="home"><b>Home</b></a>
-      <a href="ReviewCreate.jsp" class="nav-link" data-page="ReviewCreate.jsp"><b>Reviews</b></a>
+      <a href="ReviewDisplay.jsp" class="nav-link" data-page="ReviewDisplay.jsp"><b>Reviews</b></a>
       <a href="AboutUs.jsp" class="nav-link" data-page="AboutUs.jsp"><b>About Us</b></a>
       <a href="home#menu" class="bg-yellow-400 hover:bg-white hover:text-orange-600 text-black px-4 py-2 rounded shadow font-semibold">
         Order Now
@@ -85,7 +85,7 @@
   <!-- Mobile Menu -->
   <div id="mobile-menu" class="md:hidden hidden px-4 pb-4 bg-orange-500 text-white space-y-3 text-center">
     <a href="home" class="block font-semibold">Home</a>
-    <a href="ReviewCreate.jsp" class="block font-semibold">Reviews</a>
+    <a href="ReviewDisplay.jsp" class="block font-semibold">Reviews</a>
     <a href="AboutUs.jsp" class="block font-semibold">About Us</a>
     <a href="home#menu" class="block font-semibold bg-yellow-400 text-black px-3 py-1 rounded">Order Now</a>
   </div>
