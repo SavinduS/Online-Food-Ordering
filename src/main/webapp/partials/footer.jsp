@@ -8,11 +8,11 @@
         <!-- Quick Links -->
         <div class="footer-column">
             <h3>Quick Links</h3>
-            <ul>
-                <li><a href=""><i class="fas fa-home"></i> Home</a></li>
-                <li><a href="#menu"><i class="fas fa-utensils"></i> Menu</a></li>
-                <li><a href="#"><i class="fas fa-question-circle"></i> FAQs</a></li>
-                <li><a href="#"><i class="fas fa-user-secret"></i> Privacy Policy</a></li>
+            <ul>  
+			  <li><a href="home"><i class="fas fa-home"></i> Home</a></li>
+			  <li><a href="#menu"><i class="fas fa-utensils"></i> Menu</a></li>
+			  <li><a href="Privacy.jsp"><i class="fas fa-question-circle"></i> FAQs</a></li>
+			  <li><a href="Privacy.jsp"><i class="fas fa-user-secret"></i> Privacy Policy</a></li>
             </ul>
         </div>
 
