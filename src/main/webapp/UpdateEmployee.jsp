@@ -77,17 +77,6 @@ if (role == null || !role.equals("Manager")) {
                         class="px-4 py-3 rounded-xl bg-gray-50 border border-gray-300 placeholder-gray-400 outline-none focus:ring-2 focus:ring-orange-500">
                 </div>
 
-                <div class="flex flex-col">
-                    <label class="mb-1 font-medium">Password</label>
-                    <input type="password" placeholder="Enter new password" name="password" required
-                        class="px-4 py-3 rounded-xl bg-gray-50 border border-gray-300 placeholder-gray-400 outline-none focus:ring-2 focus:ring-orange-500">
-                </div>
-                
-                <div class="flex flex-col">
-                    <label class="mb-1 font-medium">Confirm Password</label>
-                    <input type="password" placeholder="Confirm new password" name="password_confirm" required
-                        class="px-4 py-3 rounded-xl bg-gray-50 border border-gray-300 placeholder-gray-400 outline-none focus:ring-2 focus:ring-orange-500">
-                </div>
 
                 <div class="flex flex-col">
                     <label class="mb-1 font-medium">Position</label>

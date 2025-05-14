@@ -31,15 +31,13 @@ public class updateEmpServlet extends HttpServlet {
 
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		employee emp = new employee(0, null, null, null, null, null, null,null);
+		employee emp = new employee();
 		
 		emp.setEmpID(Integer.parseInt(request.getParameter("empID")));
 		emp.setNIC(request.getParameter("NIC"));
 		emp.setName(request.getParameter("name"));
 		emp.setEmail(request.getParameter("email"));
 		emp.setPhone_num(request.getParameter("phone_num"));
-		emp.setPassword(request.getParameter("password"));
-		emp.setPassword_confirm(request.getParameter("password_confirm"));
 		emp.setPosition(request.getParameter("position"));
 		
 		boolean isTrue;

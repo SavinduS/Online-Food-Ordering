@@ -120,7 +120,7 @@ public class employee_service {
 			DBConnect db = new DBConnect();
 			Statement statement = DBConnect.getConnection().createStatement();
 			
-			String query = "update employee set NIC='"+emp.getNIC()+"', name='"+emp.getName()+"',email='"+emp.getEmail()+"',phone_num='"+emp.getPhone_num()+"',password='"+emp.getPassword()+"',password_confirm='"+emp.getPassword_confirm()+"',position='"+emp.getPosition()+"'"
+			String query = "update employee set NIC='"+emp.getNIC()+"', name='"+emp.getName()+"',email='"+emp.getEmail()+"',phone_num='"+emp.getPhone_num()+"',position='"+emp.getPosition()+"'"
 							+"where empID= '"+emp.getEmpID()+"'";
 			
 			int result;
