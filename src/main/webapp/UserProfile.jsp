@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
-<%@ page import="java.sql.*, com.foodordering.Util.DBConnect" %>
+<%@ page import="com.foodordering.services.CustomerService" %>
+<%@ page import="com.foodordering.model.CustomerRead" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -12,7 +13,6 @@
   <%@ include file="./partials/header.jsp" %>
 
   <style>
-    /* Light background animation */
     @keyframes gradientMove {
       0%, 100% { background-position: 0% 50%; }
       50% { background-position: 100% 50%; }
@@ -46,7 +46,6 @@
       }
     }
   </script>
-
 </head>
 
 <body class="font-[sans-serif] relative overflow-hidden bg-white min-h-screen flex flex-col">
@@ -58,37 +57,20 @@
         return;
     }
 
-    String firstName = "", lastName = "", phone = "";
+    CustomerService cs = new CustomerService();
+    CustomerRead customer = cs.getCustomerByEmail(email);
 
-    try {
-        Connection conn = DBConnect.getConnection();
-        PreparedStatement stmt = conn.prepareStatement("SELECT firstname, lastname, phonenumber FROM customerregistration WHERE email = ?");
-        stmt.setString(1, email);
-        ResultSet rs = stmt.executeQuery();
-        if (rs.next()) {
-            firstName = rs.getString("firstname");
-            lastName = rs.getString("lastname");
-            phone = rs.getString("phonenumber");
-        }
-        rs.close();
-        stmt.close();
-        conn.close();
-    } catch (Exception e) {
-        e.printStackTrace();
-    }
+    String firstName = customer != null ? customer.getFirstName() : "";
+    String lastName = customer != null ? customer.getLastName() : "";
+    String phone = customer != null ? customer.getPhoneNumber() : "";
 %>
 <br><br>
-<!-- Background Animation -->
 <div class="absolute inset-0 -z-10 animated-bg"></div>
 
-<!-- Main Content -->
 <div class="flex-grow flex items-center justify-center pb-28 p-6">
   <div class="relative max-w-6xl w-full bg-white/90 rounded-2xl shadow-2xl overflow-hidden grid grid-cols-1 md:grid-cols-2 p-8 md:p-12 backdrop-blur-md animate-fade-in-up duration-1000">
 
-    <!-- Profile Sidebar -->
     <div class="flex flex-col items-center text-center bg-white/90 rounded-xl p-8 shadow-md text-black space-y-6">
-      
-      <!-- Avatar + Hi User Section -->
       <div class="flex flex-col items-center space-y-4">
         <div class="w-24 h-24 flex items-center justify-center rounded-full bg-gray-200 border-4 border-white shadow-md hover:animate-bounce-slow cursor-pointer">
           <i class="fas fa-user text-4xl text-gray-600"></i>
@@ -96,37 +78,30 @@
         <h2 class="text-3xl font-bold">Hi, <%= firstName %> 👋</h2>
       </div>
 
-      <!-- User Details -->
       <div class="text-left w-full mt-6 space-y-4">
         <p><strong>Full Name:</strong> <span class="text-lg font-semibold"><%= firstName + " " + lastName %></span></p>
         <p><strong>Email:</strong> <span class="text-lg font-semibold"><%= email %></span></p>
         <p><strong>Phone:</strong> <span class="text-lg font-semibold"><%= phone %></span></p>
       </div>
 
-		 <div class="w-full mt-2">
-	  <a href="myOrder">
-	    <button type="button" class="w-full bg-orange-500 hover:bg-orange-600 py-3 rounded-lg text-white font-semibold transition duration-300 shadow">
-	      <i class="fas fa-receipt mr-2"></i> My Order
-	    </button>
-	  </a>
-	</div>
-		 
-        
-      <!-- Delete Account Button -->
-      <form action="DeleteAccountServlet" method="post" onsubmit="return confirm('Are you sure you want to delete your account?');" class="w-full mt-6">
-  <input type="hidden" name="email" value="<%= email %>">
-  <button type="submit"
-    class="w-full bg-red-600 hover:bg-red-700 py-3 rounded-lg text-white font-semibold transition inline-flex items-center justify-center gap-2">
-    <i class="fas fa-trash-alt"></i> Delete Account
-  </button>
-</form>
-      
+      <div class="w-full mt-2">
+        <a href="myOrder">
+          <button type="button" class="w-full bg-orange-500 hover:bg-orange-600 py-3 rounded-lg text-white font-semibold transition duration-300 shadow">
+            <i class="fas fa-receipt mr-2"></i> My Order
+          </button>
+        </a>
+      </div>
 
+      <form action="DeleteAccountServlet" method="post" onsubmit="return confirm('Are you sure you want to delete your account?');" class="w-full mt-6">
+        <input type="hidden" name="email" value="<%= email %>">
+        <button type="submit"
+          class="w-full bg-red-600 hover:bg-red-700 py-3 rounded-lg text-white font-semibold transition inline-flex items-center justify-center gap-2">
+          <i class="fas fa-trash-alt"></i> Delete Account
+        </button>
+      </form>
     </div>
 
-    <!-- Edit Profile Form -->
     <form action="UpdateProfileServlet" method="post" onsubmit="return validateUpdateForm();" class="mt-8 md:mt-0 md:ml-8 space-y-6 text-black">
-
       <h2 class="text-2xl font-bold">Edit Information</h2>
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -158,19 +133,15 @@
       <input type="hidden" name="email" value="<%= email %>">
 
       <div class="pt-4">
-  <button type="submit"
-    class="w-full bg-black hover:bg-gray-800 py-3 rounded-lg text-white font-semibold transition inline-flex items-center justify-center gap-2">
-    <i class="fas fa-save"></i> Save Changes
-  </button>
-</div>
-      
-
+        <button type="submit"
+          class="w-full bg-black hover:bg-gray-800 py-3 rounded-lg text-white font-semibold transition inline-flex items-center justify-center gap-2">
+          <i class="fas fa-save"></i> Save Changes
+        </button>
+      </div>
     </form>
-
   </div>
 </div>
 
 <%@ include file="./partials/footer.jsp" %>
-
 </body>
 </html>
