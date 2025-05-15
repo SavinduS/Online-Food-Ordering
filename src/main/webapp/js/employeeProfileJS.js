@@ -1,3 +1,4 @@
+//form validation
 document.addEventListener("DOMContentLoaded", function () {
     const form = document.querySelector("form");
 
@@ -30,4 +31,19 @@ document.addEventListener("DOMContentLoaded", function () {
             return;
         }
     });
+});
+
+//Password Toggle Script
+
+document.addEventListener("DOMContentLoaded", function () {
+	
+        const toggle = document.getElementById("showPasswordToggle");
+        const pass1 = document.getElementById("password");
+        const pass2 = document.getElementById("confirmPassword");
+
+        toggle.addEventListener("change", function () {
+            const type = this.checked ? "text" : "password";
+            pass1.type = type;
+            pass2.type = type;
+        });
 });
