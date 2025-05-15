@@ -3,24 +3,24 @@
 <%@ page import="com.foodordering.model.CartModel" %>
 
 <%
-    // 🔐 Session validation
+    //Session validation
     String userEmail = (String) session.getAttribute("userEmail");
     if (userEmail == null) {
         response.sendRedirect("Login.jsp");
         return;
     }
 
-    // 🛒 Cart check - protect payment access
+    //Cart check - protect payment access
     List<CartModel> cartItems = (List<CartModel>) session.getAttribute("cartItems");
     if (cartItems == null || cartItems.isEmpty()) {
         response.sendRedirect("cart.jsp?error=emptycart");
         return;
     }
 
-    // ⚠️ Error from redirect (optional)
+    //Error from redirect (optional)
     String error = request.getParameter("error");
 
-    // 🗓️ Minimum expiry date
+    //Minimum expiry date
     java.util.Calendar cal = java.util.Calendar.getInstance();
     int year = cal.get(java.util.Calendar.YEAR);
     int month = cal.get(java.util.Calendar.MONTH) + 1;
@@ -43,10 +43,10 @@
 
 <body class="font-[sans-serif] bg-gray-100">
 
-<!-- ⚠️ Error message if redirected -->
+<!--  Error message if redirected -->
 <% if ("unauthorized".equals(error)) { %>
   <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded text-center font-semibold mb-4 max-w-4xl mx-auto mt-4">
-    ⚠️ Please fill in delivery and payment details before proceeding to confirmation.
+     Please fill in delivery and payment details before proceeding to confirmation.
   </div>
 <% } %>
 

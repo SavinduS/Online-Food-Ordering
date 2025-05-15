@@ -35,7 +35,7 @@
 
 <body class="bg-white text-black px-10 py-10">
 
-  <!-- ✅ Invoice Content Wrapper -->
+  <!--  Invoice Content Wrapper -->
   <div id="invoiceContent" class="max-w-4xl mx-auto border p-8 rounded-lg shadow-lg">
     <!-- Header -->
     <div class="flex justify-between items-center mb-8">
@@ -101,14 +101,14 @@
     </div>
   </div>
 
-  <!-- ✅ Download Button -->
+  <!--  Download Button -->
   <div class="mt-8 text-center">
     <button onclick="downloadInvoice()" class="bg-red-600 hover:bg-red-700 text-white font-semibold px-6 py-2 rounded shadow">
       <i class="fas fa-download mr-1"></i> Download Receipt
     </button>
   </div>
 
-  <!-- ✅ Script for PDF Download -->
+  <!--  Script for PDF Download -->
   <script>
     function downloadInvoice() {
       const element = document.getElementById('invoiceContent');

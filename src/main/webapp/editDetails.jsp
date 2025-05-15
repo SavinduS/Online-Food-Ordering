@@ -3,20 +3,20 @@
 <%@ page import="com.foodordering.services.*" %>
 
 <%
-    // 🔐 Step 1: Check login session
+    // Step 1: Check login session
     String userEmail = (String) session.getAttribute("userEmail");
     if (userEmail == null) {
         response.sendRedirect("Login.jsp");
         return;
     }
 
-    // 🧾 Step 2: Get deliveryId from request
+    //  Step 2: Get deliveryId from request
     String deliveryIdParam = request.getParameter("deliveryId");
     Delivery delivery = null;
     List<CartModel> itemsInCart = new ArrayList<>();
     double total = 0.0;
 
-    // 🔁 Step 3: Load data only if deliveryId exists
+    //  Step 3: Load data only if deliveryId exists
     if (deliveryIdParam != null && !deliveryIdParam.isEmpty()) {
         try {
             int deliveryId = Integer.parseInt(deliveryIdParam);
@@ -30,7 +30,7 @@
         }
     }
 
-    // 🔐 Step 4: Block access if data missing (protection!)
+    //  Step 4: Block access if data missing (protection!)
     if (delivery == null || itemsInCart == null || itemsInCart.isEmpty()) {
         response.sendRedirect("payment.jsp?error=unauthorized");
         return;

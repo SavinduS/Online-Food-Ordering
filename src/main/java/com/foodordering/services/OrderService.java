@@ -9,9 +9,19 @@ import java.util.List;
 import com.foodordering.Util.DBConnect;
 import com.foodordering.model.CartModel;
 
+/*
+ * Design Pattern:
+ * - DAO (Data Access Object): Isolates data persistence logic from controllers.
+ 
+ * OOP Concepts:
+ * - Encapsulation: Uses CartModel with private fields and public setters/getters.
+ * - Abstraction: Database logic is hidden behind simple method calls.
+ * - Exception Handling: Each method is wrapped in try-with-resources for safety.
+ */
+
 public class OrderService {
 
-    // Save all cart items as order records linked to a delivery ID
+    // Inserts all items in the user's cart into the 'orders' table, linked to a delivery ID
     public void saveOrderItems(int deliveryId, List<CartModel> cartItems) throws Exception {
         String sql = "INSERT INTO orders(delivery_id, food_id, food_name, quantity, price, image_filename, status) " +
                      "VALUES (?, ?, ?, ?, ?, ?, 'Processing')";
@@ -19,7 +29,7 @@ public class OrderService {
         try (Connection conn = DBConnect.getConnection();
              PreparedStatement ps = conn.prepareStatement(sql)) {
 
-            // Loop through all cart items and add to batch
+            // Loop through cart items and add to batch for efficient insertion
             for (CartModel item : cartItems) {
                 ps.setInt(1, deliveryId);
                 ps.setInt(2, item.getFoodId());
@@ -27,15 +37,15 @@ public class OrderService {
                 ps.setInt(4, item.getQuantity());
                 ps.setDouble(5, item.getPrice());
                 ps.setString(6, item.getImageFilename());
-                ps.addBatch();
+                ps.addBatch(); // Adds SQL command to batch
             }
 
-            // Execute batch insert for performance
+            // Execute all batched commands in one go (better performance)
             ps.executeBatch();
         }
     }
 
-    // Get all order records for a user based on their email
+    // Retrieves all orders placed by a specific user using their email address
     public List<CartModel> getAllOrdersByEmail(String email) throws Exception {
         List<CartModel> allOrders = new ArrayList<>();
 
@@ -50,7 +60,7 @@ public class OrderService {
             ps.setString(1, email);
             ResultSet rs = ps.executeQuery();
 
-            // Loop through the result set and map data to CartModel objects
+            // Map each row to a CartModel object
             while (rs.next()) {
                 CartModel item = new CartModel();
                 item.setFoodId(rs.getInt("food_id"));
@@ -69,7 +79,7 @@ public class OrderService {
         return allOrders;
     }
 
-    // Get all items in a single order based on delivery ID (used in invoice or confirmation page)
+    // Retrieves all items from a single order based on delivery ID (used in invoice/confirmation)
     public List<CartModel> getOrderItemsByDeliveryId(int deliveryId) throws Exception {
         List<CartModel> orderItems = new ArrayList<>();
 
@@ -82,7 +92,7 @@ public class OrderService {
             ps.setInt(1, deliveryId);
             ResultSet rs = ps.executeQuery();
 
-            // Map each result row to a CartModel object
+            // Create CartModel objects from the result set
             while (rs.next()) {
                 CartModel item = new CartModel();
                 item.setFoodId(rs.getInt("food_id"));

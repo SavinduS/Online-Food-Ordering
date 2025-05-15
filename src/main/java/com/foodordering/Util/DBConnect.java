@@ -14,7 +14,7 @@ import java.sql.SQLException;
  * 🔸 OOP Concepts:
  *   - Encapsulation: DB credentials are stored privately.
  *   - Abstraction: Clients don’t see how the connection is made.
- *   - Reusability: One method can be reused across all services and DAOs.
+ *   - Reusability: One method can be reused across all services and Servlet.
  */
 
 public class DBConnect {
