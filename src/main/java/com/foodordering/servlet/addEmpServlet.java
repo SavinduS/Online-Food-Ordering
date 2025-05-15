@@ -35,6 +35,7 @@ public class addEmpServlet extends HttpServlet {
 		
 		employee emp = new employee();
 		
+		//Set data into the employee object from the form
 		emp.setNIC(request.getParameter("NIC"));
 		emp.setName(request.getParameter("name"));
 		emp.setEmail(request.getParameter("email"));

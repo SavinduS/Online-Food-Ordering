@@ -30,6 +30,7 @@ public class UpdateStatusServlet extends HttpServlet {
         String newStatus = request.getParameter("newStatus");
 
         UpdateStatusService service = new UpdateStatusService();
+        //call service method using service object
         service.updateOrderStatus(orderId, newStatus);
 
         response.sendRedirect("deliverySummary.jsp");

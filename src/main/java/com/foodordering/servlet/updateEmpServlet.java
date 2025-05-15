@@ -33,6 +33,7 @@ public class updateEmpServlet extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		employee emp = new employee();
 		
+		//Set data into the employee object from the form
 		emp.setEmpID(Integer.parseInt(request.getParameter("empID")));
 		emp.setNIC(request.getParameter("NIC"));
 		emp.setName(request.getParameter("name"));

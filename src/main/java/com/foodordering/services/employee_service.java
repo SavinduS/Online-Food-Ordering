@@ -15,15 +15,15 @@ import com.foodordering.model.employee;
 
 
 public class employee_service {
-	
+	//create resultset object
 	private static ResultSet rs=null;
 	
-	
+	//insert
 	public boolean addEmployee(employee emp) {
 		
 		boolean isSuccess = false;
 		try {
-			
+			// Get DB connection
 			Connection conn = DBConnect.getConnection();
 			Statement statement = DBConnect.getConnection().createStatement();
 			
@@ -34,6 +34,7 @@ public class employee_service {
 			result= statement.executeUpdate(query);
 			statement.close();
 			
+			// Check if data was successfully inserted
 			if(result >0) {
 				isSuccess = true;
 			}
@@ -61,6 +62,7 @@ public class employee_service {
 			
 			rs = statement.executeQuery(query);
 			
+			// Loop through the result and add to the list
 			while(rs.next()) {
 				int empID = rs.getInt(1);
 				String NIC = rs.getString(2);
@@ -95,6 +97,7 @@ public class employee_service {
 			
 			rs = statement.executeQuery(query);
 			
+			// Loop through the result and add to the list
 			while(rs.next()) {
 				int empID = rs.getInt(1);
 				String NIC = rs.getString(2);
@@ -182,6 +185,7 @@ public class employee_service {
 			
 			rs = statement.executeQuery(query);
 			
+			// Loop through the result and add to the list
 			while(rs.next()) {
 				String firstName = rs.getString(1);
 				String lastName = rs.getString(2);
@@ -215,6 +219,7 @@ public class employee_service {
 			
 			rs = statement.executeQuery(query);
 			
+			// Loop through the result and add to the list
 			while(rs.next()) {
 				String firstName = rs.getString(1);
 				String lastName = rs.getString(2);

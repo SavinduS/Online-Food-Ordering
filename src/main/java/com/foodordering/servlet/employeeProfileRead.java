@@ -45,7 +45,8 @@ public class employeeProfileRead extends HttpServlet {
             response.sendRedirect("Login.jsp");
             return;
         }
-
+        
+        //update session employee data
         session.setAttribute("loggedEmployee", emp);
 
         RequestDispatcher dispatcher = request.getRequestDispatcher("EmployeeProfile.jsp");

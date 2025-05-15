@@ -9,6 +9,8 @@ public class UpdateStatusService {
 	
 	 public List<UpdateStatusModel> getAllOrders() {
 	        List<UpdateStatusModel> list = new ArrayList<>();
+	        
+	        //table joining
 	        String query = "SELECT o.id AS order_id, d.first_name, d.last_name, d.phone, d.address, d.city, d.postal_code, " +
 	                     "o.food_name, o.quantity, o.price, o.status " +
 	                     "FROM delivery d JOIN orders o ON d.id = o.delivery_id " +
@@ -18,7 +20,8 @@ public class UpdateStatusService {
 	        	Connection conn = DBConnect.getConnection();
 	    		Statement statement = DBConnect.getConnection().createStatement();
 	            ResultSet rs = statement.executeQuery(query); 
-
+	            
+	         // Loop through the result and add to the list
 	            while (rs.next()) {
 	                UpdateStatusModel o = new UpdateStatusModel();
 	                o.setOrderId(rs.getInt("order_id"));
@@ -49,7 +52,8 @@ public class UpdateStatusService {
 		        Statement statement = DBConnect.getConnection().createStatement();
 
 		        String query = "UPDATE orders SET status='" + newStatus + "' WHERE id='" + orderId + "'";
-
+		        
+		        //execute query
 		        int result = statement.executeUpdate(query);
 		        statement.close();
 
