@@ -64,6 +64,7 @@
     String lastName = customer != null ? customer.getLastName() : "";
     String phone = customer != null ? customer.getPhoneNumber() : "";
 %>
+
 <br><br>
 <div class="absolute inset-0 -z-10 animated-bg"></div>
 
@@ -101,6 +102,7 @@
       </form>
     </div>
 
+    <!-- Update Form -->
     <form action="UpdateProfileServlet" method="post" onsubmit="return validateUpdateForm();" class="mt-8 md:mt-0 md:ml-8 space-y-6 text-black">
       <h2 class="text-2xl font-bold">Edit Information</h2>
 
@@ -122,11 +124,17 @@
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         <div>
           <label class="block text-sm font-medium mb-1">New Password</label>
-          <input type="password" name="password" id="newPassword" class="w-full p-3 rounded-lg bg-white border border-gray-300 text-black placeholder-gray-400 focus:ring-2 focus:ring-blue-400" placeholder="Leave blank if no change">
+          <div class="relative">
+            <input type="password" name="password" id="newPassword" class="w-full p-3 pr-10 rounded-lg bg-white border border-gray-300 text-black placeholder-gray-400 focus:ring-2 focus:ring-blue-400" placeholder="Leave blank if no change">
+            <i class="fas fa-eye absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer" onclick="togglePassword('newPassword', this)"></i>
+          </div>
         </div>
         <div>
           <label class="block text-sm font-medium mb-1">Confirm Password</label>
-          <input type="password" name="confirmPassword" id="confirmPassword" class="w-full p-3 rounded-lg bg-white border border-gray-300 text-black placeholder-gray-400 focus:ring-2 focus:ring-blue-400">
+          <div class="relative">
+            <input type="password" name="confirmPassword" id="confirmPassword" class="w-full p-3 pr-10 rounded-lg bg-white border border-gray-300 text-black placeholder-gray-400 focus:ring-2 focus:ring-blue-400">
+            <i class="fas fa-eye absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 cursor-pointer" onclick="togglePassword('confirmPassword', this)"></i>
+          </div>
         </div>
       </div>
 
@@ -141,6 +149,35 @@
     </form>
   </div>
 </div>
+
+<!-- JavaScript Password Validation and Toggle -->
+<script>
+  function validateUpdateForm() {
+    const newPassword = document.getElementById('newPassword').value.trim();
+    const confirmPassword = document.getElementById('confirmPassword').value.trim();
+
+    if ((newPassword !== '' || confirmPassword !== '')) {
+      if (newPassword !== confirmPassword) {
+        alert("New Password and Confirm Password do not match!");
+        return false;
+      }
+    }
+    return true;
+  }
+
+  function togglePassword(fieldId, iconElement) {
+    const field = document.getElementById(fieldId);
+    if (field.type === "password") {
+      field.type = "text";
+      iconElement.classList.remove("fa-eye");
+      iconElement.classList.add("fa-eye-slash");
+    } else {
+      field.type = "password";
+      iconElement.classList.remove("fa-eye-slash");
+      iconElement.classList.add("fa-eye");
+    }
+  }
+</script>
 
 <%@ include file="./partials/footer.jsp" %>
 </body>
