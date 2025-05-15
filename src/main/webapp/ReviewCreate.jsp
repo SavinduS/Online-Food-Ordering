@@ -1,6 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<%
+    // 🔐 Session validation
+    String userEmail = (String) session.getAttribute("userEmail");
+    if (userEmail == null) {
+        response.sendRedirect("Login.jsp");
+        return;
+    }%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -45,7 +51,7 @@
   Whether it's a small suggestion or a big idea — we’re listening!
 </p>
     
-    <a href="#reviewForm"
+    <a href="ReviewDisplay.jsp"
        class="inline-block bg-yellow-400 hover:bg-yellow-500 text-white font-semibold 
               px-8 py-3 rounded-full shadow-lg transition hover:shadow-2xl">
       Our Reviews

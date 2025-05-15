@@ -30,7 +30,7 @@ public class deleteEmpServlet extends HttpServlet {
 	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		employee emp = new employee(0, null, null, null, null, null, null,null);
+		employee emp = new employee();
 		emp.setEmpID(Integer.parseInt(request.getParameter("empID")));
 		
 		boolean isTrue;

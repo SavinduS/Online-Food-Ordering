@@ -1,5 +1,6 @@
 package com.foodordering.services;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
@@ -23,7 +24,7 @@ public class employee_service {
 		boolean isSuccess = false;
 		try {
 			
-			DBConnect db = new DBConnect();
+			Connection conn = DBConnect.getConnection();
 			Statement statement = DBConnect.getConnection().createStatement();
 			
 			String query = "insert into employee values(0,'"+emp.getNIC()+"','"+emp.getName()+"','"+emp.getEmail()+"','"+emp.getPhone_num()+"','"+emp.getPassword()+"','"+emp.getPassword_confirm()+"','"+emp.getPosition()+"')";
@@ -53,7 +54,7 @@ public class employee_service {
 		
 		try {
 			//DB connection
-			DBConnect db = new DBConnect();
+			Connection conn = DBConnect.getConnection();
 			Statement statement = DBConnect.getConnection().createStatement();
 			
 			String query  = "select * from employee where empID = '"+EMPID+"'";
@@ -87,7 +88,7 @@ public class employee_service {
 		ArrayList <employee> emps = new ArrayList<>();
 		
 		try {
-			DBConnect db = new DBConnect();
+			Connection conn = DBConnect.getConnection();
 			Statement statement = DBConnect.getConnection().createStatement();
 			
 			String query  = "select empID, NIC, name, email, phone_num, position from employee";
@@ -117,7 +118,7 @@ public class employee_service {
 	public boolean updateEmp(employee emp) {
 		boolean isSuccess = false;
 		try {
-			DBConnect db = new DBConnect();
+			Connection conn = DBConnect.getConnection();
 			Statement statement = DBConnect.getConnection().createStatement();
 			
 			String query = "update employee set NIC='"+emp.getNIC()+"', name='"+emp.getName()+"',email='"+emp.getEmail()+"',phone_num='"+emp.getPhone_num()+"',position='"+emp.getPosition()+"'"
@@ -146,7 +147,7 @@ public class employee_service {
 		boolean isSuccess = false;
 		
 		try {
-			DBConnect db = new DBConnect();
+			Connection conn = DBConnect.getConnection();
 			Statement statement = DBConnect.getConnection().createStatement();
 			
 			String query = "delete from employee where empID='"+emp.getEmpID()+"'";
@@ -174,7 +175,7 @@ public class employee_service {
 		ArrayList <Delivery> deliveryArr = new ArrayList<>();
 		
 		try {
-			DBConnect db = new DBConnect();
+			Connection conn = DBConnect.getConnection();
 			Statement statement = DBConnect.getConnection().createStatement();
 			
 			String query  = "select first_name,last_name,email,phone,address,city,postal_code from delivery";
@@ -207,7 +208,7 @@ public class employee_service {
 		ArrayList <UserModel> customerArr = new ArrayList<>();
 		
 		try {
-			DBConnect db = new DBConnect();
+			Connection conn = DBConnect.getConnection();
 			Statement statement = DBConnect.getConnection().createStatement();
 			
 			String query  = "select firstname,lastname,email,phonenumber from customerregistration";
@@ -236,7 +237,7 @@ public class employee_service {
 	    boolean isSuccess = false;
 
 	    try {
-	        DBConnect db = new DBConnect();
+	    	Connection conn = DBConnect.getConnection();
 	        Statement statement = DBConnect.getConnection().createStatement();
 
 	        String query;

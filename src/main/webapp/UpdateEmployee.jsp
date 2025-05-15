@@ -16,6 +16,7 @@ if (role == null || !role.equals("Manager")) {
     <script src="js/adminpageJS.js"></script>
 </head>
 
+<!-- Pre-fill the form fields -->
 <%
     String empID = request.getParameter("empID");
     String NIC = request.getParameter("NIC");

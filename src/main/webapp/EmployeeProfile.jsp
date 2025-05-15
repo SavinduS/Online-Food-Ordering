@@ -44,6 +44,8 @@
         <!-- Profile Card -->
         <div class="w-full max-w-7xl bg-white shadow-lg rounded-2xl p-8 flex flex-col md:flex-row items-start gap-8 border border-gray-200">
 
+
+
             <!-- LEFT: Profile Overview -->
             <div class="md:w-1/2 flex flex-col items-center text-center">
                 <div class="bg-gray-200 p-6 rounded-full">
@@ -58,6 +60,8 @@
                     <p class="text-gray-700"><i class="fas fa-phone mr-2 text-green-600"></i> <strong>Phone:</strong> <%= employee.getPhone_num() %></p>
                 </div>
             </div>
+
+
 
             <!-- RIGHT: Edit Form -->
             <div class="md:w-1/2 w-full">

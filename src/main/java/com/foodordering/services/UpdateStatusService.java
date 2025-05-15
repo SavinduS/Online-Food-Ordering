@@ -15,7 +15,7 @@ public class UpdateStatusService {
 	                     "ORDER BY o.id DESC";
 
 	        try {
-	        	DBConnect db = new DBConnect();
+	        	Connection conn = DBConnect.getConnection();
 	    		Statement statement = DBConnect.getConnection().createStatement();
 	            ResultSet rs = statement.executeQuery(query); 
 
@@ -45,7 +45,7 @@ public class UpdateStatusService {
 		    boolean isSuccess = false;
 
 		    try {
-		        DBConnect db = new DBConnect();
+		    	Connection conn = DBConnect.getConnection();
 		        Statement statement = DBConnect.getConnection().createStatement();
 
 		        String query = "UPDATE orders SET status='" + newStatus + "' WHERE id='" + orderId + "'";
